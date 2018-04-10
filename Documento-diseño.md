@@ -37,6 +37,8 @@ Buscamos un estilo elegante y sobrio, con detalles minimalistas y sin recargar. 
 
 Los tiles usados serán principalmente los mismos, modificados para nuestra ocasión en los detalles que necesitemos, dando diferentes colores dependiendo de si estamos en diferentes mazmorras, etc. Algún escenario será de exterior, pero la idea principal es que sea para contar alguna historia y que estos escenarios no formen parte del gameplay. Como detalle adicional y para dar realismo gráfico, contemplamos la idea de añadir paralelaje a nuestro render con un fondo que se mueva a velocidad diferente de la cámara para aparentar un falso 3D, al estilo Disney en sus películas de animación por capas.
 
+En el apartado sonoro vamos a incluir música de 8 bits principalmente, del conocido artista Kevin MacLeod, que compone bandas sonoras y piezas musicales libres de royalties con una licencia CreativeCommons (es necesario indicarlo los nombres de las pistas en los créditos). De esta forma vamos a conseguir una integración total con el entorno PixelArt sin descuidar la calidad de la banda sonora. Temas para la intro del juego, para créditos o similares no van a ser necesariamente de 8 bits, estos temas los reservamos para el combate inmersivo.
+
 ---
 ## Mazmorras
 
