@@ -36,6 +36,8 @@ Todo el arte incorporado, los entornos, menús, personajes y enemigos son del es
 
 ![Logo videojuego](/Artwork/arte-concept.png)
 
+![Logo videojuego](/Artwork/Menu_v3.png)
+
 Buscamos un estilo elegante y sobrio, con detalles minimalistas y sin recargar. Para potenciar el efecto artístico del videojuego, vamos a intentar si está en nuestro plazo de tiempo además añadir efectos, sombras e iluminación híbrida, es decir, en toda la resolución posible, con degradados limpios y suaves que contrasten con el estilo pixel art del resto del juego.
 
 Los tiles usados serán principalmente los mismos, modificados para nuestra ocasión en los detalles que necesitemos, dando diferentes colores dependiendo de si estamos en diferentes mazmorras, etc. Algún escenario será de exterior, pero la idea principal es que sea para contar alguna historia y que estos escenarios no formen parte del gameplay. Como detalle adicional y para dar realismo gráfico, contemplamos la idea de añadir paralelaje a nuestro render con un fondo que se mueva a velocidad diferente de la cámara para aparentar un falso 3D, al estilo Disney en sus películas de animación por capas.
@@ -62,3 +64,5 @@ Nuestro personaje contará con una barra de vida. La vida bajará de forma típi
 ![Logo videojuego](/Artwork/personajes-concept-1.PNG)
 ![Logo videojuego](/Artwork/personajes-concept-2.PNG)
 ![Logo videojuego](/Artwork/personajes-concept-3.PNG)
+
+![Logo videojuego](/Artwork/desierto-concept.png)
