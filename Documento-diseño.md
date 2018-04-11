@@ -1,5 +1,5 @@
 # Documento de diseño de Dryland: Kingdoms Across
-
+![Logo videojuego](/Artwork/Desierto_logo_v2.png)
 ## Introducción
 Dryland: Kingdoms Across es un proyecto de videojuego de carácter indie, cuyo equipo de desarrollo incluye a Marino Tejedor, Alvaro de las Heras, David Valdevira y Adrian Sánchez.
 
