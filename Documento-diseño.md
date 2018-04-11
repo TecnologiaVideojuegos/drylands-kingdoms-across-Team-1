@@ -1,9 +1,11 @@
 # Documento de diseño de Dryland: Kingdoms Across
-![Logo videojuego](/Artwork/Desierto_logo_v2.png)
+
 ## Introducción
 Dryland: Kingdoms Across es un proyecto de videojuego de carácter indie, cuyo equipo de desarrollo incluye a Marino Tejedor, Alvaro de las Heras, David Valdevira y Adrian Sánchez.
 
 El videojuego está orientado a ser calificado para la asignatura de Tecnología de Videojuegos en la UAH. A pesar de ello, el propósito como el de todo videojuego es de ser entretenido de diferentes formas.
+
+![Logo videojuego](/Artwork/Desierto_logo_v2.png)
 
 La mecánica que vamos a detallar después es simple pero se ha demostrado en titulos similares que es divertida, y la historia está pensada para tener un transfondo y hacer pensar al jugador, y no sólo dar contexto a la acción.
 
@@ -31,7 +33,8 @@ Dryland: Kingdoms Across está diseñado para ser un videojuego en perspectiva a
 
 Todo el arte incorporado, los entornos, menús, personajes y enemigos son del estilo Pixel Art, en su mayoría a 16bits escalados en una escala x3, con un estilo similar a este:
 
-NOTA, insertar imagen
+
+![Logo videojuego](/Artwork/arte-concept.png)
 
 Buscamos un estilo elegante y sobrio, con detalles minimalistas y sin recargar. Para potenciar el efecto artístico del videojuego, vamos a intentar si está en nuestro plazo de tiempo además añadir efectos, sombras e iluminación híbrida, es decir, en toda la resolución posible, con degradados limpios y suaves que contrasten con el estilo pixel art del resto del juego.
 
@@ -52,3 +55,10 @@ Esto tiene una justificación desde un punto de vista de la historia, como hemos
 La mecánica de este videojuego no es algo radicalmente novedoso, sino que ya es jugable (o versiones parecidas) en títulos en el mercado actual, algunos con bastante éxito. La idea es movernos en un plano 2D libremente, a través de un mapa tileado, recorriendo una mazmorra para encontrar el objetivo especificado, la mayoría de las veces atravesando salas con bosses, o salas con enemigos menores. El modo de combate que esperamos implementar es, o bien a distancia, disparando en la dirección que define el cursor del ratón, o bien cuerpo a cuerpo deslizandonos y dando una estocada de menor rango en esta misma dirección. De tener suficiente tiempo queremos implementar también sistemas de esquiva, bloqueo, ataques cargados, etc.
 El resto de los enemigos seguirán la misma mecánica, y habrá que acabar con todos ellos para seguir adelante.
 Nuestro personaje contará con una barra de vida. La vida bajará de forma típica en un videojuego, y se podrá rellenar en algunas de la mazmorra. Las habilidades que añadamos se podrán visualizar también, así como el enfriamiento de estas habilidades, que no podremos usar hasta pasado un tiempo dado.
+
+---
+## Arte conceptual
+
+![Logo videojuego](/Artwork/personajes-concept-1.PNG)
+![Logo videojuego](/Artwork/personajes-concept-2.PNG)
+![Logo videojuego](/Artwork/personajes-concept-3.PNG)
