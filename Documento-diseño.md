@@ -83,6 +83,6 @@ Hemos usado para los artes conceptuales y vamos a utilizar más tarde recursos a
 
  - 0x72 por los tiles de mazmorra (https://0x72.itch.io/16x16-dungeon-tileset) y su generador de personajes (https://0x72.itch.io/pixeldudesmaker)
  - Elisha / wrlck por los tiles de desierto (https://wrlck.itch.io/simple-desert)
- -La fuente Pixel Pirate https://sparklydest.deviantart.com
- -La fuente de Pixeled English https://kajetan_andrzejak.gamejolt.io/
- -La fuente Sangoku4 de Cliff Modes http://caveras.net
+ - La fuente Pixel Pirate https://sparklydest.deviantart.com
+ - La fuente de Pixeled English https://kajetan_andrzejak.gamejolt.io/
+ - La fuente Sangoku4 de Cliff Modes http://caveras.net
