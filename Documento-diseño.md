@@ -7,24 +7,18 @@ El videojuego está orientado a ser calificado para la asignatura de Tecnología
 
 ![Logo videojuego](/Artwork/Desierto_logo_v2.png)
 
-La mecánica que vamos a detallar después es simple pero se ha demostrado en titulos similares que es divertida, y la historia está pensada para tener un transfondo y hacer pensar al jugador, y no sólo dar contexto a la acción.
+La mecánica que vamos a detallar después es simple pero se ha demostrado en titulos similares que es divertida, y la historia está pensada para tener un transfondo y hacer pensar al jugador, y no sólo dar contexto a la acción. Esencialmente Dryland:Kingdoms Across es un juego en perspectiva aérea, de tipo dungeon crawler, con mazmorras creadas proceduralmente, y por las cuales tendremos que avanzar combatiendo enemigos menores o bosses en 2D aéreo.
 
 La idea principal es simple y concisa, queremos un juego entretenido con una historia simple, pero sólida y con la que sea fácil empatizar con el protagonista. Vamos a huir en este sentido de dobles sentidos, drama o mensajes filosóficos puesto que no vamos a poder darle forma como se merece y nos gustaría.
  
 El vector principal con el que transmitiremos todo esto será la narración de la historia entre la batalla, los diálogos, o los pensamientos del personaje, pues en el apartado gráfico o sonoro vamos a usar mayoritariamente recursos gratuitos de Internet. Una vez explicado esto, pasaremos al detalle en cada uno de los apartados.
- 
- ---
- ## Historia del videojuego
- 
-El videojuego se sitúa en un contexto de fantasía con cierto aire medieval. Nuestro mundo jugable se compone de dos reinos, el de Auria y el de Rozio, separados por un desierto enorme en el centro, el Dryland, que los separa. Cruzar el Dryland y vivir para contarlo ha sido hasta el momento tarea imposible, razón por la cual el reino de Rozio, caracterizado por su imperialismo, no ha conseguido invadir al de Auria. Este desierto se generó en una gran guerra hace mucho tiempo, en la que los antepasados de las civilizaciones actuales dejaron únicamente algunas ruinas y templos como legado de su tecnología. Para descubrir qué secretos albergan, se destinan allí exploradores en misiones oficiales de palacio, pero no ha habido demasiado progreso porque están protegidas, y su interior cambia totalmente al salir y volver a entrar.
 
-En este mundo, Solace, nuestro protagonista, es un explorador que va a recorrer una mina abandonada, que se sabe que tiene tecnología de los ancestros. Junto con sus compañeros se adentra y recorre hasta donde le fue encomendado. Lo que descubre sin embargo, poco más lejos del final de su misión, es lo que parece un portal. Intrigado se acerca, pero es sorprendido por otro explorador de su comitiva, Cillop, que no consigue asesinarle por la espalda. Lo único que Solace ve es una marca que le resulta familiar en su brazo, y no es consciente de la amenaza sobre su vida. Al volver a la superficie Cillop acusa a nuestro protagonista de poner en riesgo al reino, al propasarse en su cometido. En un juicio bastante injusto somos desterrados del reino.
+---
+## Mecánicas y control
 
-Abandonado en el Dryland, Solace empieza a andar sin mucha esperanza, hasta que al borde de la muerte prácticamente se encuentra una pirámide. Entra, y tras recuperar fuerzas en un pozo que hay al entrar, se dispone a ascender por ella. Esta plagada de trampas, pero halla su camino hacia la cima gracias a anotaciones que se encuentra talladas por gente que perdió la vida allí y decidió ayudar al siguiente que viniese tras él. Descubre un portal que hay en la cima, y lo cruza, pensando que va a acabar en su reino otra vez.
-
-Llega a una templo, pero es diferente al que él conoce. Lo atraviesa a fin de salir, necesitado de alimento y cuidado médico, dándose cuenta de que lleva la misma marca en el brazo que Cillop, que no es otra que la marca que hay inscrita en alguna pared de las ruinas de los ancestros. Despierta en una casa tras perder el conocimiento, en la casa de alguien que cruzó el portal antes que el hace ya unos años, que tiene la misma marca, y que vive en Rozio de incógnito. Le cuenta a nuestro protagonista que en este reino han descubierto un portal que lo comunica con la tierra natal de ambos, y que ha llegado a oídos del rey de Rozio. Han comprobado que funciona y tienen hasta espías, de lo que deduces que Cillop era uno de ellos, por lo que su siguiente paso en el plan es cruzarlo con un pequeño ejército y con la ayuda de los espías invadir Auria. 
-
-Es imperativo cruzar antes que ellos y avisar de esto al otro lado, por lo que Syngrid les lleva a la mina en el lado de Rozio y se aventuran dentro para buscar el portal que comunica con su contrario. Lo encuentra y cruzan, pero descubren que por la aleatoriedad de la tecnología de los ancestros el ejército enemigo está por delante suya a pesar de haber entrado más tarde en la mina. De aquí en adelante Solace y Syngrid se adelantan hasta el palacio para unirse a la lucha y parar el ataque.
+La mecánica de este videojuego no es algo radicalmente novedoso, sino que ya es jugable (o versiones parecidas) en títulos en el mercado actual, algunos con bastante éxito. La idea es movernos en un plano 2D libremente, a través de un mapa tileado, recorriendo una mazmorra para encontrar el objetivo especificado, la mayoría de las veces atravesando salas con bosses, o salas con enemigos menores. El modo de combate que esperamos implementar es, o bien a distancia, disparando en la dirección que define el cursor del ratón, o bien cuerpo a cuerpo deslizandonos y dando una estocada de menor rango en esta misma dirección. De tener suficiente tiempo queremos implementar también sistemas de esquiva, bloqueo, ataques cargados, etc.
+El resto de los enemigos seguirán la misma mecánica, y habrá que acabar con todos ellos para seguir adelante.
+Nuestro personaje contará con una barra de vida. La vida bajará de forma típica en un videojuego, y se podrá rellenar en algunas de la mazmorra. Las habilidades que añadamos se podrán visualizar también, así como el enfriamiento de estas habilidades, que no podremos usar hasta pasado un tiempo dado.
 
 ---
 ## Look and feel
@@ -35,8 +29,6 @@ Todo el arte incorporado, los entornos, menús, personajes y enemigos son del es
 
 
 ![Logo videojuego](/Artwork/arte-concept.png)
-
-![Logo videojuego](/Artwork/Menu_v3.png)
 
 Buscamos un estilo elegante y sobrio, con detalles minimalistas y sin recargar. Para potenciar el efecto artístico del videojuego, vamos a intentar si está en nuestro plazo de tiempo además añadir efectos, sombras e iluminación híbrida, es decir, en toda la resolución posible, con degradados limpios y suaves que contrasten con el estilo pixel art del resto del juego.
 
@@ -50,13 +42,30 @@ En el apartado sonoro vamos a incluir música de 8 bits principalmente, del cono
 En esencia nuestro juego es un dungeon crawler. Cada acto consistirá en uno o varios mapas de mazmorras, con diferentes salas unidas por pasillos, con un tamaño y tipo específico de salas dependiendo del acto en el que estemos. Tendremos que recorrer las mazmorras para perseguir un objetivo específico, que puede estar cerca o muy lejos del punto de partida. Para ello, generaremos de forma procedural la mazmorra de acuerdo a unos parámetros cada vez que entremos en un acto nuevo, ya sea por avance en la historia o por perder la partida.
 
 Esto tiene una justificación desde un punto de vista de la historia, como hemos visto las ruinas que nos dejan nuestros antepasados están protegidas por una tecnología desconocida que hace que cada vez que entremos y salgamos las ruinas sean diferentes.
+ 
+ ---
+ ## Historia del videojuego
+ 
+El videojuego se sitúa en un contexto de fantasía con cierto aire medieval. Nuestro mundo jugable se compone de dos reinos, el de Auria y el de Rozio, separados por un desierto enorme en el centro, el Dryland, que los separa. Cruzar el Dryland y vivir para contarlo ha sido hasta el momento tarea imposible, razón por la cual el reino de Rozio, caracterizado por su imperialismo, no ha conseguido invadir al de Auria. Este desierto se generó en una gran guerra hace mucho tiempo, en la que los antepasados de las civilizaciones actuales dejaron únicamente algunas ruinas y templos como legado de su tecnología. Para descubrir qué secretos albergan, se destinan allí exploradores en misiones oficiales de palacio, pero no ha habido demasiado progreso porque están protegidas, y su interior cambia totalmente al salir y volver a entrar.
 
----
-## Mecánicas y control
+En este mundo, Solace, nuestro protagonista, es un explorador que va a recorrer una mina abandonada, que se sabe que tiene tecnología de los ancestros. Junto con sus compañeros se adentra y recorre hasta donde le fue encomendado. Lo que descubre sin embargo, poco más lejos del final de su misión, es lo que parece un portal. Intrigado se acerca, pero es sorprendido por otro explorador de su comitiva, Cillop, que no consigue asesinarle por la espalda. Lo único que Solace ve es una marca que le resulta familiar en su brazo, y no es consciente de la amenaza sobre su vida. Al volver a la superficie Cillop acusa a nuestro protagonista de poner en riesgo al reino, al propasarse en su cometido. En un juicio bastante injusto somos desterrados del reino.
 
-La mecánica de este videojuego no es algo radicalmente novedoso, sino que ya es jugable (o versiones parecidas) en títulos en el mercado actual, algunos con bastante éxito. La idea es movernos en un plano 2D libremente, a través de un mapa tileado, recorriendo una mazmorra para encontrar el objetivo especificado, la mayoría de las veces atravesando salas con bosses, o salas con enemigos menores. El modo de combate que esperamos implementar es, o bien a distancia, disparando en la dirección que define el cursor del ratón, o bien cuerpo a cuerpo deslizandonos y dando una estocada de menor rango en esta misma dirección. De tener suficiente tiempo queremos implementar también sistemas de esquiva, bloqueo, ataques cargados, etc.
-El resto de los enemigos seguirán la misma mecánica, y habrá que acabar con todos ellos para seguir adelante.
-Nuestro personaje contará con una barra de vida. La vida bajará de forma típica en un videojuego, y se podrá rellenar en algunas de la mazmorra. Las habilidades que añadamos se podrán visualizar también, así como el enfriamiento de estas habilidades, que no podremos usar hasta pasado un tiempo dado.
+![Logo videojuego](/Artwork/Menu_v3.png)
+
+Abandonado en el Dryland, Solace empieza a andar sin mucha esperanza, hasta que al borde de la muerte prácticamente se encuentra una pirámide. Entra, y tras recuperar fuerzas en un pozo que hay al entrar, se dispone a ascender por ella. Esta plagada de trampas, pero halla su camino hacia la cima gracias a anotaciones que se encuentra talladas por gente que perdió la vida allí y decidió ayudar al siguiente que viniese tras él. Descubre un portal que hay en la cima, y lo cruza, pensando que va a acabar en su reino otra vez.
+
+Llega a una templo, pero es diferente al que él conoce. Lo atraviesa a fin de salir, necesitado de alimento y cuidado médico, dándose cuenta de que lleva la misma marca en el brazo que Cillop, que no es otra que la marca que hay inscrita en alguna pared de las ruinas de los ancestros. Despierta en una casa tras perder el conocimiento, en la casa de alguien que cruzó el portal antes que el hace ya unos años, que tiene la misma marca, y que vive en Rozio de incógnito. Le cuenta a nuestro protagonista que en este reino han descubierto un portal que lo comunica con la tierra natal de ambos, y que ha llegado a oídos del rey de Rozio. Han comprobado que funciona y tienen hasta espías, de lo que deduces que Cillop era uno de ellos, por lo que su siguiente paso en el plan es cruzarlo con un pequeño ejército y con la ayuda de los espías invadir Auria. 
+
+Es imperativo cruzar antes que ellos y avisar de esto al otro lado, por lo que Syngrid les lleva a la mina en el lado de Rozio y se aventuran dentro para buscar el portal que comunica con su contrario. Lo encuentra y cruzan, pero descubren que por la aleatoriedad de la tecnología de los ancestros el ejército enemigo está por delante suya a pesar de haber entrado más tarde en la mina. De aquí en adelante Solace y Syngrid se adelantan hasta el palacio para unirse a la lucha y parar el ataque.
+
+--
+## Secuencia jugable
+La idea de la que partimos es implementar la historia que hemos contado en 4 actos jugables ( de los cuales si por falta de tiempo no podemos desarrollar alguno lo podemos contar en modo texto). Los 4 de ellos serán del mismo tipo, mazmorras, pero diferentes dadas las circunstancias. Partiendo de la base de nuestro mapa de tiles 16x16 que estamos manejando, vamos a modificarla ( la licencia del autor lo permite ) para cada acto, además de que las salas en sí también serán diferentes. La secuencia quedaría como sigue:
+
+ - Acto 1 : La mazmorra a jugar será la mina que hay en el reino de Auria, hasta el portal. Utilizaremos los colores por defecto.
+ - Acto 2 : Primeramente narraremos ( e incluso quizás se pueda controlar mínimamente al protagonista ) su destierro por el Dryland, con unos tiles desérticos simples. Después la parte jugable consiste en la mazmorra que se encuentra en la pirámide. Los tiles se modificarán a un color amarillo para imitar ladrillos de arenisca, habrá salas especiales, y jugaremos varios pisos, en los que exceptuando el último, el más alto de todos, el objetivo es ascender por la pirámide. Como pirámide además, cada piso será más pequeño que el anterior hasta llegar al último, donde se encuentra el portal.
+ - Acto 3 : Tras narrar igual que el acto 2 lo que está sucediendo, nos adentraremos en la mina del lado de Rozio, la cual será idéntica a la del Acto 1 salvo por la tonalidad del color, que será distinta.
+ - Acto 4 : Llegaremos a la mina de nuestro reino, en la cual ya hemos estado. Deberemos atravesarla (jugablemente o no, en función del tiempo) para llegar al castillo. Retocaremos en este caso los tiles para que sean de ladrillo blanco, y haremos salas que simulen habitaciones de palacio.
 
 ---
 ## Arte conceptual
@@ -66,3 +75,11 @@ Nuestro personaje contará con una barra de vida. La vida bajará de forma típi
 ![Logo videojuego](/Artwork/personajes-concept-3.PNG)
 
 ![Logo videojuego](/Artwork/desierto-concept.png)
+
+---
+## Créditos y artistas
+
+Hemos usado para los artes conceptuales y vamos a utilizar más tarde recursos artísticos de una serie de diseñadores que distribuyen algunas de sus obras en licencia libre. Nuestros agradecimientos y créditos a :
+
+ - 0x72 por los tiles de mazmorra (https://0x72.itch.io/16x16-dungeon-tileset) y su generador de personajes (https://0x72.itch.io/pixeldudesmaker)
+ - Elisha / wrlck por los tiles de desierto (https://wrlck.itch.io/simple-desert)
