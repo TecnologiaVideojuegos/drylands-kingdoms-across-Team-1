@@ -58,7 +58,7 @@ Llega a una templo, pero es diferente al que él conoce. Lo atraviesa a fin de s
 
 Es imperativo cruzar antes que ellos y avisar de esto al otro lado, por lo que Syngrid les lleva a la mina en el lado de Rozio y se aventuran dentro para buscar el portal que comunica con su contrario. Lo encuentra y cruzan, pero descubren que por la aleatoriedad de la tecnología de los ancestros el ejército enemigo está por delante suya a pesar de haber entrado más tarde en la mina. De aquí en adelante Solace y Syngrid se adelantan hasta el palacio para unirse a la lucha y parar el ataque.
 
---
+---
 ## Secuencia jugable
 La idea de la que partimos es implementar la historia que hemos contado en 4 actos jugables ( de los cuales si por falta de tiempo no podemos desarrollar alguno lo podemos contar en modo texto). Los 4 de ellos serán del mismo tipo, mazmorras, pero diferentes dadas las circunstancias. Partiendo de la base de nuestro mapa de tiles 16x16 que estamos manejando, vamos a modificarla ( la licencia del autor lo permite ) para cada acto, además de que las salas en sí también serán diferentes. La secuencia quedaría como sigue:
 
@@ -83,3 +83,6 @@ Hemos usado para los artes conceptuales y vamos a utilizar más tarde recursos a
 
  - 0x72 por los tiles de mazmorra (https://0x72.itch.io/16x16-dungeon-tileset) y su generador de personajes (https://0x72.itch.io/pixeldudesmaker)
  - Elisha / wrlck por los tiles de desierto (https://wrlck.itch.io/simple-desert)
+ -La fuente Pixel Pirate https://sparklydest.deviantart.com
+ -La fuente de Pixeled English https://kajetan_andrzejak.gamejolt.io/
+ -La fuente Sangoku4 de Cliff Modes http://caveras.net
