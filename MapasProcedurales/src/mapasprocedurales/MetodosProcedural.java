@@ -389,7 +389,65 @@ public class MetodosProcedural {
             }
         }
         //Hacemos una pasada buscando errores de conexión y conectando salas
-        //for
+         for(int i=0;i<alto;i++){
+            for(int j=0;j<ancho;j++){
+            
+                if("sala".equals(matriz[j][i].getTipo())){
+                    try{
+                        if(matriz[j-1][i].getRight())
+                            matriz[j][i].conLeft();
+                    }
+                    catch(java.lang.ArrayIndexOutOfBoundsException error){}
+                    try{
+                        if(matriz[j+1][i].getLeft())
+                            matriz[j][i].conRight();
+                    }
+                    catch(java.lang.ArrayIndexOutOfBoundsException error){}
+                    try{
+                        if(matriz[j][i-1].getDown())
+                            matriz[j][i].conUp();
+                    }
+                    catch(java.lang.ArrayIndexOutOfBoundsException error){}
+                    try{
+                        if(matriz[j][i+1].getUp())
+                            matriz[j][i].conDown();
+                    }
+                    catch(java.lang.ArrayIndexOutOfBoundsException error){}
+                    
+                }
+                if("pasillo".equals(matriz[j][i].getTipo())){   //Fixeo un bug de pasillos no conectados con otros
+                    if(matriz[j][i].getDown()){
+                        try{
+                            if(("pasillo".equals(matriz[j][i+1].getTipo()))&&(!matriz[j][i+1].getUp()))
+                                matriz[j][i].dconDown();
+                        }
+                        catch(java.lang.ArrayIndexOutOfBoundsException error){}
+                    }
+                    if(matriz[j][i].getUp()){
+                        try{
+                            if(("pasillo".equals(matriz[j][i-1].getTipo()))&&(!matriz[j][i-1].getDown()))
+                                matriz[j][i].dconUp();
+                        }
+                        catch(java.lang.ArrayIndexOutOfBoundsException error){}
+                    }
+                    if(matriz[j][i].getLeft()){
+                        try{
+                            if(("pasillo".equals(matriz[j-1][i].getTipo()))&&(!matriz[j-1][i].getRight()))
+                                matriz[j][i].dconLeft();
+                        }
+                        catch(java.lang.ArrayIndexOutOfBoundsException error){}
+                    }
+                    if(matriz[j][i].getRight()){
+                        try{
+                            if(("pasillo".equals(matriz[j+1][i].getTipo()))&&(!matriz[j+1][i].getLeft()))
+                                matriz[j][i].dconRight();
+                        }
+                        catch(java.lang.ArrayIndexOutOfBoundsException error){}
+                    }
+                }
+                
+            }
+        }
         
         //Mostramos la composicion        
         //mostrarMapa(matriz,ancho,alto);
