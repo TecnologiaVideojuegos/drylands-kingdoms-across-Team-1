@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="200" height="100" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" tilewidth="16" tileheight="16">
+  <image source="minas.png"/>
+ </tileset>
+ <layer name="">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAAMAAAAAAAAAAAA=
+  </data>
+ </layer>
+ <layer name="">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAAMAAAAAAAAAAAA=
+  </data>
+ </layer>
+</map>
