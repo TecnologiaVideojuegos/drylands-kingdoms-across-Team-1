@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Capa de Patrones 1" width="15" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNgwA7EoFgchzw+QIpeRSBWAmJlKDZGwshyilj0gtQkAnESECdjoUE4BaoOm95CIC7Fg0so0IturxIUw9xMjL0wvyOHCbH2YsOE7EXXS62wItZeXOFcBMTFODA+exuBuAmIm6E0MhtEt+DQi80s9DAhFhCjFwAlTUD3hAMAAA==
+   H4sIAAAAAAAACmNgGFigCMRKQKwMxcZIGFlOEYtekJpEIE4C4mQsNAinQNVh01sIxKV4cAkFevHZmzhI7aVVWFFqbxEQF+PA+OxtBOImIG6G0shsEN2CQy+9AQBuDzplhAMAAA==
   </data>
  </layer>
  <layer name="Capa de patrones 2" width="15" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNgYGCQB2JGKGYCYnMGVGAOFWeGqvmEJPcMiAWB2AmIhYDYHU2vO1TcCaruKZpeEAhiwA9g8tj0Egu+QmmQPxRI1PsRqg/kD2ES9QpC9Q1FIAHEciTq+QzEklA2qXFESfxSI22AAB8DxN+SUIzuf5j/YGr48ZiL7o6vWFUxMAAAuswlGYQDAAA=
+   H4sIAAAAAAAACmNgYGCQB2JGKGYCYnMkNjOUD2ODxD8xIMAzIBYEYicgFgJidyjfF4iFoXwhqDxI/CmaXhAIYsAPYPLY9BILvlKglxJ7h7rebyTqHYrhjOxmPiCWAGJJKJZAw8jiIJqfRLuwAQBccxUnhAMAAA==
   </data>
  </layer>
 </map>

@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Capa de Patrones 1" width="15" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNgwA6MkTCpYFQveXqVcWBi9OLCtNA7CqgLAF3r8j6EAwAA
+   H4sIAAAAAAAACmNgwA6MkTCpYFQveXqVcWBi9OLCtNZLKhjViwkAg8ATT4QDAAA=
   </data>
  </layer>
  <layer name="Capa de patrones 2" width="15" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNgwATP0PhPsajBBdD1fh2Cej8CMTMWTIxeYRyYGL2kgIHSCwISQCyJRiNjSQrNH2kAAFs/ZyGEAwAA
+   H4sIAAAAAAAACmNgwATP0PhPsajBBdD1fh2Cej8CMTMWTIxeYRyYGL2kgMGi9zMQS6BhSRx6v6HxBypdUWIvKXrR/YvLzQAebwj6hAMAAA==
   </data>
  </layer>
 </map>
