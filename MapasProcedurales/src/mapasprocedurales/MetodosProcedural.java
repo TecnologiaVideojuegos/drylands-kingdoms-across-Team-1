@@ -6,6 +6,7 @@
 package mapasprocedurales;
 import java.util.Random;
 import java.util.ArrayList;
+import org.mapeditor.core.*;
 
 /**
  *
@@ -452,6 +453,13 @@ public class MetodosProcedural {
         //Mostramos la composicion        
         //mostrarMapa(matriz,ancho,alto);
         return matriz;
+    }
+    public static void copiarRect(TileLayer desde,int xdesde,int ydesde,TileLayer hasta,int xhasta,int yhasta){
+        for (int i = 0; i < (yhasta-ydesde); i++) {
+            for (int j = 0; j < (xhasta-xdesde); j++) {
+                hasta.setTileAt(xdesde+j, ydesde+i, desde.getTileAt(j, i));
+            }
+        }
     }
     
 }

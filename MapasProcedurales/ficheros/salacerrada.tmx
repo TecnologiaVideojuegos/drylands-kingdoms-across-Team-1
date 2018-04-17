@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="0x72_16x16DungeonTileset.v4.tsx"/>
+ <layer name="Capa de Patrones 1" width="15" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGFigCMRKQKwMxcZIGFlOEYtekJpEIE4C4mQsNAinQNVh01sIxKV4cAkFevHZmzhI7aVVWFFqbxEQF+PA+OxtBOImIG6G0shsEN2CQy+9AQBuDzplhAMAAA==
+  </data>
+ </layer>
+ <layer name="Capa de patrones 2" width="15" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgYGCQB2JGKGYCYnMkNjOUD2ODxD8xIMAzIBYEYicgFgJidyjfF4iFoXwhqDxI/CmaXhAIYsAPYPLY9BILvlKglxJ7h7rebyTqHQzhLECi3uVIbD4glgBiSSiWQMPI4iCan0S7sAEAlNhoW4QDAAA=
+  </data>
+ </layer>
+</map>

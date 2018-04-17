@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="200" height="100" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="0x72_16x16DungeonTileset.v4" tilewidth="16" tileheight="16">
+  <image source="0x72_16x16DungeonTileset.v4.png"/>
+ </tileset>
+ <layer name="suelo" width="200" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAO3bYWrCQBAG0FzFegRP1OoF1PYAbT14ZyFCQNM2sKDkew8+VtAfzuDuNNAdBgB4HpvKS2U7ZjfJ9L3No74gPFDbB6+Vt8r+ztpyGD8Hadrv/lj5+CXvg/1Bpv/sD/ODVNe/r8wPuGV+wLz/zA/7g1Sez2Ge+QHzrvPjVDnPxPwgVfvdf1a+Kt/jOn3d1stgfwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkGFTealsx+wmmb63edQXfHJp/Uurt9X1Wnmr7O+sLYfxc9xK619ivcfKxy95H9ZTb29p/VPvbdZ0HvSW1r/Eetu8TDkPekvrX2K9SedBb2n9S6z3r/NgTfX2lta/xHqTnrd6S+tfYr1J50Fvaf1LrLedB6fKeSZrOg96S+tfYr2fla/K97hOX7f1Mqyn3t7S+pdWLwAAAAAAAADrkHZfHJZIuy8OS6T9PzoskXbfD5ZIuy8OS5gfMC/tvh8s4fkc5pkfMC/tvjgs4b44AAAAAADP7Af9OdH7gDgBAA==
+  </data>
+ </layer>
+ <layer name="paredes" width="200" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAO3BgQAAAADDoPlTH+AKVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwBtmAymRgDgBAA==
+  </data>
+ </layer>
+</map>
