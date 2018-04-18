@@ -32,7 +32,7 @@ import java.io.IOException;
 public class ProceduralesMain {
     public static void main(String[] argv) {
         int altomapa=5,anchomapa=10,salas=5;
-        int altocelda=20,anchocelda=20;
+        int altocelda=15,anchocelda=15;
         Celula[][] mapalogico = MetodosProcedural.GenerarMapaLogico(anchomapa, altomapa, salas);
         MetodosProcedural.mostrarMapa(mapalogico, anchomapa, altomapa);
         
@@ -65,10 +65,10 @@ public class ProceduralesMain {
         
         try{
             TMXMapReader lector = new TMXMapReader();
-            //salaabierta=lector.readMap("ficheros/salaabierta.tmx");
+            salaabierta=lector.readMap("ficheros/salaabierta.tmx");
             salacerrada = lector.readMap("ficheros/salacerrada.tmx");
-            //pasilloabierto=lector.readMap("ficheros/pasilloabierto.tmx");
-            //pasillocerrado=lector.readMap("ficheros/pasillocerrado.tmx");
+            pasilloabierto=lector.readMap("ficheros/pasillocruz.tmx");
+            pasillocerrado=lector.readMap("ficheros/pasillocerrado.tmx");
         }
         catch(Exception e){
             System.out.print("Error al abrir los presets");
@@ -85,18 +85,291 @@ public class ProceduralesMain {
                         for (int x = 0; x < anchocelda; x++) {
                             
                             try{
-                                Tile tilecopia = new Tile();
+                                Tile tilecopiasuelo = new Tile();
                                 
-                                tilecopia.setTileSet(tileset);
-                                tilecopia.setId(((TileLayer)salacerrada.getLayer(0)).getTileAt(x, y).getId());
-                                suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopia);
+                                
+                                tilecopiasuelo.setTileSet(tileset);
+                                tilecopiasuelo.setId(((TileLayer)salacerrada.getLayer(0)).getTileAt(x, y).getId());
+                                suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+                                
+                                
+                              
+                            }catch(Exception e){}
+                            try{
+                                
+                                Tile tilecopiapared = new Tile();
+                                
+                                
+                                
+                                tilecopiapared.setTileSet(tileset);
+                                tilecopiapared.setId(((TileLayer)salacerrada.getLayer(1)).getTileAt(x, y).getId());
+                                paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
                               
                             }catch(Exception e){}
                         }
                     }
+                    //Comprobamos las conexiones
+                    if(mapalogico[j][i].getUp()){
+                        for (int y = 0; y < 4; y++) {
+                            for (int x = 0; x < anchocelda; x++) {
+
+                                try{
+                                    Tile tilecopiasuelo = new Tile();
+
+
+                                    tilecopiasuelo.setTileSet(tileset);
+                                    tilecopiasuelo.setId(((TileLayer)salaabierta.getLayer(0)).getTileAt(x, y).getId());
+                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                                try{
+
+                                    Tile tilecopiapared = new Tile();
+
+
+
+                                    tilecopiapared.setTileSet(tileset);
+                                    tilecopiapared.setId(((TileLayer)salaabierta.getLayer(1)).getTileAt(x, y).getId());
+                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                            }
+                        } 
+                    }
+                    if(mapalogico[j][i].getDown()){
+                        for (int y = (altocelda-4); y < altocelda; y++) {
+                            for (int x = 0; x < anchocelda; x++) {
+
+                                try{
+                                    Tile tilecopiasuelo = new Tile();
+
+
+                                    tilecopiasuelo.setTileSet(tileset);
+                                    tilecopiasuelo.setId(((TileLayer)salaabierta.getLayer(0)).getTileAt(x, y).getId());
+                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                                try{
+
+                                    Tile tilecopiapared = new Tile();
+
+
+
+                                    tilecopiapared.setTileSet(tileset);
+                                    tilecopiapared.setId(((TileLayer)salaabierta.getLayer(1)).getTileAt(x, y).getId());
+                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                            }
+                        } 
+                    }
+                    if(mapalogico[j][i].getLeft()){
+                        for (int y = 0; y < altocelda; y++) {
+                            for (int x = 0; x < 4; x++) {
+
+                                try{
+                                    Tile tilecopiasuelo = new Tile();
+
+
+                                    tilecopiasuelo.setTileSet(tileset);
+                                    tilecopiasuelo.setId(((TileLayer)salaabierta.getLayer(0)).getTileAt(x, y).getId());
+                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                                try{
+
+                                    Tile tilecopiapared = new Tile();
+
+
+
+                                    tilecopiapared.setTileSet(tileset);
+                                    tilecopiapared.setId(((TileLayer)salaabierta.getLayer(1)).getTileAt(x, y).getId());
+                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                            }
+                        } 
+                    }
+                    if(mapalogico[j][i].getRight()){
+                        for (int y = 0; y < altocelda; y++) {
+                            for (int x = (anchocelda-4); x < anchocelda; x++) {
+
+                                try{
+                                    Tile tilecopiasuelo = new Tile();
+
+
+                                    tilecopiasuelo.setTileSet(tileset);
+                                    tilecopiasuelo.setId(((TileLayer)salaabierta.getLayer(0)).getTileAt(x, y).getId());
+                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                                try{
+
+                                    Tile tilecopiapared = new Tile();
+
+
+
+                                    tilecopiapared.setTileSet(tileset);
+                                    tilecopiapared.setId(((TileLayer)salaabierta.getLayer(1)).getTileAt(x, y).getId());
+                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                            }
+                        } 
+                    }
                 }
                 else if("pasillo".equals(mapalogico[j][i].getTipo())){
-                    
+                    for (int y = 0; y < altocelda; y++) {
+                        for (int x = 0; x < anchocelda; x++) {
+                            
+                            try{
+                                Tile tilecopiasuelo = new Tile();
+                                
+                                
+                                tilecopiasuelo.setTileSet(tileset);
+                                tilecopiasuelo.setId(((TileLayer)pasillocerrado.getLayer(0)).getTileAt(x, y).getId());
+                                suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+                                
+                                
+                              
+                            }catch(Exception e){}
+                            try{
+                                
+                                Tile tilecopiapared = new Tile();
+                                
+                                
+                                
+                                tilecopiapared.setTileSet(tileset);
+                                tilecopiapared.setId(((TileLayer)pasillocerrado.getLayer(1)).getTileAt(x, y).getId());
+                                paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+                              
+                            }catch(Exception e){}
+                        }
+                    }
+                    if(mapalogico[j][i].getUp()){
+                        for (int y = 0; y < 7; y++) {
+                            for (int x = 5; x < anchocelda-5; x++) {
+
+                                try{
+                                    Tile tilecopiasuelo = new Tile();
+
+
+                                    tilecopiasuelo.setTileSet(tileset);
+                                    tilecopiasuelo.setId(((TileLayer)pasilloabierto.getLayer(0)).getTileAt(x, y).getId());
+                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                                try{
+
+                                    Tile tilecopiapared = new Tile();
+
+
+
+                                    tilecopiapared.setTileSet(tileset);
+                                    tilecopiapared.setId(((TileLayer)pasilloabierto.getLayer(1)).getTileAt(x, y).getId());
+                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                            }
+                        } 
+                    }
+                    if(mapalogico[j][i].getDown()){
+                        for (int y = (altocelda-7); y < altocelda; y++) {
+                            for (int x = 5; x < anchocelda-5; x++) {
+
+                                try{
+                                    Tile tilecopiasuelo = new Tile();
+
+
+                                    tilecopiasuelo.setTileSet(tileset);
+                                    tilecopiasuelo.setId(((TileLayer)pasilloabierto.getLayer(0)).getTileAt(x, y).getId());
+                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                                try{
+
+                                    Tile tilecopiapared = new Tile();
+
+
+
+                                    tilecopiapared.setTileSet(tileset);
+                                    tilecopiapared.setId(((TileLayer)pasilloabierto.getLayer(1)).getTileAt(x, y).getId());
+                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                            }
+                        } 
+                    }
+                    if(mapalogico[j][i].getLeft()){
+                        for (int y = 5; y < altocelda-5; y++) {
+                            for (int x = 0; x < 7; x++) {
+
+                                try{
+                                    Tile tilecopiasuelo = new Tile();
+
+
+                                    tilecopiasuelo.setTileSet(tileset);
+                                    tilecopiasuelo.setId(((TileLayer)pasilloabierto.getLayer(0)).getTileAt(x, y).getId());
+                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                                try{
+
+                                    Tile tilecopiapared = new Tile();
+
+
+
+                                    tilecopiapared.setTileSet(tileset);
+                                    tilecopiapared.setId(((TileLayer)pasilloabierto.getLayer(1)).getTileAt(x, y).getId());
+                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                            }
+                        } 
+                    }
+                    if(mapalogico[j][i].getRight()){
+                        for (int y = 5; y < altocelda-5; y++) {
+                            for (int x = (anchocelda-7); x < anchocelda; x++) {
+
+                                try{
+                                    Tile tilecopiasuelo = new Tile();
+
+
+                                    tilecopiasuelo.setTileSet(tileset);
+                                    tilecopiasuelo.setId(((TileLayer)pasilloabierto.getLayer(0)).getTileAt(x, y).getId());
+                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                                try{
+
+                                    Tile tilecopiapared = new Tile();
+
+
+
+                                    tilecopiapared.setTileSet(tileset);
+                                    tilecopiapared.setId(((TileLayer)pasilloabierto.getLayer(1)).getTileAt(x, y).getId());
+                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
+                            }
+                        } 
+                    }
                 }
                                             
             }
