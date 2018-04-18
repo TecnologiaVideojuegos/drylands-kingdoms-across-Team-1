@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.3" orientation="orthogonal" renderorder="right-down" width="6" height="6" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
- <tileset firstgid="1" source="piramide.tsx"/>
- <layer name="Capa de Patrones 1" width="6" height="6">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNggABJKEYH6OKSaJiQOKkAANUBh7GQAAAA
-  </data>
- </layer>
-</map>
