@@ -5,18 +5,7 @@
  */
 package mapasprocedurales;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.Scrollable;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 
 import org.mapeditor.core.*;
 import org.mapeditor.io.TMXMapReader;
@@ -31,7 +20,7 @@ import java.io.IOException;
  */
 public class ProceduralesMain {
     public static void main(String[] argv) {
-        int altomapa=5,anchomapa=10,salas=5;
+        int altomapa=5,anchomapa=10,salas=10;
         int altocelda=15,anchocelda=15;
         Celula[][] mapalogico = MetodosProcedural.GenerarMapaLogico(anchomapa, altomapa, salas);
         MetodosProcedural.mostrarMapa(mapalogico, anchomapa, altomapa);
@@ -59,16 +48,36 @@ public class ProceduralesMain {
         
         Map salaabierta = new Map(anchocelda,altocelda);
         Map salacerrada = new Map(anchocelda,altocelda);
-        Map pasilloabierto = new Map(anchocelda,altocelda);
-        Map pasillocerrado = new Map(anchocelda,altocelda);
+        Map pasillocruz = new Map(anchocelda,altocelda);
+        Map pasillover = new Map(anchocelda,altocelda);
+        Map pasillohor = new Map(anchocelda,altocelda);
+        Map pasilloT = new Map(anchocelda,altocelda);
+        Map pasilloTder = new Map(anchocelda,altocelda);
+        Map pasilloTiz = new Map(anchocelda,altocelda);
+        Map pasilloinfder = new Map(anchocelda,altocelda);
+        Map pasilloinfiz = new Map(anchocelda,altocelda);
+        Map pasilloTreves = new Map(anchocelda,altocelda);
+        Map pasillosupder = new Map(anchocelda,altocelda);
+        Map pasillosupiz = new Map(anchocelda,altocelda);
         //Cargamos los presets
         
         try{
             TMXMapReader lector = new TMXMapReader();
             salaabierta=lector.readMap("ficheros/salaabierta.tmx");
             salacerrada = lector.readMap("ficheros/salacerrada.tmx");
-            pasilloabierto=lector.readMap("ficheros/pasillocruz.tmx");
-            pasillocerrado=lector.readMap("ficheros/pasillocerrado.tmx");
+            pasillocruz=lector.readMap("ficheros/pasillocruz.tmx");
+            pasillover=lector.readMap("ficheros/pasillover.tmx");
+            pasillohor=lector.readMap("ficheros/pasillohor.tmx");
+            pasilloT=lector.readMap("ficheros/pasilloT.tmx");
+            pasilloTder=lector.readMap("ficheros/pasilloTder.tmx");
+            pasilloTiz=lector.readMap("ficheros/pasilloTiz.tmx");
+            pasilloinfder=lector.readMap("ficheros/pasilloinfder.tmx");
+            pasilloinfiz=lector.readMap("ficheros/pasilloinfiz.tmx");
+            pasilloTreves=lector.readMap("ficheros/pasilloTreves.tmx");
+            pasillosupder=lector.readMap("ficheros/pasillosupder.tmx");
+            pasillosupiz=lector.readMap("ficheros/pasillosupiz.tmx");
+            
+            
         }
         catch(Exception e){
             System.out.print("Error al abrir los presets");
@@ -227,149 +236,334 @@ public class ProceduralesMain {
                     }
                 }
                 else if("pasillo".equals(mapalogico[j][i].getTipo())){
-                    for (int y = 0; y < altocelda; y++) {
-                        for (int x = 0; x < anchocelda; x++) {
+                    int combinacion=0;
+                    if(mapalogico[j][i].getUp())    combinacion+=8;
+                    if(mapalogico[j][i].getDown())    combinacion+=4;
+                    if(mapalogico[j][i].getRight())    combinacion+=2;
+                    if(mapalogico[j][i].getLeft())    combinacion+=1;
+                       
+                         switch(combinacion){
+                            case 15://Cruz
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasillocruz.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasillocruz.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 7://T=7
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasilloT.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasilloT.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 14://Tder=14
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasilloTder.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasilloTder.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 11://Treves=11
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasilloTreves.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasilloTreves.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 13://Tiz=13
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasilloTiz.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasilloTiz.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 6://supiz=6
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasillosupiz.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasillosupiz.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 5://supder=5
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasillosupder.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasillosupder.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 9://infder=9
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasilloinfder.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasilloinfder.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 10://infiz=10
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasilloinfiz.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasilloinfiz.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 12://ver=12
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasillover.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasillover.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
+                                break;
+                            case 3:
+                                for (int y = 0; y < altocelda; y++) {
+                                    for (int x = 0; x < anchocelda; x++) {
+
+                                        try{
+                                            Tile tilecopiasuelo = new Tile();
+
+
+                                            tilecopiasuelo.setTileSet(tileset);
+                                            tilecopiasuelo.setId(((TileLayer)pasillohor.getLayer(0)).getTileAt(x, y).getId());
+                                            suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
+
+
+
+                                        }catch(Exception e){}
+                                        try{
+
+                                            Tile tilecopiapared = new Tile();
+
+
+
+                                            tilecopiapared.setTileSet(tileset);
+                                            tilecopiapared.setId(((TileLayer)pasillohor.getLayer(1)).getTileAt(x, y).getId());
+                                            paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
+
+                                        }catch(Exception e){}
+                                    }
+                                }
                             
-                            try{
-                                Tile tilecopiasuelo = new Tile();
-                                
-                                
-                                tilecopiasuelo.setTileSet(tileset);
-                                tilecopiasuelo.setId(((TileLayer)pasillocerrado.getLayer(0)).getTileAt(x, y).getId());
-                                suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
-                                
-                                
-                              
-                            }catch(Exception e){}
-                            try{
-                                
-                                Tile tilecopiapared = new Tile();
-                                
-                                
-                                
-                                tilecopiapared.setTileSet(tileset);
-                                tilecopiapared.setId(((TileLayer)pasillocerrado.getLayer(1)).getTileAt(x, y).getId());
-                                paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
-                              
-                            }catch(Exception e){}
-                        }
-                    }
-                    if(mapalogico[j][i].getUp()){
-                        for (int y = 0; y < 7; y++) {
-                            for (int x = 5; x < anchocelda-5; x++) {
-
-                                try{
-                                    Tile tilecopiasuelo = new Tile();
-
-
-                                    tilecopiasuelo.setTileSet(tileset);
-                                    tilecopiasuelo.setId(((TileLayer)pasilloabierto.getLayer(0)).getTileAt(x, y).getId());
-                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
-
-
-
-                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
-                                try{
-
-                                    Tile tilecopiapared = new Tile();
-
-
-
-                                    tilecopiapared.setTileSet(tileset);
-                                    tilecopiapared.setId(((TileLayer)pasilloabierto.getLayer(1)).getTileAt(x, y).getId());
-                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
-
-                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
-                            }
-                        } 
-                    }
-                    if(mapalogico[j][i].getDown()){
-                        for (int y = (altocelda-7); y < altocelda; y++) {
-                            for (int x = 5; x < anchocelda-5; x++) {
-
-                                try{
-                                    Tile tilecopiasuelo = new Tile();
-
-
-                                    tilecopiasuelo.setTileSet(tileset);
-                                    tilecopiasuelo.setId(((TileLayer)pasilloabierto.getLayer(0)).getTileAt(x, y).getId());
-                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
-
-
-
-                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
-                                try{
-
-                                    Tile tilecopiapared = new Tile();
-
-
-
-                                    tilecopiapared.setTileSet(tileset);
-                                    tilecopiapared.setId(((TileLayer)pasilloabierto.getLayer(1)).getTileAt(x, y).getId());
-                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
-
-                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
-                            }
-                        } 
-                    }
-                    if(mapalogico[j][i].getLeft()){
-                        for (int y = 5; y < altocelda-5; y++) {
-                            for (int x = 0; x < 7; x++) {
-
-                                try{
-                                    Tile tilecopiasuelo = new Tile();
-
-
-                                    tilecopiasuelo.setTileSet(tileset);
-                                    tilecopiasuelo.setId(((TileLayer)pasilloabierto.getLayer(0)).getTileAt(x, y).getId());
-                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
-
-
-
-                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
-                                try{
-
-                                    Tile tilecopiapared = new Tile();
-
-
-
-                                    tilecopiapared.setTileSet(tileset);
-                                    tilecopiapared.setId(((TileLayer)pasilloabierto.getLayer(1)).getTileAt(x, y).getId());
-                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
-
-                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
-                            }
-                        } 
-                    }
-                    if(mapalogico[j][i].getRight()){
-                        for (int y = 5; y < altocelda-5; y++) {
-                            for (int x = (anchocelda-7); x < anchocelda; x++) {
-
-                                try{
-                                    Tile tilecopiasuelo = new Tile();
-
-
-                                    tilecopiasuelo.setTileSet(tileset);
-                                    tilecopiasuelo.setId(((TileLayer)pasilloabierto.getLayer(0)).getTileAt(x, y).getId());
-                                    suelo.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiasuelo);
-
-
-
-                                }catch(Exception e){suelo.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
-                                try{
-
-                                    Tile tilecopiapared = new Tile();
-
-
-
-                                    tilecopiapared.setTileSet(tileset);
-                                    tilecopiapared.setId(((TileLayer)pasilloabierto.getLayer(1)).getTileAt(x, y).getId());
-                                    paredes.setTileAt(j*anchocelda+x, i*altocelda+y, tilecopiapared);
-
-                                }catch(Exception e){paredes.setTileAt(j*anchocelda+x, i*altocelda+y, null);}
-                            }
-                        } 
-                    }
+                         }
+                    
                 }
                                             
             }
