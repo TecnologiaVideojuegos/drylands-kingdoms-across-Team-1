@@ -11,6 +11,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+
 /**
  * A test for basic animation rendering
  *
@@ -22,12 +23,13 @@ public class CoreGame extends BasicGame {
 		super("Dryland: Kingdoms Across");
 	}
 	private GameContainer container;
-        private static final int SCREENRESX=1400, SCREENRESY=800, maxFPS=60
-                ;
-        private static final boolean FULLSCREEN = false,VSYNC=true;
+        private static final int SCREENRESX=1920, SCREENRESY=1080, maxFPS=60;
+        private static final boolean FULLSCREEN = true,VSYNC=true;
         private Player player;
-        private
-                double avance;
+        //private double avance;
+        private Mapa mapa; 
+        
+        //private Layer capamuros;
         
         
 	/**
@@ -42,13 +44,18 @@ public class CoreGame extends BasicGame {
 		player = new Player("testdata/testsprites.png");
                 
                 container.getGraphics().setBackground(new Color(0.4f,0.6f,0.6f));
+                mapa = new Mapa("C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros\\salaabiertax3.tmx","C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros",SCREENRESX,SCREENRESY);
+                
+                
                
-	}
+        }
 
 	/**
 	 * @see org.newdawn.slick.BasicGame#render(org.newdawn.slick.GameContainer, org.newdawn.slick.Graphics)
 	 */
 	public void render(GameContainer container, Graphics g) {
+            mapa.render();
+            
             if(player.isCorriendo()){
                 if(player.mirandoD()){
                     player.getAnim("run").draw(player.getX(),player.getY());
@@ -56,7 +63,7 @@ public class CoreGame extends BasicGame {
                 else{
                     player.getAnim("runi").draw(player.getX(),player.getY());
                 }
-                System.out.println("avancce="+avance + "\tx="+player.getX()+"\ty="+player.getY());
+                
             }
             else{
                 if(player.mirandoD()){
@@ -75,8 +82,26 @@ public class CoreGame extends BasicGame {
 	public void update(GameContainer container, int delta) {
 		player.updHitbox();
             if(!player.tocaRaton(Mouse.getX(),SCREENRESY-Mouse.getY())){
-                avance=player.irA(Mouse.getX(), SCREENRESY-Mouse.getY(), delta);
-                player.setCorriendo();
+                player.calcNuevaPos(Mouse.getX(), SCREENRESY-Mouse.getY(), delta);
+                if(true){
+                    player.setCorriendo();
+                    
+                    if(!mapa.checkColX(player)){
+                        player.updPosX();
+                        
+                    }
+                    else{
+                        player.resetX();
+                    }
+                    if(!mapa.checkColY(player)){
+                        player.updPosY();
+                        
+                    }
+                    else{
+                        player.resetY();
+                    }
+                }
+                
             }
             else{
                 player.setIdle();
