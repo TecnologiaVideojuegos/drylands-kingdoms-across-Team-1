@@ -22,13 +22,19 @@ public class Player {
     private SpriteSheet sprites;
     private Animation noanim,idle,run,jump, idlei,runi,jumpi;
     private int posx,posy,newx,newy;
-    public final int TAMX=48,TAMY=72;
+    public final int TAMX=48,TAMY=72,ALTURACOLLIDER=48;
     public final float VELOCIDAD=(float)0.2;
     private Rectangle hitbox;
     private double movAcumx=(double)0.0,movAcumy=(double)0.0;
 
     public int getX() {
         return posx;
+    }
+    public int getnewX() {
+        return newx;
+    }
+    public int getnewY() {
+        return newy;
     }
     public boolean mirandoD(){
         return mirandoD;
@@ -83,8 +89,8 @@ public class Player {
     catch(SlickException e){System.out.print(e);}
     corriendo = false;
     mirandoD=true;
-        posx=0;
-        posy=0;
+        posx=200;
+        posy=200;
         hitbox=new Rectangle(posx,posy,TAMX,TAMY);
     
     }
@@ -128,7 +134,7 @@ public class Player {
     public void setIdle(){
         corriendo=false;
     }
-    public double irA(int ax, int ay, int delta){
+    public void calcNuevaPos(int ax, int ay, int delta){
         
         double maxstep = VELOCIDAD * delta;
         int difx=ax-(this.posx+(TAMX/2));
@@ -146,21 +152,40 @@ public class Player {
             
             int intincx = (int)Math.round(incx);
             movAcumx=incx-intincx;
-            this.posx+=intincx;
+            this.newx+=intincx;
             double incy = (dify*maxstep/dist)+movAcumy;
             int intincy = (int)Math.round(incy);
             movAcumy=incy-intincy;
-            this.posy+=intincy;
-            return incx;
+            this.newy+=intincy;
+            
         }
         else{
-            this.posx+=difx;
-            this.posy+=dify;
-            return difx;
+            
+            this.newx+=difx;
+            this.newy+=dify;
+            
         }
         
         
     }
+    public void updPosX(){
+        
+        posx=newx;
+    }
+    public void updPosY(){
+        posy=newy;
+        
+    }
+    public void resetX(){
+        newx=posx;
+        movAcumx=0;
+    }
+    public void resetY(){
+        newy=posy;
+        movAcumy=0;
+    }
+    
+    
     public void updHitbox(){
         hitbox.setX(this.posx);
         hitbox.setY(this.posy);
