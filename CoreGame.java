@@ -55,34 +55,49 @@ public class CoreGame extends BasicGame {
 	 */
 	public void render(GameContainer container, Graphics g) {
             mapa.render();
-            
-            if(player.isCorriendo()){
-                if(player.mirandoD()){
-                    player.getAnim("run").draw(player.getX(),player.getY());
+            if(!player.isDash()){
+                if(player.isCorriendo()){
+                    if(player.mirandoD()){
+                        player.getAnim("run").draw(player.getX(),player.getY());
+                    }
+                    else{
+                        player.getAnim("runi").draw(player.getX(),player.getY());
+                    }
+
                 }
                 else{
-                    player.getAnim("runi").draw(player.getX(),player.getY());
+                    if(player.mirandoD()){
+                        player.getAnim("idle").draw(player.getX(),player.getY());
+                    }
+                    else{
+                        player.getAnim("idlei").draw(player.getX(),player.getY());
+                    }
                 }
-                
             }
             else{
                 if(player.mirandoD()){
-                    player.getAnim("idle").draw(player.getX(),player.getY());
-                }
-                else{
-                    player.getAnim("idlei").draw(player.getX(),player.getY());
-                }
+                        player.getAnim("jump").draw(player.getX(),player.getY());
+                    }
+                    else{
+                        player.getAnim("jumpi").draw(player.getX(),player.getY());
+                    }
             }
-            
 	}
 
 	/**
 	 * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer, int)
 	 */
 	public void update(GameContainer container, int delta) {
+                player.lowerCDs(delta);
 		player.updHitbox();
             if(!player.tocaRaton(Mouse.getX(),SCREENRESY-Mouse.getY())){
-                player.calcNuevaPos(Mouse.getX(), SCREENRESY-Mouse.getY(), delta);
+                if(player.isDash()){
+                    player.calcNuevaPos(player.getTargetDashX(), player.getTargetDashY(), delta);
+                    
+                }
+                else{
+                    player.calcNuevaPos(Mouse.getX(), SCREENRESY-Mouse.getY(), delta);
+                }
                 if(true){
                     player.setCorriendo();
                     
@@ -133,7 +148,7 @@ public class CoreGame extends BasicGame {
 			container.exit();
 		}
 	}
-        public  void mouseMove(int button, int x, int y){
+        /*public  void mouseMove(int button, int x, int y){
             if(button==Input.MOUSE_LEFT_BUTTON){
                 player.setCorriendo();
             }
@@ -141,6 +156,11 @@ public class CoreGame extends BasicGame {
         public  void mouseReleased(int button, int x, int y){
             if(button==Input.MOUSE_LEFT_BUTTON){
                 player.setIdle();
+            }
+        }*/
+        public  void mouseClicked(int button, int x, int y, int clickCount){
+            if(button==Input.MOUSE_LEFT_BUTTON){
+                player.setDash(x, y);
             }
         }
         
