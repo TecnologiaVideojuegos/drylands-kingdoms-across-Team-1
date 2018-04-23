@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 
+
 /**
  * A test for basic animation rendering
  *
@@ -23,13 +24,13 @@ public class CoreGame extends BasicGame {
 		super("Dryland: Kingdoms Across");
 	}
 	private GameContainer container;
-        private static final int SCREENRESX=1920, SCREENRESY=1080, maxFPS=60;
-        private static final boolean FULLSCREEN = true,VSYNC=true;
+        private static final int SCREENRESX=800, SCREENRESY=540, maxFPS=60;
+        private static final boolean FULLSCREEN = false,VSYNC=true;
         private Player player;
         //private double avance;
         private Mapa mapa; 
         
-        //private Layer capamuros;
+        
         
         
 	/**
@@ -41,9 +42,12 @@ public class CoreGame extends BasicGame {
                 container.setVSync(VSYNC);
                 container.setSmoothDeltas(true);
                 
-		player = new Player("testdata/testsprites.png");
+                //container.setMouseCursor("C:\\Users\\FairLight\\slick\\testdata\\cursor2.tga", 0, 0);
+                
+		player = new Player("testdata/testsprites.png",SCREENRESX,SCREENRESY);
                 
                 container.getGraphics().setBackground(new Color(0.4f,0.6f,0.6f));
+                
                 mapa = new Mapa("C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros\\salaabiertax3.tmx","C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros",SCREENRESX,SCREENRESY);
                 
                 
@@ -88,40 +92,38 @@ public class CoreGame extends BasicGame {
 	 * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer, int)
 	 */
 	public void update(GameContainer container, int delta) {
+                mapa.actCamara(delta,player);
+                player.updPosX();
+                player.updPosY();
                 player.lowerCDs(delta);
 		player.updHitbox();
-            if(!player.tocaRaton(Mouse.getX(),SCREENRESY-Mouse.getY())){
-                if(player.isDash()){
-                    player.calcNuevaPos(player.getTargetDashX(), player.getTargetDashY(), delta);
-                    
+                
+                if(Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)){
+                    player.setCorriendo();
                 }
                 else{
-                    player.calcNuevaPos(Mouse.getX(), SCREENRESY-Mouse.getY(), delta);
+                    player.setIdle();
                 }
-                if(true){
-                    player.setCorriendo();
-                    
-                    if(!mapa.checkColX(player)){
+                
+                
+                player.calcNuevaPos(delta);
+                if(!mapa.checkColX(player)){
                         player.updPosX();
                         
-                    }
-                    else{
+                }
+                else{
                         player.resetX();
-                    }
-                    if(!mapa.checkColY(player)){
+                }
+                if(!mapa.checkColY(player)){
                         player.updPosY();
                         
-                    }
-                    else{
-                        player.resetY();
-                    }
+                }
+                else{
+                    player.resetY();
                 }
                 
-            }
-            else{
-                player.setIdle();
-            }
-                
+            
+                             
             
 	}
 
@@ -158,10 +160,10 @@ public class CoreGame extends BasicGame {
                 player.setIdle();
             }
         }*/
-        public  void mouseClicked(int button, int x, int y, int clickCount){
-            if(button==Input.MOUSE_LEFT_BUTTON){
+        /*public  void mouseClicked(int button, int x, int y, int clickCount){
+            if(button==Input.MOUSE_RIGHT_BUTTON){
                 player.setDash(x, y);
             }
-        }
+        }*/
         
 }

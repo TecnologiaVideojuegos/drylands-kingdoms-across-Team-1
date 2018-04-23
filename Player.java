@@ -22,7 +22,7 @@ public class Player {
     private SpriteSheet sprites;
     private Animation noanim,idle,run,jump, idlei,runi,jumpi;
     private int posx,posy,newx,newy;
-    public final int TAMX=48,TAMY=72,ALTURACOLLIDER=48,MSCDDASH=300;
+    public final int TAMX=48,TAMY=72,ALTURACOLLIDER=48,MSCDDASH=300,SCREENRESX,SCREENRESY;
     public final float VELOCIDAD=(float)0.2;
     private Rectangle hitbox;
     private double movAcumx=(double)0.0,movAcumy=(double)0.0;
@@ -46,7 +46,15 @@ public class Player {
     public void setX(int posx) {
         this.posx = posx;
     }
-
+    public void addX(int incx){
+        
+        this.newx = posx+incx;
+        
+    }
+    public void addY(int incy){
+        this.newy = posy+incy;
+        
+    }
     public int getY() {
         return posy;
     }
@@ -55,7 +63,7 @@ public class Player {
         this.posy = posy;
     }
     
-    public Player(String rutasprites){
+    public Player(String rutasprites,int resx, int resy){
     try{    
         sprites = new SpriteSheet(rutasprites,TAMX,TAMY);
         noanim=new Animation();
@@ -94,8 +102,11 @@ public class Player {
         corriendo = false;
         atacando = false;
         mirandoD=true;
-        posx=200;
-        posy=200;
+        SCREENRESX=resx;
+        SCREENRESY=resy;
+        newx=posx=resx/2-TAMX/2;
+        newy=posy=resy/2-TAMY/2;
+        System.out.println("posx="+posx+",posy="+posy);
         hitbox=new Rectangle(posx,posy,TAMX,TAMY);
     
     }
@@ -143,6 +154,7 @@ public class Player {
         corriendo=true;
     }
     public void setDash(int ax, int ay){
+        System.out.println("cd : "+cdDash);
         if(!atacando&&cdDash==0){
             atacando=true;
             int difx=ax-(this.posx+(TAMX/2));
@@ -176,42 +188,46 @@ public class Player {
             return VELOCIDAD*delta;
         }
         else{
-            return 0;
+            return VELOCIDAD*delta;
         }
     }
-    public void calcNuevaPos(int ax, int ay, int delta){
-        
-        double maxstep = getMaxstep(delta);
-        int difx=ax-(this.posx+(TAMX/2));
-        int dify=ay-(this.posy+(TAMY/2));
-        int difcuadrados = (difx*difx)+(dify*dify);
-        double dist = Math.sqrt((double)difcuadrados);
-        if((difx>0)){
-            mirandoD=true;  
-        }
-        if((difx<0)){
-            mirandoD=false;  
-        }
-        if(dist>(maxstep)){
-            double incx = (difx*maxstep/dist)+movAcumx;
+    public void calcNuevaPos(/*int ax, int ay, a*/int delta){
+        if(!this.tocaRaton(Mouse.getX(),SCREENRESY-Mouse.getY())&&this.isCorriendo()){
             
-            int intincx = (int)Math.round(incx);
-            movAcumx=incx-intincx;
-            this.newx+=intincx;
-            double incy = (dify*maxstep/dist)+movAcumy;
-            int intincy = (int)Math.round(incy);
-            movAcumy=incy-intincy;
-            this.newy+=intincy;
+            int ax=Mouse.getX();
+            int ay=SCREENRESY-Mouse.getY();
             
-        }
-        else{
-            
-            this.newx+=difx;
-            this.newy+=dify;
-            
-                atacando=false;
-            
-            
+            double maxstep = getMaxstep(delta);
+            int difx=ax-(this.posx+(TAMX/2));
+            int dify=ay-(this.posy+(TAMY/2));
+            int difcuadrados = (difx*difx)+(dify*dify);
+            double dist = Math.sqrt((double)difcuadrados);
+            if((difx>0)){
+                mirandoD=true;
+            }
+            if((difx<0)){
+                mirandoD=false;
+            }
+            if(dist>(maxstep)){
+                double incx = (difx*maxstep/dist)+movAcumx;
+                
+                int intincx = (int)Math.round(incx);
+                movAcumx=incx-intincx;
+                this.newx+=intincx;
+                double incy = (dify*maxstep/dist)+movAcumy;
+                int intincy = (int)Math.round(incy);
+                movAcumy=incy-intincy;
+                this.newy+=intincy;
+                
+            }
+            else{
+                
+                this.newx+=difx;
+                this.newy+=dify;
+                
+                
+                
+            }
         }
         
         
