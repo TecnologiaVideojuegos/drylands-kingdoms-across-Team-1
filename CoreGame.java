@@ -24,7 +24,7 @@ public class CoreGame extends BasicGame {
 		super("Dryland: Kingdoms Across");
 	}
 	private GameContainer container;
-        private static final int SCREENRESX=800, SCREENRESY=540, maxFPS=60;
+        private static final int SCREENRESX=1700, SCREENRESY=1000, maxFPS=60;
         private static final boolean FULLSCREEN = false,VSYNC=true;
         private Player player;
         //private double avance;
@@ -48,7 +48,7 @@ public class CoreGame extends BasicGame {
                 
                 container.getGraphics().setBackground(new Color(0.4f,0.6f,0.6f));
                 
-                mapa = new Mapa("C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros\\salaabiertax3.tmx","C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros",SCREENRESX,SCREENRESY);
+                mapa = new Mapa("C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros\\salida.tmx","C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros",SCREENRESX,SCREENRESY);
                 
                 
                
@@ -95,6 +95,7 @@ public class CoreGame extends BasicGame {
                 mapa.actCamara(delta,player);
                 player.updPosX();
                 player.updPosY();
+                
                 player.lowerCDs(delta);
 		player.updHitbox();
                 

@@ -17,7 +17,7 @@ public class Mapa {
     private final int MSCAMARA=500;
     private TiledMap mapa;
     private int numtilesRenderX,numtilesRenderY;
-    private int offsetX,offsetY;
+    private int offsetX,offsetY,offsetXcam,offsetYcam,tilesdespX,tilesdespY;
     private int tamTileX,tamTileY;
     private int contadorCamara=0;
     private int SCREENRESX,SCREENRESY;
@@ -30,10 +30,10 @@ public class Mapa {
         this.SCREENRESX=SCREENRESX;
         this.SCREENRESY=SCREENRESY;
         
-        numtilesRenderX=(SCREENRESX/mapa.getTileWidth())+1;
-        numtilesRenderY=(SCREENRESY/mapa.getTileHeight())+1;
-        offsetX=0;
-        offsetY=0;
+        numtilesRenderX=(SCREENRESX/mapa.getTileWidth())+3;
+        numtilesRenderY=(SCREENRESY/mapa.getTileHeight())+3;
+        tilesdespX=offsetXcam=offsetX=0;
+        tilesdespY=offsetYcam=offsetY=0;
         tamTileX=mapa.getTileWidth();
         tamTileY=mapa.getTileHeight();
         
@@ -42,7 +42,8 @@ public class Mapa {
         return mapa;
     }
     public void render(){
-        mapa.render(offsetX,offsetY,0,0,numtilesRenderX,numtilesRenderY);
+        mapa.render(offsetXcam,offsetYcam,tilesdespX,tilesdespY,numtilesRenderX,numtilesRenderY,false);
+        
     }
     public boolean checkColX(Player player){
         boolean colUpDer,colUpIz,colDownDer,colDownIz;
@@ -73,8 +74,11 @@ public class Mapa {
        catch(Exception e){return false;}
     }
     public void actCamara(int delta,Player player){
-        if(((player.getX()+player.TAMX/2)>(SCREENRESX*0.4))&&((player.getX()+player.TAMX/2)<(SCREENRESX*0.6))&&((player.getY()+player.TAMY/2)>(SCREENRESY*0.4))&&((player.getY()+player.TAMY/2)<(SCREENRESY*0.6))){
-            contadorCamara=0;
+        if(((player.getX()+player.TAMX/2)>(SCREENRESX*0.45))&&((player.getX()+player.TAMX/2)<(SCREENRESX*0.55))&&((player.getY()+player.TAMY/2)>(SCREENRESY*0.45))&&((player.getY()+player.TAMY/2)<(SCREENRESY*0.55))){
+            if((contadorCamara-delta)<0)
+                contadorCamara=0;
+            else
+                contadorCamara-=delta;
             
         }
         else{
@@ -83,7 +87,8 @@ public class Mapa {
                 contadorCamara=MSCAMARA;
             else
                 contadorCamara+=delta;
-            
+        }
+        if(contadorCamara>0){
             double maxDesp=player.getMaxstep(delta)*contadorCamara/MSCAMARA;
             int difx=(player.getX()+player.TAMX/2)-(SCREENRESX/2);
             int dify=(player.getY()+player.TAMY/2)-(SCREENRESY/2);
@@ -96,11 +101,13 @@ public class Mapa {
                 movAcumx=incx-intincx;
                 player.addX(-intincx);
                 offsetX-=intincx;
+                offsetXcam-=intincx;
                 double incy = (dify*maxDesp/dist)+movAcumy;
                 int intincy = (int)Math.round(incy);
                 movAcumy=incy-intincy;
                 player.addY(-intincy);
                 offsetY-=intincy;
+                offsetYcam-=intincy;
                 System.out.println("contadorcamara="+contadorCamara+"\t\tmaxDesp="+maxDesp+"\t\tdifx="+difx+"\t\tdify="+dify+"\t\tdist="+dist);
                 System.out.println("intincy="+intincy+", intincx="+intincx);
             
@@ -119,5 +126,25 @@ public class Mapa {
             }
             
         }
+        while(offsetXcam<-tamTileX){
+            offsetXcam+=tamTileX;
+            tilesdespX++;
+            
+        }
+        while(offsetYcam<-tamTileY){
+            offsetYcam+=tamTileY;
+            tilesdespY++;            
+        }
+        while(offsetXcam>0){
+            offsetXcam-=tamTileX;
+            tilesdespX--;
+            
+        }
+        while(offsetYcam>0){
+            offsetYcam-=tamTileY;
+            tilesdespY--;            
+        }
+            
     }
+    
 }

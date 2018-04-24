@@ -23,7 +23,7 @@ public class Player {
     private Animation noanim,idle,run,jump, idlei,runi,jumpi;
     private int posx,posy,newx,newy;
     public final int TAMX=48,TAMY=72,ALTURACOLLIDER=48,MSCDDASH=300,SCREENRESX,SCREENRESY;
-    public final float VELOCIDAD=(float)0.2;
+    public final float VELOCIDAD=(float)0.3;
     private Rectangle hitbox;
     private double movAcumx=(double)0.0,movAcumy=(double)0.0;
     private int msDash=150,rangoDash=300,cdDash=0;
