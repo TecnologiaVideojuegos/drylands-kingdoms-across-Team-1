@@ -191,11 +191,11 @@ public class Player {
             return VELOCIDAD*delta;
         }
     }
-    public void calcNuevaPos(/*int ax, int ay, a*/int delta){
-        if(!this.tocaRaton(Mouse.getX(),SCREENRESY-Mouse.getY())&&this.isCorriendo()){
+    public void calcNuevaPos(/*int ax, int ay, a*/int delta,Mapa mapa){
+        if(!this.tocaRaton(Mouse.getX()-mapa.getOffX(),SCREENRESY-Mouse.getY()-mapa.getOffY())&&this.isCorriendo()){
             
-            int ax=Mouse.getX();
-            int ay=SCREENRESY-Mouse.getY();
+            int ax=Mouse.getX()-mapa.getOffX();
+            int ay=SCREENRESY-Mouse.getY()-mapa.getOffY();
             
             double maxstep = getMaxstep(delta);
             int difx=ax-(this.posx+(TAMX/2));

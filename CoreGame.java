@@ -62,30 +62,34 @@ public class CoreGame extends BasicGame {
             if(!player.isDash()){
                 if(player.isCorriendo()){
                     if(player.mirandoD()){
-                        player.getAnim("run").draw(player.getX(),player.getY());
+                        player.getAnim("run").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
                     }
                     else{
-                        player.getAnim("runi").draw(player.getX(),player.getY());
+                        player.getAnim("runi").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
                     }
 
                 }
                 else{
                     if(player.mirandoD()){
-                        player.getAnim("idle").draw(player.getX(),player.getY());
+                        player.getAnim("idle").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
                     }
                     else{
-                        player.getAnim("idlei").draw(player.getX(),player.getY());
+                        player.getAnim("idlei").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
                     }
                 }
             }
             else{
                 if(player.mirandoD()){
-                        player.getAnim("jump").draw(player.getX(),player.getY());
+                        player.getAnim("jump").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
                     }
                     else{
-                        player.getAnim("jumpi").draw(player.getX(),player.getY());
+                        player.getAnim("jumpi").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
                     }
             }
+            g.drawString("JugX:"+player.getX(), 100, 100);
+            g.drawString("JugY:"+player.getY(), 100, 120);
+            g.drawString("MapaX:"+mapa.getOffX(), 100, 140);
+            g.drawString("MapaY:"+mapa.getOffY(), 100, 160);
 	}
 
 	/**
@@ -93,8 +97,8 @@ public class CoreGame extends BasicGame {
 	 */
 	public void update(GameContainer container, int delta) {
                 mapa.actCamara(delta,player);
-                player.updPosX();
-                player.updPosY();
+                //player.updPosX();
+                //player.updPosY();
                 
                 player.lowerCDs(delta);
 		player.updHitbox();
@@ -107,7 +111,7 @@ public class CoreGame extends BasicGame {
                 }
                 
                 
-                player.calcNuevaPos(delta);
+                player.calcNuevaPos(delta,mapa);
                 if(!mapa.checkColX(player)){
                         player.updPosX();
                         
@@ -149,6 +153,12 @@ public class CoreGame extends BasicGame {
 	public void keyPressed(int key, char c) {
 		if (key == Input.KEY_ESCAPE) {
 			container.exit();
+		}
+                if (key == Input.KEY_J) {
+			mapa.add5OffX();
+		}
+                if (key == Input.KEY_K) {
+			mapa.add5OffY();
 		}
 	}
         /*public  void mouseMove(int button, int x, int y){

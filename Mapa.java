@@ -17,7 +17,7 @@ public class Mapa {
     private final int MSCAMARA=500;
     private TiledMap mapa;
     private int numtilesRenderX,numtilesRenderY;
-    private int offsetX,offsetY,offsetXcam,offsetYcam,tilesdespX,tilesdespY;
+    private int offsetX,offsetY,offsetXcam,offsetYcam/*,tilesdespX,tilesdespY*/;
     private int tamTileX,tamTileY;
     private int contadorCamara=0;
     private int SCREENRESX,SCREENRESY;
@@ -32,8 +32,8 @@ public class Mapa {
         
         numtilesRenderX=(SCREENRESX/mapa.getTileWidth())+3;
         numtilesRenderY=(SCREENRESY/mapa.getTileHeight())+3;
-        tilesdespX=offsetXcam=offsetX=0;
-        tilesdespY=offsetYcam=offsetY=0;
+        /*tilesdespX=*/offsetXcam=offsetX=0;
+        /*tilesdespY=*/offsetYcam=offsetY=0;
         tamTileX=mapa.getTileWidth();
         tamTileY=mapa.getTileHeight();
         
@@ -41,8 +41,20 @@ public class Mapa {
     public TiledMap getTiled(){
         return mapa;
     }
+    public int  getOffX(){
+        return offsetX;
+    }
+    public int  getOffY(){
+        return offsetY;
+    }
+    public void  add5OffX(){
+        offsetX+=5;
+    }
+    public void  add5OffY(){
+        offsetY+=5;
+    }
     public void render(){
-        mapa.render(offsetXcam,offsetYcam,tilesdespX,tilesdespY,numtilesRenderX,numtilesRenderY,false);
+        mapa.render(offsetX,offsetY,0,0,mapa.getWidth(),mapa.getHeight(),false);
         
     }
     public boolean checkColX(Player player){
@@ -68,13 +80,13 @@ public class Mapa {
     private boolean hayMuro(int x, int y){
         try{
             
-            return (mapa.getTileId((x-offsetX)/tamTileX, (y-offsetY)/tamTileY,1)!=0);
+            return (mapa.getTileId((x)/tamTileX, (y)/tamTileY,1)!=0);
             
        }
        catch(Exception e){return false;}
     }
     public void actCamara(int delta,Player player){
-        if(((player.getX()+player.TAMX/2)>(SCREENRESX*0.45))&&((player.getX()+player.TAMX/2)<(SCREENRESX*0.55))&&((player.getY()+player.TAMY/2)>(SCREENRESY*0.45))&&((player.getY()+player.TAMY/2)<(SCREENRESY*0.55))){
+        if(((player.getX()+player.TAMX/2+offsetX)>(SCREENRESX*0.45))&&((player.getX()+player.TAMX/2+offsetX)<(SCREENRESX*0.55))&&((player.getY()+player.TAMY/2+offsetY)>(SCREENRESY*0.45))&&((player.getY()+player.TAMY/2+offsetY)<(SCREENRESY*0.55))){
             if((contadorCamara-delta)<0)
                 contadorCamara=0;
             else
@@ -90,8 +102,8 @@ public class Mapa {
         }
         if(contadorCamara>0){
             double maxDesp=player.getMaxstep(delta)*contadorCamara/MSCAMARA;
-            int difx=(player.getX()+player.TAMX/2)-(SCREENRESX/2);
-            int dify=(player.getY()+player.TAMY/2)-(SCREENRESY/2);
+            int difx=(player.getX()+player.TAMX/2+offsetX)-(SCREENRESX/2);
+            int dify=(player.getY()+player.TAMY/2+offsetY)-(SCREENRESY/2);
             int difcuadrados = (difx*difx)+(dify*dify);
             double dist = Math.sqrt((double)difcuadrados);
             if(dist>(maxDesp)){
@@ -99,13 +111,13 @@ public class Mapa {
 
                 int intincx = (int)Math.round(incx);
                 movAcumx=incx-intincx;
-                player.addX(-intincx);
+                //player.addX(-intincx);
                 offsetX-=intincx;
                 offsetXcam-=intincx;
                 double incy = (dify*maxDesp/dist)+movAcumy;
                 int intincy = (int)Math.round(incy);
                 movAcumy=incy-intincy;
-                player.addY(-intincy);
+                //player.addY(-intincy);
                 offsetY-=intincy;
                 offsetYcam-=intincy;
                 System.out.println("contadorcamara="+contadorCamara+"\t\tmaxDesp="+maxDesp+"\t\tdifx="+difx+"\t\tdify="+dify+"\t\tdist="+dist);
@@ -114,10 +126,10 @@ public class Mapa {
             }
             else{
             
-                player.setX(player.getX()-difx);
+                //player.setX(player.getX()-difx);
                 offsetX+=difx;
 
-                player.setY(player.getY()-dify);
+                //player.setY(player.getY()-dify);
                 offsetY+=dify;
             
                 //atacando=false;
@@ -126,7 +138,7 @@ public class Mapa {
             }
             
         }
-        while(offsetXcam<-tamTileX){
+        /*while(offsetXcam<-tamTileX){
             offsetXcam+=tamTileX;
             tilesdespX++;
             
@@ -143,7 +155,7 @@ public class Mapa {
         while(offsetYcam>0){
             offsetYcam-=tamTileY;
             tilesdespY--;            
-        }
+        }*/
             
     }
     
