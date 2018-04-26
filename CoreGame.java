@@ -1,5 +1,6 @@
-package org.newdawn.slick.tests;
+package org.newdawn.slick.drylands;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
@@ -59,7 +60,7 @@ public class CoreGame extends BasicGame {
 	 */
 	public void render(GameContainer container, Graphics g) {
             mapa.render();
-            if(!player.isDash()){
+            if(/*!player.isDash()*/true){
                 if(player.isCorriendo()){
                     if(player.mirandoD()){
                         player.getAnim("run").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
@@ -97,8 +98,7 @@ public class CoreGame extends BasicGame {
 	 */
 	public void update(GameContainer container, int delta) {
                 mapa.actCamara(delta,player);
-                //player.updPosX();
-                //player.updPosY();
+                
                 
                 player.lowerCDs(delta);
 		player.updHitbox();
@@ -109,7 +109,9 @@ public class CoreGame extends BasicGame {
                 else{
                     player.setIdle();
                 }
-                
+                if(Keyboard.isKeyDown(Input.KEY_Q)){
+                    
+                }
                 
                 player.calcNuevaPos(delta,mapa);
                 if(!mapa.checkColX(player)){

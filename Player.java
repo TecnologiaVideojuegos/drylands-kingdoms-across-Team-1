@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.newdawn.slick.tests;
+package org.newdawn.slick.drylands;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.SpriteSheet;
@@ -174,9 +174,7 @@ public class Player {
         
     }
     
-    public boolean isDash(){
-        return atacando;
-    }
+    
     public void setIdle(){
         corriendo=false;
     }
