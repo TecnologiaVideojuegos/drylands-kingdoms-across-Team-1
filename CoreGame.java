@@ -2,7 +2,6 @@ package org.newdawn.slick.drylands;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -10,7 +9,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 
 
@@ -60,8 +58,18 @@ public class CoreGame extends BasicGame {
 	 */
 	public void render(GameContainer container, Graphics g) {
             mapa.render();
-            if(/*!player.isDash()*/true){
-                if(player.isCorriendo()){
+            if(player.dash.estaActiva()){
+               if(player.mirandoD()){
+                   player.dash.getDAnim().draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
+               }
+               else{
+                   player.dash.getIAnim().draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
+               }
+               
+            }
+            else{
+                
+                 if(player.isCorriendo()){
                     if(player.mirandoD()){
                         player.getAnim("run").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
                     }
@@ -79,14 +87,6 @@ public class CoreGame extends BasicGame {
                     }
                 }
             }
-            else{
-                if(player.mirandoD()){
-                        player.getAnim("jump").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
-                    }
-                    else{
-                        player.getAnim("jumpi").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
-                    }
-            }
             g.drawString("JugX:"+player.getX(), 100, 100);
             g.drawString("JugY:"+player.getY(), 100, 120);
             g.drawString("MapaX:"+mapa.getOffX(), 100, 140);
@@ -101,7 +101,7 @@ public class CoreGame extends BasicGame {
                 
                 
                 player.lowerCDs(delta);
-		player.updHitbox();
+		
                 
                 if(Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)){
                     player.setCorriendo();
@@ -153,15 +153,37 @@ public class CoreGame extends BasicGame {
 	 * @see org.newdawn.slick.BasicGame#keyPressed(int, char)
 	 */
 	public void keyPressed(int key, char c) {
-		if (key == Input.KEY_ESCAPE) {
-			container.exit();
-		}
-                if (key == Input.KEY_J) {
-			mapa.add5OffX();
-		}
-                if (key == Input.KEY_K) {
-			mapa.add5OffY();
-		}
+            System.out.println(player.dash.getCDRestante());
+            if (key == Input.KEY_ESCAPE) {
+                container.exit();
+            }
+            if (key == Input.KEY_Q&&player.dash.getCDRestante()==0) {
+
+                
+                
+                int difx = mapa.getAbsMouseX() - (player.getX() );
+                int dify = mapa.getAbsMouseY() - (player.getY());
+                int difcuadrados = (difx * difx) + (dify * dify);
+                double dist = Math.sqrt((double) difcuadrados);
+                int maxstep=player.dash.getRango();
+                if (dist > (maxstep)) {
+                    double incx = (difx * maxstep / dist);
+
+                    int targetx = (int) Math.round(incx);
+                   
+                    
+                    double incy = (dify * maxstep / dist);
+                    int targety = (int) Math.round(incy);
+                    
+                    player.dash.cast(player.getX()+targetx, player.getY()+targety);
+
+                } else {
+
+                    player.dash.cast(player.getX()+difx, player.getY()+dify);
+                    //System.out.println("Casteado movimiento a ",difx);
+                }
+            }
+                
 	}
         /*public  void mouseMove(int button, int x, int y){
             if(button==Input.MOUSE_LEFT_BUTTON){

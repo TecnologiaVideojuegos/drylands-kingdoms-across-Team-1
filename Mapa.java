@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package org.newdawn.slick.drylands;
+import org.lwjgl.input.Mouse;
     import org.newdawn.slick.tiled.*;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.*;
@@ -22,7 +23,12 @@ public class Mapa {
     private int contadorCamara=0;
     private int SCREENRESX,SCREENRESY;
     private double movAcumx=(double)0.0,movAcumy=(double)0.0;
-    
+    public int getAbsMouseX(){
+        return Mouse.getX()-offsetX;
+    }
+    public int getAbsMouseY(){
+        return SCREENRESY-Mouse.getY()-offsetY;
+    }
     public Mapa(String ruta,String dependencias,int SCREENRESX,int SCREENRESY) throws SlickException{
         
         mapa = new TiledMap(ruta,dependencias);
@@ -47,12 +53,7 @@ public class Mapa {
     public int  getOffY(){
         return offsetY;
     }
-    public void  add5OffX(){
-        offsetX+=5;
-    }
-    public void  add5OffY(){
-        offsetY+=5;
-    }
+    
     public void render(){
         mapa.render(offsetX,offsetY,0,0,mapa.getWidth(),mapa.getHeight(),false);
         

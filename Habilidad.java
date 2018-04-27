@@ -5,13 +5,25 @@
  */
 package org.newdawn.slick.drylands;
 
+import org.newdawn.slick.Animation;
+
 /**
  *
  * @author FairLight
  */
 public abstract class Habilidad {
+    protected boolean activa;
     private final String nombre;
-    private int cdmax,cdrestante;
+    protected int cdmax,cdrestante;
+    Animation der,izq;
+
+    public Animation getDAnim() {
+        return der;
+    }
+
+    public Animation getIAnim() {
+        return izq;
+    }
     
     public Habilidad(String nombre,int cdmax){
         this.nombre=nombre;
@@ -23,5 +35,21 @@ public abstract class Habilidad {
         else
             cdrestante=0;
     }
-    
+    public String getNombre(){
+        return nombre;
+    }
+    public abstract void calcNuevaPos(Player player,int delta);
+    //public abstract void cast();
+    public void terminar(){
+        activa=false;
+        cdrestante=cdmax;
+        
+    }
+    public boolean estaActiva(){
+        return activa;
+    }
+    public int getCDRestante(){
+       return cdrestante;
+    }
 }
+
