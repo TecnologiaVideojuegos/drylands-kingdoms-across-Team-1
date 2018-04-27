@@ -676,13 +676,14 @@ public class Estado_opciones extends BasicGameState {
      * 
      */
     public void cargarDatos() {
-        brillo = (int) save.getNumber("brillo");
-        zoom = (int) save.getNumber("zoom");
-        dificultad = (int) save.getNumber("dificultad");
-        volumen = (int) save.getNumber("volumen");
-        musica= parseBoolean(save.getString("musica"));
-        sonido= parseBoolean(save.getString("sonido"));
-        letras=save.getString("letras").split("-");
+        brillo = (int) save.getNumber("brillo",50);
+        zoom = (int) save.getNumber("zoom",0);
+        dificultad = (int) save.getNumber("dificultad",2);
+        volumen = (int) save.getNumber("volumen",100);
+        musica= parseBoolean(save.getString("musica","true"));
+        System.out.println("letras"+letras_guardado);
+        sonido= parseBoolean(save.getString("sonido","true"));
+        letras=save.getString("letras","w-a-s-d-q-e-f").split("-");
 
     }
 }
