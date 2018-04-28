@@ -12,50 +12,55 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.geom.Rectangle;
 //import java.math.*;
+
 /**
  *
  * @author FairLight
  */
 public class Player {
-    
-    private boolean corriendo,mirandoD;
+
+    private boolean corriendo, mirandoD;
     private SpriteSheet sprites;
-    private Animation noanim,idle,run,jump, idlei,runi,jumpi;
-    private int posx,posy,newx,newy;
-    public final int TAMX=48,TAMY=72,ALTURACOLLIDER=48,MSCDDASH=300,SCREENRESX,SCREENRESY;
-    public final float VELOCIDAD=(float)0.3;
-    
-    private double movAcumx=(double)0.0,movAcumy=(double)0.0;
-    
-    
+    private Animation noanim, idle, run, jump, idlei, runi, jumpi;
+    private int posx, posy, newx, newy;
+    public final int TAMX = 48, TAMY = 72, ALTURACOLLIDER = 48, MSCDDASH = 300, SCREENRESX, SCREENRESY;
+    public final float VELOCIDAD = (float) 0.3;
+
+    private double movAcumx = (double) 0.0, movAcumy = (double) 0.0;
+
     public Dash dash;
-    
-    
 
     public int getX() {
         return posx;
     }
+
     public int getnewX() {
         return newx;
     }
+
     public int getnewY() {
         return newy;
     }
-    public boolean mirandoD(){
+
+    public boolean mirandoD() {
         return mirandoD;
     }
+
     public void setX(int posx) {
         this.posx = posx;
     }
-    public void addX(int incx){
-        
-        this.newx = posx+incx;
-        
+
+    public void addX(int incx) {
+
+        this.newx = posx + incx;
+
     }
-    public void addY(int incy){
-        this.newy = posy+incy;
-        
+
+    public void addY(int incy) {
+        this.newy = posy + incy;
+
     }
+
     public int getY() {
         return posy;
     }
@@ -63,178 +68,176 @@ public class Player {
     public void setY(int posy) {
         this.posy = posy;
     }
-    
-    public Player(String rutasprites,int resx, int resy){
-    try{    
-        sprites = new SpriteSheet(rutasprites,TAMX,TAMY);
-        noanim=new Animation();
-        noanim.addFrame(sprites.getSprite(0,0), 150);
-        
-        idle=new Animation();
+
+    public Player(SpriteSheet sprites, int resx, int resy) {
+
+        this.sprites = sprites;
+        noanim = new Animation();
+        noanim.addFrame(sprites.getSprite(0, 0), 150);
+
+        idle = new Animation();
         for (int i = 0; i < 4; i++) {
-            idle.addFrame(sprites.getSprite(i,1), 150);
+            idle.addFrame(sprites.getSprite(i, 1), 150);
         }
-        
-        run=new Animation();
+
+        run = new Animation();
         for (int i = 0; i < 4; i++) {
-            run.addFrame(sprites.getSprite(i,2), 150);
+            run.addFrame(sprites.getSprite(i, 2), 120);
         }
-        jump=new Animation();
+        jump = new Animation();
         for (int i = 0; i < 7; i++) {
-            jump.addFrame(sprites.getSprite(i,3), 150);
+            jump.addFrame(sprites.getSprite(i, 3), 120);
         }
-        
-        idlei=new Animation();
+
+        idlei = new Animation();
         for (int i = 0; i < 4; i++) {
-            idlei.addFrame(sprites.getSprite(i,1).getFlippedCopy(true, false), 150);
+            idlei.addFrame(sprites.getSprite(i, 1).getFlippedCopy(true, false), 150);
         }
-        
-        runi=new Animation();
+
+        runi = new Animation();
         for (int i = 0; i < 4; i++) {
-            runi.addFrame(sprites.getSprite(i,2).getFlippedCopy(true, false), 150);
+            runi.addFrame(sprites.getSprite(i, 2).getFlippedCopy(true, false), 120);
         }
-        jumpi=new Animation();
+        jumpi = new Animation();
         for (int i = 0; i < 7; i++) {
-            jumpi.addFrame(sprites.getSprite(i,3).getFlippedCopy(true, false), 150);
+            jumpi.addFrame(sprites.getSprite(i, 3).getFlippedCopy(true, false), 120);
         }
-        
-    }
-    catch(SlickException e){System.out.print(e);}
+
         corriendo = false;
-        
-        mirandoD=true;
-        SCREENRESX=resx;
-        SCREENRESY=resy;
-        newx=posx=resx/2-TAMX/2;
-        newy=posy=resy/2-TAMY/2;
-        System.out.println("posx="+posx+",posy="+posy);
+
+        mirandoD = true;
+        SCREENRESX = resx;
+        SCREENRESY = resy;
+        newx = posx = resx / 2 - TAMX / 2;
+        newy = posy = resy / 2 - TAMY / 2;
+        System.out.println("posx=" + posx + ",posy=" + posy);
         //hitbox=new Rectangle(posx,posy,TAMX,TAMY);
-        dash=new Dash(1000,sprites);
-    
+        dash = new Dash(1000, sprites);
+
     }
-    public boolean isCorriendo(){
+
+    public boolean isCorriendo() {
         return corriendo;
     }
-    
-    public Animation getAnim(String nombre){
-        switch(nombre){
+
+    public Animation getAnim(String nombre) {
+        switch (nombre) {
             case "noanim":
                 return noanim;
-                
+
             case "idle":
                 return idle;
-                
+
             case "run":
                 return run;
-                
+
             case "jump":
                 return jump;
-                
+
             case "idlei":
                 return idlei;
-                
+
             case "runi":
                 return runi;
-                
+
             case "jumpi":
                 return jumpi;
-                
+
             default:
                 return noanim;
-                
-        
-               
+
         }
-        
+
     }
-    public void setCorriendo(){
-        corriendo=true;
+
+    public void setCorriendo() {
+        corriendo = true;
     }
-   
-    
-    
-    public void setIdle(){
-        corriendo=false;
+
+    public void setIdle() {
+        corriendo = false;
     }
-    public double getMaxstep(int delta){
-                
-            return VELOCIDAD*delta;
-        
+
+    public double getMaxstep(int delta) {
+
+        return VELOCIDAD * delta;
+
     }
-    public void setNewPosVector(int ax,int ay,double maxstep){
-            int difx=ax-(this.posx+(TAMX/2));
-            int dify=ay-(this.posy+(TAMY/2));
-            int difcuadrados = (difx*difx)+(dify*dify);
-            double dist = Math.sqrt((double)difcuadrados);
-            if((difx>0)){
-                mirandoD=true;
-            }
-            if((difx<0)){
-                mirandoD=false;
-            }
-            if(dist>(maxstep)){
-                double incx = (difx*maxstep/dist)+movAcumx;
-                
-                int intincx = (int)Math.round(incx);
-                movAcumx=incx-intincx;
-                this.newx+=intincx;
-                double incy = (dify*maxstep/dist)+movAcumy;
-                int intincy = (int)Math.round(incy);
-                movAcumy=incy-intincy;
-                this.newy+=intincy;
-                
-            }
-            else{
-                
-                this.newx+=difx;
-                this.newy+=dify;
-               
-            }
-        
+
+    public void setNewPosVector(int ax, int ay, double maxstep) {
+        int difx = ax - (this.posx + (TAMX / 2));
+        int dify = ay - (this.posy + (TAMY / 2));
+        int difcuadrados = (difx * difx) + (dify * dify);
+        double dist = Math.sqrt((double) difcuadrados);
+        if ((difx > 0)) {
+            mirandoD = true;
+        }
+        if ((difx < 0)) {
+            mirandoD = false;
+        }
+        if (dist > (maxstep)) {
+            double incx = (difx * maxstep / dist) + movAcumx;
+
+            int intincx = (int) Math.round(incx);
+            movAcumx = incx - intincx;
+            this.newx += intincx;
+            double incy = (dify * maxstep / dist) + movAcumy;
+            int intincy = (int) Math.round(incy);
+            movAcumy = incy - intincy;
+            this.newy += intincy;
+
+        } else {
+
+            this.newx += difx;
+            this.newy += dify;
+
+        }
+
     }
-    public void calcNuevaPos(/*int ax, int ay, a*/int delta,Mapa mapa){
-        if(dash.activa){
+
+    public void calcNuevaPos(/*int ax, int ay, a*/int delta, Mapa mapa) {
+        if (dash.activa) {
             dash.calcNuevaPos(this, delta);
-        }
-        else if(!this.tocaRaton(Mouse.getX()-mapa.getOffX(),SCREENRESY-Mouse.getY()-mapa.getOffY())&&this.isCorriendo()){
-            
-            int ax=mapa.getAbsMouseX();
-            int ay=mapa.getAbsMouseY();
-            
+        } else if (!this.tocaRaton(Mouse.getX() - mapa.getOffX(), SCREENRESY - Mouse.getY() - mapa.getOffY()) && this.isCorriendo()) {
+
+            int ax = mapa.getAbsMouseX();
+            int ay = mapa.getAbsMouseY();
+
             double maxstep = getMaxstep(delta);
             this.setNewPosVector(ax, ay, maxstep);
         }
-        
-        
+
     }
-    public void updPosX(){
-        
-        posx=newx;
+
+    public void updPosX() {
+
+        posx = newx;
     }
-    public void updPosY(){
-        posy=newy;
-        
+
+    public void updPosY() {
+        posy = newy;
+
     }
-    public void resetX(){
-        newx=posx;
-        movAcumx=0;
+
+    public void resetX() {
+        newx = posx;
+        movAcumx = 0;
         /*atacando=false;*/
     }
-    public void resetY(){
-        newy=posy;
-        movAcumy=0;
+
+    public void resetY() {
+        newy = posy;
+        movAcumy = 0;
         /*atacando=false;*/
     }
-    
-    
-    
-    public boolean tocaRaton(int rx,int ry){
-        
-        return (rx>=posx)&&(rx<=(posx+TAMX))&&(ry>=posy)&&(ry<=(posy+TAMY));
+
+    public boolean tocaRaton(int rx, int ry) {
+
+        return (rx >= posx) && (rx <= (posx + TAMX)) && (ry >= posy) && (ry <= (posy + TAMY));
     }
-    public void lowerCDs(int delta){
+
+    public void lowerCDs(int delta) {
         dash.lowerCD(delta);
     }
-    
-    
+
 }

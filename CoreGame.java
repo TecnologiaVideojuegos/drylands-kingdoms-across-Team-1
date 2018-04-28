@@ -9,6 +9,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import java.util.ArrayList;
+import org.newdawn.slick.SpriteSheet;
 
 
 
@@ -26,9 +28,11 @@ public class CoreGame extends BasicGame {
         private static final int SCREENRESX=1700, SCREENRESY=1000, maxFPS=60;
         private static final boolean FULLSCREEN = false,VSYNC=true;
         private Player player;
+        private ArrayList<Enemigo> enemigos;
         //private double avance;
         private Mapa mapa; 
-        
+        private SpriteSheet sprites;
+        private final int TAMX=48,TAMY=72;
         
         
         
@@ -40,15 +44,20 @@ public class CoreGame extends BasicGame {
                 container.setTargetFrameRate(maxFPS);
                 container.setVSync(VSYNC);
                 container.setSmoothDeltas(true);
+                try{
+                    sprites=new SpriteSheet("testdata/testsprites.png",TAMX,TAMY);
+                }
+                catch(SlickException e){}
                 
                 //container.setMouseCursor("C:\\Users\\FairLight\\slick\\testdata\\cursor2.tga", 0, 0);
                 
-		player = new Player("testdata/testsprites.png",SCREENRESX,SCREENRESY);
+		player = new Player(sprites,SCREENRESX,SCREENRESY);
                 
                 container.getGraphics().setBackground(new Color(0.4f,0.6f,0.6f));
                 
                 mapa = new Mapa("C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros\\salida.tmx","C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros",SCREENRESX,SCREENRESY);
                 
+                enemigos = new ArrayList<Enemigo>();
                 
                
         }
@@ -86,6 +95,9 @@ public class CoreGame extends BasicGame {
                         player.getAnim("idlei").draw(player.getX()+mapa.getOffX(),player.getY()+mapa.getOffY());
                     }
                 }
+            }
+            for(Enemigo enemigo : enemigos){
+                enemigo.getAnim("run").draw(enemigo.getX()+mapa.getOffX(),enemigo.getY()+mapa.getOffY());
             }
             g.drawString("JugX:"+player.getX(), 100, 100);
             g.drawString("JugY:"+player.getY(), 100, 120);
@@ -157,7 +169,7 @@ public class CoreGame extends BasicGame {
             if (key == Input.KEY_ESCAPE) {
                 container.exit();
             }
-            if (key == Input.KEY_Q&&player.dash.getCDRestante()==0) {
+            else if (key == Input.KEY_Q&&player.dash.getCDRestante()==0) {
 
                 
                 
@@ -182,6 +194,9 @@ public class CoreGame extends BasicGame {
                     player.dash.cast(player.getX()+difx, player.getY()+dify);
                     //System.out.println("Casteado movimiento a ",difx);
                 }
+            }
+            else if(key == Input.KEY_P){
+                enemigos.add(new Enemigo(mapa.getAbsMouseX(),mapa.getAbsMouseY(),1,(double)0.3,sprites));
             }
                 
 	}
