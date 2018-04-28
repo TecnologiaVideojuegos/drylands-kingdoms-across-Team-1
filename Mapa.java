@@ -29,6 +29,7 @@ public class Mapa {
     public int getAbsMouseY(){
         return SCREENRESY-Mouse.getY()-offsetY;
     }
+    
     public Mapa(String ruta,String dependencias,int SCREENRESX,int SCREENRESY) throws SlickException{
         
         mapa = new TiledMap(ruta,dependencias);

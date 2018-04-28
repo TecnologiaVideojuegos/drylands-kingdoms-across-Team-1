@@ -32,9 +32,9 @@ public class Dash extends Habilidad{
         msAcum=0;
     }
     @Override
-    public void calcNuevaPos(Player player,int delta){
+    public void calcNuevaPos(Personaje pj,int delta){
         if(this.activa){
-            player.setNewPosVector(targetX, targetY, rango*delta/MSDURACIONDASH);
+            pj.setNewPosVector(targetX, targetY, rango*delta/MSDURACIONDASH);
             msAcum+=delta;
             if(msAcum>=MSDURACIONDASH){
                 terminar();

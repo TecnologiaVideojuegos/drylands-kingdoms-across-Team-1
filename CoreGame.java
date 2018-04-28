@@ -51,7 +51,7 @@ public class CoreGame extends BasicGame {
                 
                 //container.setMouseCursor("C:\\Users\\FairLight\\slick\\testdata\\cursor2.tga", 0, 0);
                 
-		player = new Player(sprites,SCREENRESX,SCREENRESY);
+		player = new Player(sprites);
                 
                 container.getGraphics().setBackground(new Color(0.4f,0.6f,0.6f));
                 

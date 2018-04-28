@@ -38,7 +38,7 @@ public abstract class Habilidad {
     public String getNombre(){
         return nombre;
     }
-    public abstract void calcNuevaPos(Player player,int delta);
+    public abstract void calcNuevaPos(Personaje pj,int delta);
     //public abstract void cast();
     public void terminar(){
         activa=false;
