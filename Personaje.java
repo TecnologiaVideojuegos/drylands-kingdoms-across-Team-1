@@ -114,9 +114,7 @@ public class  Personaje {
     public boolean mirandoD() {
         return mirandoD;
     }
-    public void setX(int posx) {
-        this.posx = posx;
-    }
+    
 
     public void addX(int incx) {
 
@@ -133,9 +131,7 @@ public class  Personaje {
         return posy;
     }
 
-    public void setY(int posy) {
-        this.posy = posy;
-    }
+    
     public void updPosX() {
 
         posx = newx;
@@ -180,16 +176,16 @@ public class  Personaje {
 
             int intincx = (int) Math.round(incx);
             movAcumx = incx - intincx;
-            this.newx += intincx;
+            addX(intincx);
             double incy = (dify * maxstep / dist) + movAcumy;
             int intincy = (int) Math.round(incy);
             movAcumy = incy - intincy;
-            this.newy += intincy;
+            addY(intincy);
 
         } else {
 
-            this.newx += difx;
-            this.newy += dify;
+            addX(difx);
+            addY(dify);
 
         }
 
