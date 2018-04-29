@@ -48,7 +48,7 @@ public class CoreGame extends BasicGame {
                     sprites=new SpriteSheet("testdata/testsprites.png",TAMX,TAMY);
                 }
                 catch(SlickException e){}
-                
+
                 //container.setMouseCursor("C:\\Users\\FairLight\\slick\\testdata\\cursor2.tga", 0, 0);
                 
 		player = new Player(sprites);
@@ -173,8 +173,8 @@ public class CoreGame extends BasicGame {
 
                 
                 
-                int difx = mapa.getAbsMouseX() - (player.getX() );
-                int dify = mapa.getAbsMouseY() - (player.getY());
+                int difx = mapa.getAbsMouseX() - (player.getX()+player.TAMX/2);
+                int dify = mapa.getAbsMouseY() - (player.getY()+player.TAMY/2);
                 int difcuadrados = (difx * difx) + (dify * dify);
                 double dist = Math.sqrt((double) difcuadrados);
                 int maxstep=player.dash.getRango();
@@ -187,11 +187,11 @@ public class CoreGame extends BasicGame {
                     double incy = (dify * maxstep / dist);
                     int targety = (int) Math.round(incy);
                     
-                    player.dash.cast(player.getX()+targetx, player.getY()+targety);
+                    player.dash.cast(player,player.getX()+player.TAMX/2+targetx, player.getY()+player.TAMY/2+targety);
 
                 } else {
 
-                    player.dash.cast(player.getX()+difx, player.getY()+dify);
+                    player.dash.cast(player,player.getX()+player.TAMX/2+difx, player.getY()+player.TAMY/2+dify);
                     //System.out.println("Casteado movimiento a ",difx);
                 }
             }

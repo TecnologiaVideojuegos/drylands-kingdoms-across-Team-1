@@ -42,8 +42,10 @@ public abstract class Habilidad {
     //public abstract void cast();
     public void terminar(){
         activa=false;
+
+    }
+    public void contarCD(){
         cdrestante=cdmax;
-        
     }
     public boolean estaActiva(){
         return activa;

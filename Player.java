@@ -26,26 +26,12 @@ public class Player extends Personaje{
     
     private boolean retroceso;
     private int msRetroceso,msRecuperacion;
-
-    
-
     public Dash dash;
-
-    
-
-    
-
     public Player(SpriteSheet sprites) {
 
-        
         super(48,72,48,0.3,sprites,1000,500,10);
 
-        
-        
-        
-        
-        
-        dash = new Dash(1000, sprites);
+        dash = new Dash(1.2,1000, sprites);
 
     }
 
@@ -86,6 +72,21 @@ public class Player extends Personaje{
 
     public void lowerCDs(int delta) {
         dash.lowerCD(delta);
+    }
+
+    @Override
+    public void resetX() {
+        newx = posx;
+        movAcumx = 0;
+        this.dash.terminar();
+        this.dash.contarCD();
+    }
+    @Override
+    public void resetY() {
+        newy = posy;
+        movAcumy = 0;
+        this.dash.terminar();
+        this.dash.contarCD();
     }
 
 }
