@@ -22,7 +22,7 @@ public class Mapa {
     private int tamTileX,tamTileY;
     private int contadorCamara=0;
     private int SCREENRESX,SCREENRESY;
-    private final double PORCENTAJEX=0.5,PORCENTAJEY=0.5;
+    private final double PORCENTAJEX=0.05,PORCENTAJEY=0.05;
     private double movAcumx=(double)0.0,movAcumy=(double)0.0;
     public int getAbsMouseX(){
         return Mouse.getX()-offsetX;

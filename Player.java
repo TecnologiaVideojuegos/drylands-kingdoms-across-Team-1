@@ -19,13 +19,13 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public class Player extends Personaje{
 
-    
-    
-    
-    
-    
+
+
+
     private boolean retroceso;
-    private int msRetroceso,msRecuperacion;
+    private int msRetrocesoMax=350,msRetroceso;
+    private int retrocesoX,retrocesoY;
+
     public Dash dash;
     public Player(SpriteSheet sprites) {
 
@@ -50,7 +50,17 @@ public class Player extends Personaje{
     
 
     public void calcNuevaPos(/*int ax, int ay, a*/int delta, Mapa mapa) {
-        if (dash.activa) {
+        if(retroceso){
+
+            msRetroceso-=delta;
+            if(msRetroceso<=0){
+                retroceso=false;
+            }
+            else{
+                this.setNewPosVector(retrocesoX,retrocesoY,msRetroceso/75);
+            }
+        }
+        else if (dash.activa) {
             dash.calcNuevaPos(this, delta);
         } else if (!this.tocaRaton(mapa.getAbsMouseX(), mapa.getAbsMouseY()) && this.isCorriendo()) {
 
@@ -89,4 +99,16 @@ public class Player extends Personaje{
         this.dash.contarCD();
     }
 
+    public void retroceder(int distancia) {
+        retroceso=true;
+        msRetroceso=msRetrocesoMax;
+        retrocesoX=posx+100*(posx-newx);
+        retrocesoY=posy+100*(posy-newy);
+    }
+    public boolean retrocediendo() {
+        return retroceso;
+    }
+    public boolean atacando(){
+        return dash.activa;
+    }
 }

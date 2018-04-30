@@ -7,12 +7,17 @@ package org.newdawn.slick.drylands;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Shape;
 
 /**
  *
  * @author FairLight
  */
 public class  Personaje {
+
+
     protected int vida;
     public final int TAMX , TAMY , ALTURACOLLIDER ;
     protected boolean corriendo, mirandoD;
@@ -21,13 +26,19 @@ public class  Personaje {
     protected int posx, posy, newx, newy;
     protected final double VELOCIDAD;
     protected double movAcumx = (double) 0.0, movAcumy = (double) 0.0;
+
+
+
+    protected Rectangle hitbox;
     
     public Personaje(int tx,int ty,int altcollider, double vel, SpriteSheet sprs,int px, int py,int vida){
         
         TAMX=tx;
         TAMY=ty;
         ALTURACOLLIDER=altcollider;
-        
+        this.vida=vida;
+        hitbox=new Rectangle(px,py,tx,ty);
+
         VELOCIDAD=vel;
         sprites=sprs;
         
@@ -69,6 +80,20 @@ public class  Personaje {
     }
     public boolean isCorriendo() {
         return corriendo;
+    }
+    public void actHitbox(){
+        hitbox.setX(posx);
+        hitbox.setY(posy);
+    }
+    public boolean collidesCon(Shape forma){
+        return hitbox.intersects(forma);
+    }
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+    public void dmg(int puntos){
+        vida-=puntos;
+        System.out.println("Lequedan"+vida);
     }
     public Animation getAnim(String nombre) {
         switch (nombre) {
@@ -141,7 +166,9 @@ public class  Personaje {
         posy = newy;
 
     }
-
+    public int getVida() {
+        return vida;
+    }
     public void resetX() {
         newx = posx;
         movAcumx = 0;
