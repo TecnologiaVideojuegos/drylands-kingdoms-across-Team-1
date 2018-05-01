@@ -22,16 +22,16 @@ public class  Personaje {
     public final int TAMX , TAMY , ALTURACOLLIDER ;
     protected boolean corriendo, mirandoD;
     protected SpriteSheet sprites;
-    protected Animation noanim, idle, run, jump, idlei, runi, jumpi;
-    protected int posx, posy, newx, newy;
-    protected final double VELOCIDAD;
-    protected double movAcumx = (double) 0.0, movAcumy = (double) 0.0;
+    protected Animation noanim, idle, run, jump, idlei, runi, jumpi,muerto, muertoi;
+    protected float posx, posy, newx, newy;
+    protected final float VELOCIDAD;
+
 
 
 
     protected Rectangle hitbox;
     
-    public Personaje(int tx,int ty,int altcollider, double vel, SpriteSheet sprs,int px, int py,int vida){
+    public Personaje(int tx,int ty,int altcollider, float vel, SpriteSheet sprs,int px, int py,int vida){
         
         TAMX=tx;
         TAMY=ty;
@@ -72,6 +72,16 @@ public class  Personaje {
         for (int i = 0; i < 7; i++) {
             jumpi.addFrame(sprites.getSprite(i, 3).getFlippedCopy(true, false), 120);
         }
+        muerto = new Animation();
+        for (int i = 0; i < 7; i++) {
+            muerto.addFrame(sprites.getSprite(i, 4), 80);
+        }
+        muerto.stopAt(6);
+        muertoi = new Animation();
+        for (int i = 0; i < 7; i++) {
+            muertoi.addFrame(sprites.getSprite(i, 4).getFlippedCopy(true, false), 80);
+        }
+        muertoi.stopAt(6);
         corriendo = false;
 
         mirandoD = true;
@@ -101,13 +111,22 @@ public class  Personaje {
                 return noanim;
 
             case "idle":
-                return idle;
+                if(mirandoD)
+                    return idle;
+                else
+                    return idlei;
 
             case "run":
-                return run;
+                if(mirandoD)
+                    return run;
+                else
+                    return runi;
 
             case "jump":
-                return jump;
+                if(mirandoD)
+                    return jump;
+                else
+                    return jumpi;
 
             case "idlei":
                 return idlei;
@@ -117,6 +136,13 @@ public class  Personaje {
 
             case "jumpi":
                 return jumpi;
+            case "muerto":
+                if(mirandoD)
+                    return muerto;
+                else
+                    return muertoi;
+            case "muertoi":
+                return muertoi;
 
             default:
                 return noanim;
@@ -124,15 +150,16 @@ public class  Personaje {
         }
 
     }
-    public int getX() {
+
+    public float getX() {
         return posx;
     }
 
-    public int getnewX() {
+    public float getnewX() {
         return newx;
     }
 
-    public int getnewY() {
+    public float getnewY() {
         return newy;
     }
 
@@ -141,18 +168,18 @@ public class  Personaje {
     }
     
 
-    public void addX(int incx) {
+    public void addX(float incx) {
 
         this.newx = posx + incx;
 
     }
 
-    public void addY(int incy) {
+    public void addY(float incy) {
         this.newy = posy + incy;
 
     }
 
-    public int getY() {
+    public float getY() {
         return posy;
     }
 
@@ -171,27 +198,27 @@ public class  Personaje {
     }
     public void resetX() {
         newx = posx;
-        movAcumx = 0;
-        /*atacando=false;*/
+
+
     }
 
     public void resetY() {
         newy = posy;
-        movAcumy = 0;
-        /*atacando=false;*/
+
+
     }
     
-    public double getMaxstep(int delta) {
+    public float getMaxstep(int delta) {
 
         return VELOCIDAD * delta;
 
     }
 
-    public void setNewPosVector(int ax, int ay, double maxstep) {
-        int difx = ax - (this.posx + (TAMX / 2));
-        int dify = ay - (this.posy + (TAMY / 2));
-        int difcuadrados = (difx * difx) + (dify * dify);
-        double dist = Math.sqrt((double) difcuadrados);
+    public void setNewPosVector(float ax, float ay, float maxstep) {
+        float difx = ax - (this.posx + (TAMX / 2));
+        float dify = ay - (this.posy + (TAMY / 2));
+        float difcuadrados = (difx * difx) + (dify * dify);
+        float dist = (float)Math.sqrt( difcuadrados);
         if ((difx > 0)) {
             mirandoD = true;
         }
@@ -199,15 +226,14 @@ public class  Personaje {
             mirandoD = false;
         }
         if (dist > (maxstep)) {
-            double incx = (difx * maxstep / dist) + movAcumx;
+            float incx = (difx * maxstep / dist);
 
-            int intincx = (int) Math.round(incx);
-            movAcumx = incx - intincx;
-            addX(intincx);
-            double incy = (dify * maxstep / dist) + movAcumy;
-            int intincy = (int) Math.round(incy);
-            movAcumy = incy - intincy;
-            addY(intincy);
+
+
+            addX(incx);
+            float incy = (dify * maxstep / dist);
+
+            addY(incy);
 
         } else {
 

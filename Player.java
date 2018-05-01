@@ -24,14 +24,14 @@ public class Player extends Personaje{
 
     private boolean retroceso;
     private int msRetrocesoMax=350,msRetroceso;
-    private int retrocesoX,retrocesoY;
+    private float retrocesoX,retrocesoY;
 
     public Dash dash;
     public Player(SpriteSheet sprites) {
 
-        super(48,72,48,0.3,sprites,1000,500,10);
+        super(48,72,48,(float)0.3,sprites,1000,500,10);
 
-        dash = new Dash(1.2,1000, sprites);
+        dash = new Dash((float)1.2,1000, sprites);
 
     }
 
@@ -64,10 +64,10 @@ public class Player extends Personaje{
             dash.calcNuevaPos(this, delta);
         } else if (!this.tocaRaton(mapa.getAbsMouseX(), mapa.getAbsMouseY()) && this.isCorriendo()) {
 
-            int ax = mapa.getAbsMouseX();
-            int ay = mapa.getAbsMouseY();
+            float ax = mapa.getAbsMouseX();
+            float ay = mapa.getAbsMouseY();
 
-            double maxstep = getMaxstep(delta);
+            float maxstep = getMaxstep(delta);
             this.setNewPosVector(ax, ay, maxstep);
         }
 
@@ -75,7 +75,7 @@ public class Player extends Personaje{
 
     
 
-    public boolean tocaRaton(int rx, int ry) {
+    public boolean tocaRaton(float rx, float ry) {
 
         return (rx >= posx) && (rx <= (posx + TAMX)) && (ry >= posy) && (ry <= (posy + TAMY));
     }
@@ -87,14 +87,14 @@ public class Player extends Personaje{
     @Override
     public void resetX() {
         newx = posx;
-        movAcumx = 0;
+
         this.dash.terminar();
         this.dash.contarCD();
     }
     @Override
     public void resetY() {
         newy = posy;
-        movAcumy = 0;
+
         this.dash.terminar();
         this.dash.contarCD();
     }
@@ -110,5 +110,27 @@ public class Player extends Personaje{
     }
     public boolean atacando(){
         return dash.activa;
+    }
+    public Animation getAnim(){
+        if(this.atacando()){
+            if(dash.activa){
+                if(mirandoD)
+                    return dash.getDAnim();
+                else
+                    return dash.getIAnim();
+            }
+        }
+        else{
+            if(corriendo){
+                if (mirandoD) return run;
+                else return runi;
+            }
+            else{
+                if (mirandoD) return idle;
+                else return idlei;
+            }
+        }
+        return noanim;
+
     }
 }

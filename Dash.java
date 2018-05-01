@@ -12,14 +12,14 @@ import org.newdawn.slick.SpriteSheet;
  * @author FairLight
  */
 public class Dash extends Habilidad{
-    private int targetX,targetY,decelX,decelY;
-    private double  velocidadDash;
+    private float targetX,targetY,decelX,decelY;
+    private float  velocidadDash;
     private int rango;
     private int contadorMs;
     private int msAcel=125,msDecel=250;
     
     
-    public Dash(double vel,int cd,SpriteSheet sprites){
+    public Dash(float vel,int cd,SpriteSheet sprites){
         super("Dash",cd);
         der=new Animation();
         izq=new Animation();
@@ -67,7 +67,7 @@ public class Dash extends Habilidad{
     }
     
     
-    public void cast(Personaje pj,int targetX,int targetY){
+    public void cast(Personaje pj,float targetX,float targetY){
         
         this.targetX=targetX;
         this.targetY=targetY;

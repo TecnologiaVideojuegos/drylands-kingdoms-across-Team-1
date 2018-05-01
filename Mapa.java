@@ -17,19 +17,21 @@ import org.newdawn.slick.geom.*;
 public class Mapa {
     private final int MSCAMARA=500;
     private TiledMap mapa;
-    private int numtilesRenderX,numtilesRenderY;
-    private int offsetX,offsetY,offsetXcam,offsetYcam/*,tilesdespX,tilesdespY*/;
+
+    private float offsetX,offsetY;
     private int tamTileX,tamTileY;
     private int contadorCamara=0;
     private int SCREENRESX,SCREENRESY;
     private final double PORCENTAJEX=0.05,PORCENTAJEY=0.05;
-    private double movAcumx=(double)0.0,movAcumy=(double)0.0;
-    public int getAbsMouseX(){
+
+    public float getAbsMouseX(){
         return Mouse.getX()-offsetX;
     }
-    public int getAbsMouseY(){
+    public float getAbsMouseY(){
         return SCREENRESY-Mouse.getY()-offsetY;
     }
+    private float centroSalaX,centroSalaY;
+
     
     public Mapa(String ruta,String dependencias,int SCREENRESX,int SCREENRESY) throws SlickException{
         
@@ -38,26 +40,28 @@ public class Mapa {
         this.SCREENRESX=SCREENRESX;
         this.SCREENRESY=SCREENRESY;
         
-        numtilesRenderX=(SCREENRESX/mapa.getTileWidth())+3;
-        numtilesRenderY=(SCREENRESY/mapa.getTileHeight())+3;
-        /*tilesdespX=*/offsetXcam=offsetX=0;
-        /*tilesdespY=*/offsetYcam=offsetY=0;
+        /*numtilesRenderX=(SCREENRESX/mapa.getTileWidth())+3;
+        numtilesRenderY=(SCREENRESY/mapa.getTileHeight())+3;*/
+        offsetX=0;
+        offsetY=0;
         tamTileX=mapa.getTileWidth();
         tamTileY=mapa.getTileHeight();
+        centroSalaX=centroSalaY=0;
         
     }
     public TiledMap getTiled(){
         return mapa;
     }
-    public int  getOffX(){
+    public float  getOffX(){
         return offsetX;
     }
-    public int  getOffY(){
+    public float  getOffY(){
         return offsetY;
     }
     
     public void render(){
-        mapa.render(offsetX,offsetY,0,0,mapa.getWidth(),mapa.getHeight(),false);
+        mapa.render(Math.round(offsetX),Math.round(offsetY),0,0,mapa.getWidth(),mapa.getHeight(),false);
+
         
     }
     public boolean checkColX(Player player){
@@ -80,88 +84,134 @@ public class Mapa {
         
         return colUpDer||colUpIz||colDownDer||colDownIz;
     }
-    private boolean hayMuro(int x, int y){
+    private boolean hayMuro(float x, float y){
         try{
             
-            return (mapa.getTileId((x)/tamTileX, (y)/tamTileY,1)!=0);
+            return (mapa.getTileId((Math.round(x))/tamTileX, (Math.round(y))/tamTileY,2)!=0);
             
        }
        catch(Exception e){return false;}
     }
-    public void actCamara(int delta,Player player){
-        if(((player.getX()+player.TAMX/2+offsetX)>(SCREENRESX*(0.5-PORCENTAJEX)))&&((player.getX()+player.TAMX/2+offsetX)<(SCREENRESX*(0.5+PORCENTAJEX)))&&((player.getY()+player.TAMY/2+offsetY)>(SCREENRESY*(0.5-PORCENTAJEY)))&&((player.getY()+player.TAMY/2+offsetY)<(SCREENRESY*(0.5+PORCENTAJEY)))){
-            if((contadorCamara-delta)<0)
-                contadorCamara=0;
-            else
-                contadorCamara-=delta;
-            
+    private boolean esSala(float x, float y){
+        try{
+
+            return (mapa.getTileId((Math.round(x))/tamTileX, (Math.round(y))/tamTileY,1)!=0);
+
         }
-        else{
-            
+        catch(Exception e){return false;}
+    }
+
+    public void actCamara(int delta,Player player){
+        if(esSala(player.getX()+player.TAMX/2,player.getY()+player.TAMY/2)){
+
+            if(centroSalaX==0&&centroSalaY==0){//buscamos el centro
+
+                float startx=player.getX()+player.TAMX/2;
+                float starty=player.getY()+player.TAMY/2;
+                int tamxder=0,tamxiz=0,tamyup=0,tamydown=0,tilesX=0,tilesY=0;
+
+                //ejex
+                while(esSala(startx+tamxder,starty)){
+                    tamxder+=tamTileX;
+                    tilesX++;
+
+                }
+                while(esSala(startx-tamxiz,starty)){
+                    tamxiz+=tamTileX;
+                    tilesX++;
+                }
+                while(esSala(startx,starty+tamydown)){
+                    tamydown+=tamTileY;
+                    tilesY++;
+                }
+                while(esSala(startx,starty-tamyup)){
+                    tamyup+=tamTileY;
+                    tilesY++;
+                }
+                //el centro relativo desde la esquina superior izquierda + distancia desde el centro del jugador a esa esquina
+                centroSalaX=((startx/tamTileX)*tamTileX)-tamxiz+(tilesX+1)*tamTileX/2;
+                centroSalaY=((starty/tamTileY)*tamTileY)-tamyup+(tilesY+1)*tamTileY/2;
+                System.out.println("Hemos encontrado centrox= "+centroSalaX+", centroy="+centroSalaY);
+                System.out.println("(startx/tamTileX)*tamTileX)= "+(startx/tamTileX)*tamTileX+"  (starty/tamTiley)*tamTiley)= "+(starty/tamTileY)*tamTileY);
+                System.out.println("tamTileX*tamxiz= "+tamTileX*tamxiz+"  tamTileY*tamyup= "+tamTileY*tamyup);
+                System.out.println("tamxiz="+tamxiz+", tamxder="+tamxder+" , tamyup="+tamyup+" ,tamydown"+tamydown);
+            }
             if((contadorCamara+delta)>MSCAMARA)
                 contadorCamara=MSCAMARA;
             else
                 contadorCamara+=delta;
-        }
-        if(contadorCamara>0){
-            double maxDesp=player.getMaxstep(delta)*contadorCamara/MSCAMARA;
-            int difx=(player.getX()+player.TAMX/2+offsetX)-(SCREENRESX/2);
-            int dify=(player.getY()+player.TAMY/2+offsetY)-(SCREENRESY/2);
-            int difcuadrados = (difx*difx)+(dify*dify);
-            double dist = Math.sqrt((double)difcuadrados);
+            float maxDesp=player.getMaxstep(delta)*contadorCamara/MSCAMARA;
+            float difx=(centroSalaX+offsetX)-(SCREENRESX/2);
+            float dify=(centroSalaY+offsetY)-(SCREENRESY/2);
+            float difcuadrados = (difx*difx)+(dify*dify);
+            float dist = (float)Math.sqrt(difcuadrados);
             if(dist>(maxDesp)){
-                double incx = (difx*maxDesp/dist)+movAcumx;
+                float incx = (difx*maxDesp/dist);
 
-                int intincx = (int)Math.round(incx);
-                movAcumx=incx-intincx;
-                //player.addX(-intincx);
-                offsetX-=intincx;
-                offsetXcam-=intincx;
-                double incy = (dify*maxDesp/dist)+movAcumy;
-                int intincy = (int)Math.round(incy);
-                movAcumy=incy-intincy;
-                //player.addY(-intincy);
-                offsetY-=intincy;
-                offsetYcam-=intincy;
+                offsetX-=incx;
 
-            
+                float incy = (dify*maxDesp/dist);
+
+                offsetY-=incy;
+
             }
             else{
-            
-                //player.setX(player.getX()-difx);
-                offsetX+=difx;
 
-                //player.setY(player.getY()-dify);
-                offsetY+=dify;
-            
-                //atacando=false;
+                offsetX-=difx;
 
-            
+                offsetY-=dify;
+
             }
-            
         }
         else{
-            movAcumx=0;
-            movAcumy=0;
+            centroSalaX=centroSalaY=0;
+            if(((player.getX()+player.TAMX/2+offsetX)>(SCREENRESX*(0.5-PORCENTAJEX)))&&((player.getX()+player.TAMX/2+offsetX)<(SCREENRESX*(0.5+PORCENTAJEX)))&&((player.getY()+player.TAMY/2+offsetY)>(SCREENRESY*(0.5-PORCENTAJEY)))&&((player.getY()+player.TAMY/2+offsetY)<(SCREENRESY*(0.5+PORCENTAJEY)))){
+                if((contadorCamara-delta)<0)
+                    contadorCamara=0;
+                else
+                    contadorCamara-=delta;
+
+            }
+            else{
+
+                if((contadorCamara+delta)>MSCAMARA)
+                    contadorCamara=MSCAMARA;
+                else
+                    contadorCamara+=delta;
+            }
+            if(contadorCamara>0){
+                float maxDesp=player.getMaxstep(delta)*contadorCamara/MSCAMARA;
+                float difx=(player.getX()+player.TAMX/2+offsetX)-(SCREENRESX/2);
+                float dify=(player.getY()+player.TAMY/2+offsetY)-(SCREENRESY/2);
+                float difcuadrados = (difx*difx)+(dify*dify);
+                float dist = (float) Math.sqrt(difcuadrados);
+                if(dist>(maxDesp)){
+                    float incx = (difx*maxDesp/dist);
+
+                    offsetX-=incx;
+
+                    float incy = (dify*maxDesp/dist);
+
+                    offsetY-=incy;
+
+
+
+                }
+                else{
+
+                    offsetX-=difx;
+
+                    offsetY-=dify;
+
+
+                }
+
+            }
+
         }
-        /*while(offsetXcam<-tamTileX){
-            offsetXcam+=tamTileX;
-            tilesdespX++;
-            
-        }
-        while(offsetYcam<-tamTileY){
-            offsetYcam+=tamTileY;
-            tilesdespY++;            
-        }
-        while(offsetXcam>0){
-            offsetXcam-=tamTileX;
-            tilesdespX--;
-            
-        }
-        while(offsetYcam>0){
-            offsetYcam-=tamTileY;
-            tilesdespY--;            
-        }*/
+
+
+
             
     }
     

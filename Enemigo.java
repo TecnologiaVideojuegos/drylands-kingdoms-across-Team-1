@@ -22,7 +22,7 @@ public class Enemigo extends Personaje{
     
     
     public Enemigo(int posx, int posy, int vida, double vel, SpriteSheet sprites){
-        super(48,72,48,0.2,sprites,posx,posy,vida);
+        super(48,72,48,(float)0.2,sprites,posx,posy,vida);
         
        
         

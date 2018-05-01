@@ -27,10 +27,10 @@ public class CoreGame extends BasicGame {
     }
 
     private GameContainer container;
-    private static final int SCREENRESX = 1700, SCREENRESY = 1000, maxFPS = 60;
+    private static final int SCREENRESX = 1366, SCREENRESY = 768, maxFPS = 60;
     private static final boolean FULLSCREEN = false, VSYNC = true;
     private Player player;
-    private ArrayList<Enemigo> enemigos,enemigosMuertos;
+    private ArrayList<Enemigo> enemigos,enemigosMuertos,limpiaEnemigos;
     //private double avance;
     private Mapa mapa;
     private SpriteSheet sprites;
@@ -54,12 +54,13 @@ public class CoreGame extends BasicGame {
 
         player = new Player(sprites);
 
-        container.getGraphics().setBackground(new Color(0.4f, 0.6f, 0.6f));
+        container.getGraphics().setBackground(new Color(0.15f, 0.05f, 0.1f));
 
         mapa = new Mapa("C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros\\salida.tmx", "C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros", SCREENRESX, SCREENRESY);
 
         enemigos = new ArrayList<Enemigo>();
         enemigosMuertos = new ArrayList<Enemigo>();
+        limpiaEnemigos = new ArrayList<Enemigo>();
 
 
     }
@@ -69,32 +70,13 @@ public class CoreGame extends BasicGame {
      */
     public void render(GameContainer container, Graphics g) {
         mapa.render();
-        if (player.dash.estaActiva()) {
-            if (player.mirandoD()) {
-                player.dash.getDAnim().draw(player.getX() + mapa.getOffX(), player.getY() + mapa.getOffY());
-            } else {
-                player.dash.getIAnim().draw(player.getX() + mapa.getOffX(), player.getY() + mapa.getOffY());
-            }
 
-        } else {
-
-            if (player.isCorriendo()) {
-                if (player.mirandoD()) {
-                    player.getAnim("run").draw(player.getX() + mapa.getOffX(), player.getY() + mapa.getOffY());
-                } else {
-                    player.getAnim("runi").draw(player.getX() + mapa.getOffX(), player.getY() + mapa.getOffY());
-                }
-
-            } else {
-                if (player.mirandoD()) {
-                    player.getAnim("idle").draw(player.getX() + mapa.getOffX(), player.getY() + mapa.getOffY());
-                } else {
-                    player.getAnim("idlei").draw(player.getX() + mapa.getOffX(), player.getY() + mapa.getOffY());
-                }
-            }
-        }
+        player.getAnim().draw(player.getX() + mapa.getOffX(), player.getY() + mapa.getOffY());
         for (Enemigo enemigo : enemigos) {
             enemigo.getAnim("run").draw(enemigo.getX() + mapa.getOffX(), enemigo.getY() + mapa.getOffY());
+        }
+        for (Enemigo enemigomuerto : enemigosMuertos){
+            enemigomuerto.getAnim("muerto").draw(enemigomuerto.getX() + mapa.getOffX(), enemigomuerto.getY() + mapa.getOffY());
         }
         g.drawString("JugX:" + player.getX(), 100, 100);
         g.drawString("JugY:" + player.getY(), 100, 120);
@@ -160,16 +142,28 @@ public class CoreGame extends BasicGame {
         //Compruebo vida de los personajes
 
         for (Enemigo enemigo: enemigos) {
-            System.out.println("enemigo vida:"+enemigo.getVida());
+
             if(enemigo.getVida()<=0){
-                System.out.println("Deberia morir");
+
                enemigosMuertos.add(enemigo);
             }
-            System.out.println(enemigo);
+
         }
         if(enemigosMuertos.size()>0)
             enemigos.removeAll(enemigosMuertos);//Lo quito aqui porque en el bucle da error
 
+
+        //Limpio ahora el array de enemigos muertos
+        for (Enemigo enemigomuerto: enemigosMuertos) {
+            if(enemigomuerto.getAnim("muerto").getFrame()==6){
+                limpiaEnemigos.add(enemigomuerto);
+            }
+
+        }
+        if(limpiaEnemigos.size()>0) {
+            enemigosMuertos.removeAll(limpiaEnemigos);//Lo quito aqui porque en el bucle da error
+            limpiaEnemigos.clear();
+        }
     }
 
     /**
@@ -197,29 +191,29 @@ public class CoreGame extends BasicGame {
         } else if (key == Input.KEY_Q && player.dash.getCDRestante() == 0) {
 
 
-            int difx = mapa.getAbsMouseX() - (player.getX() + player.TAMX / 2);
-            int dify = mapa.getAbsMouseY() - (player.getY() + player.TAMY / 2);
-            int difcuadrados = (difx * difx) + (dify * dify);
-            double dist = Math.sqrt((double) difcuadrados);
+            float difx = mapa.getAbsMouseX() - (player.getX() + player.TAMX / 2);
+            float dify = mapa.getAbsMouseY() - (player.getY() + player.TAMY / 2);
+            float difcuadrados = (difx * difx) + (dify * dify);
+            float dist = (float)Math.sqrt(difcuadrados);
             int maxstep = player.dash.getRango();
             if (dist > (maxstep)) {
-                double incx = (difx * maxstep / dist);
+                float incx = (difx * maxstep / dist);
 
                 int targetx = (int) Math.round(incx);
 
 
-                double incy = (dify * maxstep / dist);
+                float incy = (dify * maxstep / dist);
                 int targety = (int) Math.round(incy);
 
                 player.dash.cast(player, player.getX() + player.TAMX / 2 + targetx, player.getY() + player.TAMY / 2 + targety);
 
             } else {
 
-                player.dash.cast(player, player.getX() + player.TAMX / 2 + difx, player.getY() + player.TAMY / 2 + dify);
+                player.dash.cast(player, player.getX() + player.TAMX / 2 + (int)difx, player.getY() + player.TAMY / 2 + (int)dify);
                 //System.out.println("Casteado movimiento a ",difx);
             }
         } else if (key == Input.KEY_P) {
-            enemigos.add(new Enemigo(mapa.getAbsMouseX(), mapa.getAbsMouseY(), 1, (double) 0.3, sprites));
+            enemigos.add(new Enemigo((int)mapa.getAbsMouseX(), (int)mapa.getAbsMouseY(), 1, (double) 0.3, sprites));
         }
 
     }
