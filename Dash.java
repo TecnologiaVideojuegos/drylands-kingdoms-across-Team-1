@@ -59,7 +59,7 @@ public class Dash extends Habilidad{
                 pj.setNewPosVector(targetX, targetY, velocidadDash*delta*contadorMs/msAcel);
                 if(((pj.getX()+pj.TAMX/2)==targetX)&&((pj.getY()+pj.TAMY/2)==targetY)){
                     contarCD();
-                    System.out.println("Llegado al target , posx:"+pj.getX()+",targety:"+pj.getY());
+
 
                 }
             }
@@ -71,11 +71,11 @@ public class Dash extends Habilidad{
         
         this.targetX=targetX;
         this.targetY=targetY;
-        this.decelX=2*targetX-(pj.getX()+pj.TAMX);
-        this.decelY=2*targetY-(pj.getY()+pj.TAMY);
+        this.decelX=2*targetX-(pj.getX()+pj.TAMX/2);
+        this.decelY=2*targetY-(pj.getY()+pj.TAMY/2);
         activa=true;
         contadorMs=0;
-        System.out.println("Casteado dash, targetx:"+targetX+",targety:"+targetY);
+        System.out.println("Casteado dash, targetx:"+targetX+",targety:"+targetY+"   decelx="+decelX+"   decely="+decelY);
         
         
     }

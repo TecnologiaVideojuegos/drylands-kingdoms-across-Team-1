@@ -9,10 +9,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.ArrayList;
 
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Circle;
 
 
 /**
@@ -35,6 +37,7 @@ public class CoreGame extends BasicGame {
     private Mapa mapa;
     private SpriteSheet sprites;
     private final int TAMX = 48, TAMY = 72;
+    private boolean combate=false;
 
 
     /**
@@ -56,7 +59,7 @@ public class CoreGame extends BasicGame {
 
         container.getGraphics().setBackground(new Color(0.15f, 0.05f, 0.1f));
 
-        mapa = new Mapa("C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros\\salida.tmx", "C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros", SCREENRESX, SCREENRESY);
+        mapa = new Mapa("C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros\\salidacopia.tmx", "C:\\Users\\FairLight\\drylands-kingdoms-across-Team-1\\MapasProcedurales\\ficheros", SCREENRESX, SCREENRESY);
 
         enemigos = new ArrayList<Enemigo>();
         enemigosMuertos = new ArrayList<Enemigo>();
@@ -138,6 +141,35 @@ public class CoreGame extends BasicGame {
         
         player.updPosX();
         player.updPosY();
+
+        //Genero enemigos en una nueva sala
+        if(mapa.playerEnSala()&&mapa.playerEnSalaNueva()&&mapa.camaraFijada()){
+            Circle circulo = new Circle(player.posx+player.TAMX/2,player.posy+player.TAMY/2,player.TAMY*3);
+
+            for (int i = 0; i < 8; i++) {
+                Punto punto = mapa.getRandinSala();
+                if(!circulo.contains(punto.getX(),punto.getY()))
+                enemigos.add(new Enemigo((int)punto.getX(), (int)punto.getY(), 1, (double) 0.3, sprites));
+                else i--;
+            }
+
+
+            mapa.actListaCentros();
+        }
+        if(enemigos.size()>0){
+            if(!combate){
+                combate=true;
+            }
+        }
+        else{
+            if(combate&&enemigosMuertos.size()==0){
+
+                System.out.println("Sala limpiada, aqui deberia guardar");
+                combate=false;
+            }
+        }
+
+
 
         //Compruebo vida de los personajes
 

@@ -9,12 +9,16 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.*;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
  * @author FairLight
  */
-public class Mapa {
+public class Mapa implements Serializable {
+    private final int tamSalaX=23,tamSalaY=13;
     private final int MSCAMARA=500;
     private TiledMap mapa;
 
@@ -24,6 +28,7 @@ public class Mapa {
     private int SCREENRESX,SCREENRESY;
     private final double PORCENTAJEX=0.05,PORCENTAJEY=0.05;
 
+
     public float getAbsMouseX(){
         return Mouse.getX()-offsetX;
     }
@@ -31,6 +36,7 @@ public class Mapa {
         return SCREENRESY-Mouse.getY()-offsetY;
     }
     private float centroSalaX,centroSalaY;
+    private ArrayList<Punto> listaCentros;
 
     
     public Mapa(String ruta,String dependencias,int SCREENRESX,int SCREENRESY) throws SlickException{
@@ -47,7 +53,8 @@ public class Mapa {
         tamTileX=mapa.getTileWidth();
         tamTileY=mapa.getTileHeight();
         centroSalaX=centroSalaY=0;
-        
+        listaCentros= new ArrayList<Punto>();
+
     }
     public TiledMap getTiled(){
         return mapa;
@@ -101,6 +108,23 @@ public class Mapa {
         catch(Exception e){return false;}
     }
 
+    public boolean playerEnSala(){
+        return (centroSalaY!=0)&&(centroSalaX!=0);
+    }
+
+    public boolean playerEnSalaNueva(){
+        for (Punto punto: listaCentros) {
+            if((punto.getX()==centroSalaX)&&(punto.getY()==centroSalaY))
+                return false;
+
+        }
+        return true;
+    }
+
+    public void actListaCentros(){
+        listaCentros.add(new Punto(centroSalaX,centroSalaY));
+    }
+
     public void actCamara(int delta,Player player){
         if(esSala(player.getX()+player.TAMX/2,player.getY()+player.TAMY/2)){
 
@@ -111,30 +135,28 @@ public class Mapa {
                 int tamxder=0,tamxiz=0,tamyup=0,tamydown=0,tilesX=0,tilesY=0;
 
                 //ejex
-                while(esSala(startx+tamxder,starty)){
-                    tamxder+=tamTileX;
+                while(esSala(startx+tamxder*tamTileX,starty)){
+                    tamxder++;
                     tilesX++;
 
                 }
-                while(esSala(startx-tamxiz,starty)){
-                    tamxiz+=tamTileX;
+                while(esSala(startx-tamxiz*tamTileX,starty)){
+                    tamxiz++;
                     tilesX++;
                 }
-                while(esSala(startx,starty+tamydown)){
-                    tamydown+=tamTileY;
+                while(esSala(startx,starty+tamydown*tamTileY)){
+                    tamydown++;
                     tilesY++;
                 }
-                while(esSala(startx,starty-tamyup)){
-                    tamyup+=tamTileY;
+                while(esSala(startx,starty-tamyup*tamTileY)){
+                    tamyup++;
                     tilesY++;
                 }
                 //el centro relativo desde la esquina superior izquierda + distancia desde el centro del jugador a esa esquina
-                centroSalaX=((startx/tamTileX)*tamTileX)-tamxiz+(tilesX+1)*tamTileX/2;
-                centroSalaY=((starty/tamTileY)*tamTileY)-tamyup+(tilesY+1)*tamTileY/2;
-                System.out.println("Hemos encontrado centrox= "+centroSalaX+", centroy="+centroSalaY);
-                System.out.println("(startx/tamTileX)*tamTileX)= "+(startx/tamTileX)*tamTileX+"  (starty/tamTiley)*tamTiley)= "+(starty/tamTileY)*tamTileY);
-                System.out.println("tamTileX*tamxiz= "+tamTileX*tamxiz+"  tamTileY*tamyup= "+tamTileY*tamyup);
-                System.out.println("tamxiz="+tamxiz+", tamxder="+tamxder+" , tamyup="+tamyup+" ,tamydown"+tamydown);
+                centroSalaX=((int)(startx/tamTileX)*tamTileX)-tamxiz*tamTileX+(tilesX+1)*tamTileX/2;
+                centroSalaY=((int)(starty/tamTileY)*tamTileY)-tamyup*tamTileY+(tilesY+1)*tamTileY/2;
+
+
             }
             if((contadorCamara+delta)>MSCAMARA)
                 contadorCamara=MSCAMARA;
@@ -213,6 +235,15 @@ public class Mapa {
 
 
             
+    }
+    public Punto getRandinSala(){
+        float x,y;
+        x=ThreadLocalRandom.current().nextInt((int)centroSalaX-tamSalaX*tamSalaX, (int)centroSalaX+tamSalaX*tamSalaX);
+        y=ThreadLocalRandom.current().nextInt((int)centroSalaY-tamSalaY*tamSalaY, (int)centroSalaY+tamSalaY*tamSalaY);
+        return new Punto(x,y);
+    }
+    public boolean camaraFijada(){
+        return ((centroSalaX+offsetX)==(SCREENRESX/2))&&((centroSalaY+offsetY)==(SCREENRESY/2));
     }
     
 }
