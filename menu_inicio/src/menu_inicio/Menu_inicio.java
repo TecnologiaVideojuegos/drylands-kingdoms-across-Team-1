@@ -33,7 +33,7 @@ public class Menu_inicio extends StateBasedGame {
 	public static void main(String[] argv) {
 		try {
 			AppGameContainer container = new AppGameContainer(new Menu_inicio());
-			container.setDisplayMode(1000,1000,false);
+			container.setDisplayMode(1366,768,false);
 			container.start();
 		} catch (SlickException e) {
 		}

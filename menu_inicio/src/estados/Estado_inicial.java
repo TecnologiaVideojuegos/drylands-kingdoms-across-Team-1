@@ -43,7 +43,7 @@ public class Estado_inicial extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         //Inicializacion de imagenes
-        fondo = new Image("res/fondo3.png");
+        fondo = new Image("res/fondo_menu2.png");
         btn_jugar = new Image("res/btn_jugar.png");
         btn_salir = new Image("res/btn_salir.png");
         btn_cargar = new Image("res/btn_cargar.png");
@@ -65,30 +65,30 @@ public class Estado_inicial extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         //Configuramos display
         AppGameContainer gc = (AppGameContainer) container;
-        gc.setDisplayMode(1000, 1000, false);
+        gc.setDisplayMode(1366,768, false);
         //Dibujamos fondo
         fondo.draw(0, 0);
         //Seleccionamos hover o no en los botones
         if (btn==0) {
-            btn_jugar_hover.draw(280, 260);
+            btn_jugar_hover.draw(450, 160);
         } else {
-            btn_jugar.draw(280, 260);
+            btn_jugar.draw(450, 160);
         }
         if (btn==1) {
             
-            btn_cargar_hover.draw(280, 430);
+            btn_cargar_hover.draw(450, 300);
         } else {
-            btn_cargar.draw(280, 430);
+            btn_cargar.draw(450, 300);
         }
         if (btn==2) {
-            btn_opciones_hover.draw(280, 600);
+            btn_opciones_hover.draw(450, 440);
         } else {
-            btn_opciones.draw(280, 600);
+            btn_opciones.draw(450, 440);
         }
         if (btn==3) {
-            btn_salir_hover.draw(280, 770);
+            btn_salir_hover.draw(450, 580);
         } else {
-            btn_salir.draw(280, 770);
+            btn_salir.draw(450, 580);
         }
     }
 
@@ -98,8 +98,8 @@ public class Estado_inicial extends BasicGameState {
         int pos_y = Mouse.getY();
         //No va a haber ninguna señalada
         btn=-1;
-        if (pos_x > 280 && pos_x < 728) {
-            if (pos_y > 622 && pos_y < 740) {
+        if (pos_x > 450 && pos_x < 898) {
+            if (pos_y > 490 && pos_y < 608) {
                 //Se activa el hover
                 btn=0;
                 //Se selecciona la opcion y se pasa al estado
@@ -107,7 +107,7 @@ public class Estado_inicial extends BasicGameState {
                     snd.play();
                     game.enterState(Estado_jugar.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
                 }
-            } else if (pos_y > 452 && pos_y < 570) {
+            } else if (pos_y > 350 && pos_y < 468) {
                  //Se activa el hover
                 btn=1;
                 //Se selecciona la opcion y se pasa al estado
@@ -115,7 +115,7 @@ public class Estado_inicial extends BasicGameState {
                     snd.play();
                     game.enterState(Estado_cargar.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.green));
                 }
-            } else if (pos_y > 282 && pos_y < 400) {
+            } else if (pos_y > 210 && pos_y < 328) {
                  //Se activa el hover
                 btn=2;
                 //Se selecciona la opcion y se pasa al estado
@@ -123,7 +123,7 @@ public class Estado_inicial extends BasicGameState {
                     snd.play();
                     game.enterState(Estado_opciones.ID, new FadeOutTransition(Color.decode("#1a0121")), new FadeInTransition(Color.decode("#1a0121")));
                 }
-            } else if (pos_y > 112 && pos_y < 230) {
+            } else if (pos_y > 70 && pos_y < 188) {
                  //Se activa el hover
                 btn=3;
                 //Se selecciona la opcion y se pasa al estado

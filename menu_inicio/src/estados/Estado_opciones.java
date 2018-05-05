@@ -59,15 +59,15 @@ public class Estado_opciones extends BasicGameState {
 
     //Elementos de seleccionador de menu
     private String[] titulo = {"Controles", "Sonido", "Juego"};
-    private Image fondo, btn_iz, btn_der, cabecera, cuerpo,cuerpo_2, btn_der_hover, btn_iz_hover;
+    private Image fondo, btn_iz, btn_der, cabecera, cuerpo, cuerpo_2, btn_der_hover, btn_iz_hover;
     private Image btn_izq_lat, btn_der_lat, btn_izq_lat_hover, btn_der_lat_hover;
     private int btn = -1;
     private Image btn_guardar, btn_guardar_hover;
 
     //Elementos menu de controles
-    private String[] letras = {"w", "a", "s", "d", "q", "e", "f"};
-    private String letras_guardado="";
-    private String[] controles = {"Ataque 1", "Ataque 2", "Habilidad 1", "Habilidad 2", "Habilidad 3", "Habilidad 4", "Usar"};
+    private String[] letras = {"w", "a", "s", "d", "q", "e"};
+    private String letras_guardado = "";
+    private String[] controles = {"Atacar", "Bloquear", "Habilidad 1", "Habilidad 2", "Habilidad 3", "Usar"};
     private Image[] tecla = new Image[7];
     private int seleccion = -1;
     private boolean cambio = false;
@@ -95,6 +95,7 @@ public class Estado_opciones extends BasicGameState {
     /**
      * @see org.newdawn.slick.state.BasicGameState#getID()
      */
+    @Override
     public int getID() {
         return ID;
     }
@@ -141,7 +142,7 @@ public class Estado_opciones extends BasicGameState {
             uniFont.addAsciiGlyphs();
             uniFont.loadGlyphs();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(System.err);
         }
     }
 
@@ -155,139 +156,140 @@ public class Estado_opciones extends BasicGameState {
         g.setFont(uniFont);
         //Dibujamos el fondo y elementos basicos
         fondo.draw(0, 0);
-        cabecera.draw(250, 100);
-        
-        g.drawString(titulo[select], 342, 110);
+        cabecera.draw(450, 60);
+
+        g.drawString(titulo[select], 542, 70);
         //Botones seleccionadores laterales de menu
         if (btn == 0) {
-            btn_iz_hover.draw(150, 100);
+            btn_iz_hover.draw(350, 60);
         } else {
-            btn_iz.draw(150, 100);
+            btn_iz.draw(350, 60);
         }
         if (btn == 1) {
-            btn_der_hover.draw(764, 100);
+            btn_der_hover.draw(960, 60);
         } else {
-            btn_der.draw(764, 100);
+            btn_der.draw(960, 60);
         }
         //Boton seleccionador de guardar y volver
         if (btn == 2) {
-            btn_guardar_hover.draw(250, 870);
+            btn_guardar_hover.draw(450, 670);
         } else {
-            btn_guardar.draw(250, 870);
+            btn_guardar.draw(450, 670);
         }
         //Mostrar contenido de cada opcion del menu
         switch (select) {
             //Opciones de controles
             case 0:
-                cuerpo.draw(250, 210);
+                cuerpo.draw(450, 160);
                 //Bucle para mostrar todos los controles
                 for (int i = 0; i < controles.length; i++) {
                     //En caso de seleccionar una tecla hace que parpadee
                     if (seleccionada && seleccion == i) {
                         //Al estar a 0 no se muestra
-                        tecla[i].draw(650, 80 * i + 250, 0);
+                        tecla[i].draw(830, 80 * i + 250, 0);
                         //Si se presiona una tecla entonces esta cambia
                         if (cambio) {
                             setImageTeclas(i);
                             //Reseteamos el cambio
+                            
                             cambio = false;
                         }
                         //Si no le afecta entonces la muestra de forma normal
                     } else {
-                        tecla[i].draw(650, 80 * i + 250, 1.5f);
+                        tecla[i].draw(830, 80 * i + 165, 1.5f);
                     }
                     //Muestra los String que tenemos guardados
-                    g.drawString(controles[i], 300, 80 * i + 250);
+                    g.drawString(controles[i], 480, 80 * i + 175);
                 }
                 break;
             //Opciones de sonido
             case 1:
-                cuerpo_2.draw(250, 210);
+                cuerpo_2.draw(450, 160);
                 //Muestra los String relativos a las opciones de sonido
                 for (int i = 0; i < sonidos.length; i++) {
-                    g.drawString(sonidos[i], 300, 100 * i + 250);
+                    g.drawString(sonidos[i], 500, 120 * i + 200);
                 }
 
                 //Muestra los botones de los spinner
                 //Si esta seleccionado el boton se activa el hover
                 //Boton izquierdo
                 if (btn_spinner_vol == 0) {
-                    btn_izq_lat_hover.draw(540, 250);
+                    btn_izq_lat_hover.draw(760, 200);
                 } else {
-                    btn_izq_lat.draw(540, 250);
+                    btn_izq_lat.draw(760, 200);
                 }
                 //Boton derecho
                 if (btn_spinner_vol == 1) {
-                    btn_der_lat_hover.draw(660, 250);
+                    btn_der_lat_hover.draw(865, 200);
                 } else {
-                    btn_der_lat.draw(660, 250);
+                    btn_der_lat.draw(865, 200);
                 }
                 //Muestra el volumen que hay    
-                g.drawString(volumen + "", 580, 250);
+                g.drawString(volumen + "", 795, 200);
 
                 //Muestra el checkbox de musica
                 if (musica) {
-                    checkbox_marcado.draw(570, 350);
+                    checkbox_marcado.draw(800, 320);
                 } else {
-                    checkbox.draw(570, 350);
+                    checkbox.draw(800, 320);
                 }
                 //Muestra el checkbox de sonido
                 if (sonido) {
-                    checkbox_marcado.draw(570, 450);
+                    checkbox_marcado.draw(800, 440);
                 } else {
-                    checkbox.draw(570, 450);
+                    checkbox.draw(800, 440);
                 }
                 break;
             //Opciones de juego
             default:
-                cuerpo_2.draw(250, 210);
+                cuerpo_2.draw(450, 160);
                 //Muestra el texto del menu
-                g.drawString(juego[0], 350, 250);
-                g.drawString(dificultades[dificultad], 400, 325);
-                g.drawString(juego[1], 300, 400);
-                g.drawString(juego[2], 300, 500);
-                g.drawString(zoom + "", 540, 400);
-                g.drawString(brillo + "", 540, 500);
+                g.drawString(juego[0], 550, 200);
+                g.drawString(dificultades[dificultad], 600, 275);
+                g.drawString(juego[1], 500, 350);
+                g.drawString(juego[2], 500, 450);
+                g.drawString(zoom + "", 740, 350);
+                g.drawString(brillo + "", 740, 450);
 
                 //Spinner de la seleccion de dificultad
                 //Boton izquierdo del spinner
                 if (btn_spinner_dif == 0) {
-                    btn_izq_lat_hover.draw(360, 325);
+                    btn_izq_lat_hover.draw(560, 275);
                 } else {
-                    btn_izq_lat.draw(360, 325);
+                    btn_izq_lat.draw(560, 275);
                 }
                 //Boton derecho del spinner
                 if (btn_spinner_dif == 1) {
-                    btn_der_lat_hover.draw(580, 325);
+                    btn_der_lat_hover.draw(780, 275);
                 } else {
-                    btn_der_lat.draw(580, 325);
+                    btn_der_lat.draw(780, 275);
                 }
                 //Spinner de la seleccion de zoom
                 //Boton izquierdo del spinner
                 if (btn_spinner_zoom == 0) {
-                    btn_izq_lat_hover.draw(500, 400);
+                    btn_izq_lat_hover.draw(700, 350);
                 } else {
-                    btn_izq_lat.draw(500, 400);
+                    btn_izq_lat.draw(700, 350);
                 }
                 //Boton derecho del spinner
                 if (btn_spinner_zoom == 1) {
-                    btn_der_lat_hover.draw(620, 400);
+                    btn_der_lat_hover.draw(820, 350);
                 } else {
-                    btn_der_lat.draw(620, 400);
+                    btn_der_lat.draw(820, 350);
                 }
 
                 //Spinner de la seleccion de brillo
                 //Boton izquierdo del spinner
                 if (btn_spinner_brillo == 0) {
-                    btn_izq_lat_hover.draw(500, 500);
+                    btn_izq_lat_hover.draw(700, 450);
                 } else {
-                    btn_izq_lat.draw(500, 500);
+                    btn_izq_lat.draw(700, 450);
                 }
                 //Boton derecho del spinner
                 if (btn_spinner_brillo == 1) {
-                    btn_der_lat_hover.draw(620, 500);
+                    btn_der_lat_hover.draw(820, 450);
                 } else {
-                    btn_der_lat.draw(620, 500);
+                    btn_der_lat.draw(820, 450);
                 }
                 break;
         }
@@ -307,8 +309,8 @@ public class Estado_opciones extends BasicGameState {
         btn = -1;
         //Seleccionador de menus
         //Pasar a menu de la izquierda
-        if (pos_x > 150 && pos_x < 236) {
-            if (pos_y > 814 && pos_y < 900) {
+        if (pos_x > 350 && pos_x < 436) {
+            if (pos_y > 622 && pos_y < 708) {
                 //Selecciona mostrar el hover del boton izquierdo
                 btn = 0;
                 //Si detecta un click del raton
@@ -330,8 +332,8 @@ public class Estado_opciones extends BasicGameState {
                 }
             }
         } //Pasar a menu a la derecha
-        else if (pos_x > 764 && pos_x < 850) {
-            if (pos_y > 814 && pos_y < 900) {
+        else if (pos_x > 960 && pos_x < 1046) {
+            if (pos_y > 622 && pos_y < 708) {
                 //Selecciona mostrar el hover del boton derecho
                 btn = 1;
                 //Si detecta un click del raton
@@ -353,8 +355,8 @@ public class Estado_opciones extends BasicGameState {
                 }
             }
             //Boton guardar y salir
-        } else if (pos_x > 250 && pos_x < 750) {
-            if (pos_y > 44 && pos_y < 130) {
+        } else if (pos_x > 450 && pos_x < 950) {
+            if (pos_y > 12 && pos_y < 98) {
                 //Muestra su hover
                 btn = 2;
                 if (Mouse.isButtonDown(0)) {
@@ -367,28 +369,25 @@ public class Estado_opciones extends BasicGameState {
         //Detecta si esta seleccionado este menu y si se hace click
         if (select == 0 && Mouse.isButtonDown(0)) {
             //Si esta entre las coordenadas selecciona una tecla u otra
-            if (pos_x > 650 && pos_x < 714) {
+            if (pos_x > 830 && pos_x < 894) {
                 //Primera tecla
-                if (pos_y > 686 && pos_y < 750) {
+                if (pos_y > 539 && pos_y < 603) {
                     seleccion = 0;
                     //Segunda tecla
-                } else if (pos_y > 606 && pos_y < 670) {
+                } else if (pos_y > 459 && pos_y < 523) {
                     seleccion = 1;
                     //Tercera tecla
-                } else if (pos_y > 526 && pos_y < 590) {
+                } else if (pos_y > 379 && pos_y < 443) {
                     seleccion = 2;
                     //Cuarta tecla
-                } else if (pos_y > 446 && pos_y < 510) {
+                } else if (pos_y > 299 && pos_y < 363) {
                     seleccion = 3;
                     //Quinta tecla
-                } else if (pos_y > 366 && pos_y < 430) {
+                } else if (pos_y > 219 && pos_y < 283) {
                     seleccion = 4;
                     //Sexta tecla
-                } else if (pos_y > 286 && pos_y < 350) {
+                } else if (pos_y > 139 && pos_y < 203) {
                     seleccion = 5;
-                    //Septima tecla
-                } else if (pos_y > 206 && pos_y < 270) {
-                    seleccion = 6;
                 }
             }
         }
@@ -397,7 +396,7 @@ public class Estado_opciones extends BasicGameState {
         if (select == 1) {
 
             //Se selecciona checkbox de musica si se hace click
-            if (Mouse.isButtonDown(0) && pos_x > 570 && pos_x < 634 && pos_y > 586 && pos_y < 650) {
+            if (Mouse.isButtonDown(0) && pos_x > 800 && pos_x < 864 && pos_y > 384 && pos_y < 448) {
                 try {
                     //Emite sonido
                     snd.play(0.5f, 0.5f);
@@ -410,7 +409,7 @@ public class Estado_opciones extends BasicGameState {
                 musica = !musica;
 
                 //Se selecciona checkbox de sonido si se hace click
-            } else if (Mouse.isButtonDown(0) && pos_x > 570 && pos_x < 634 && pos_y > 486 && pos_y < 550) {
+            } else if (Mouse.isButtonDown(0) && pos_x > 800 && pos_x < 864 && pos_y > 264 && pos_y < 328) {
                 try {
                     //Emite sonido
                     snd.play(0.5f, 0.5f);
@@ -424,7 +423,7 @@ public class Estado_opciones extends BasicGameState {
 
                 //Spinners de sonido
                 //Spinner izquierdo
-            } else if (pos_x > 540 && pos_x < 572 && pos_y > 686 && pos_y < 750) {
+            } else if (pos_x > 760 && pos_x < 792 && pos_y > 504 && pos_y < 568) {
                 //Muestra el hover sobre el spinner de volumen
                 btn_spinner_vol = 0;
                 if (Mouse.isButtonDown(0)) {
@@ -442,7 +441,7 @@ public class Estado_opciones extends BasicGameState {
                     }
                 }
                 //Spinner derecho
-            } else if (pos_x > 660 && pos_x < 692 && pos_y > 686 && pos_y < 750) {
+            } else if (pos_x > 865 && pos_x < 897 && pos_y > 504 && pos_y < 568) {
                 //Muestra el hover sobre el spinner de volumen
                 btn_spinner_vol = 1;
                 if (Mouse.isButtonDown(0)) {
@@ -469,7 +468,7 @@ public class Estado_opciones extends BasicGameState {
 
             //Spinner de dificultad de juego
             //Boton izquierdo del spinner
-            if (pos_x > 360 && pos_x < 392 && pos_y > 611 && pos_y < 675) {
+            if (pos_x > 560 && pos_x < 592 && pos_y > 429 && pos_y < 493) {
                 //Muestra el hover del spinner de dificultad
                 btn_spinner_dif = 0;
                 //Si se hace click
@@ -487,7 +486,7 @@ public class Estado_opciones extends BasicGameState {
                         --dificultad;
                     }
                 }
-            } else if (pos_x > 580 && pos_x < 612 && pos_y > 611 && pos_y < 675) {
+            } else if (pos_x > 780 && pos_x < 812 && pos_y > 429 && pos_y < 493) {
                 //Muestra el hover del spinner de dificultad
                 btn_spinner_dif = 1;
                 //Si se hace click
@@ -508,7 +507,7 @@ public class Estado_opciones extends BasicGameState {
 
                 //Spinner de zoom del juego    
                 //Boton izquierdo del spinner    
-            } else if (pos_x > 500 && pos_x < 532 && pos_y > 536 && pos_y < 600) {
+            } else if (pos_x > 700 && pos_x < 732 && pos_y > 354 && pos_y < 418) {
                 //Muestra el hover del spinner de zoom
                 btn_spinner_zoom = 0;
                 //Si se hace click
@@ -528,7 +527,7 @@ public class Estado_opciones extends BasicGameState {
 
                 }
                 //Spinner derecho
-            } else if (pos_x > 620 && pos_x < 652 && pos_y > 536 && pos_y < 600) {
+            } else if (pos_x > 820 && pos_x < 852 && pos_y > 354 && pos_y < 418) {
                 //Muestra el hover del spinner de zoom
                 btn_spinner_zoom = 1;
                 //Si se hace click
@@ -549,7 +548,7 @@ public class Estado_opciones extends BasicGameState {
 
                 //Spinner de brillo de juego
                 //Boton izquierdo del spinner
-            } else if (pos_x > 500 && pos_x < 532 && pos_y > 436 && pos_y < 500) {
+            } else if (pos_x > 700 && pos_x < 732 && pos_y > 254 && pos_y < 318) {
                 //Muestra el brillo del spinner de zoom
                 btn_spinner_brillo = 0;
                 //Si se hace click
@@ -568,7 +567,7 @@ public class Estado_opciones extends BasicGameState {
 
                 }
                 //Spinner derecho
-            } else if (pos_x > 620 && pos_x < 652 && pos_y > 436 && pos_y < 500) {
+            } else if (pos_x > 820 && pos_x < 852 && pos_y > 254 && pos_y < 318) {
                 //Muestra el brillo del spinner de zoom
                 btn_spinner_brillo = 1;
                 //Si se hace click
@@ -626,7 +625,6 @@ public class Estado_opciones extends BasicGameState {
     public void keyReleased(int key, char c) {
         //Primero se comprueba que este en modo de seleccion
         atras = c;
-        System.out.println(atras + "char ");
         if (seleccion >= 0) {
             //Se comprueba que sea uno de los caracteres que tenemos preparados
             if ((c > 96 && c < 122) || c == 241 || c > 47 && c < 57) {
@@ -634,6 +632,7 @@ public class Estado_opciones extends BasicGameState {
                 letras[seleccion] = c + "";
                 //Ahora hay que mostrar el cambio por lo que se usa este booleano
                 cambio = true;
+                snd.play();
             }
         }
     }
@@ -647,43 +646,44 @@ public class Estado_opciones extends BasicGameState {
         try {
             tecla[i] = new Image("res/teclas/" + letras[i] + ".png");
         } catch (SlickException se) {
-            se.printStackTrace();
+            se.printStackTrace(System.err);
         }
     }
+
     /**
-     *Guarda los datos de las opciones
+     * Guarda los datos de las opciones
+     *
      * @throws java.io.IOException
      */
 
     public void guardarDatos() throws IOException {
-        
+
         save.setNumber("brillo", brillo);
         save.setNumber("zoom", zoom);
         save.setNumber("dificultad", dificultad);
         save.setNumber("volumen", volumen);
-        save.setString("musica", musica+"");
-        save.setString("sonido", sonido+"");
-        for (int i=0; i<controles.length;i++)
-       {
-       letras_guardado+=letras[i]+"-";
-       }
-        System.out.println("letras"+letras_guardado);
+        save.setString("musica", musica + "");
+        save.setString("sonido", sonido + "");
+        for (int i = 0; i < controles.length; i++) {
+            letras_guardado += letras[i] + "-";
+        }
+        System.out.println("letras" + letras_guardado);
         save.setString("letras", letras_guardado);
         save.save();
     }
+
     /**
-     *Carga los datos de las opciones
-     * 
+     * Carga los datos de las opciones
+     *
      */
     public void cargarDatos() {
-        brillo = (int) save.getNumber("brillo",50);
-        zoom = (int) save.getNumber("zoom",0);
-        dificultad = (int) save.getNumber("dificultad",2);
-        volumen = (int) save.getNumber("volumen",100);
-        musica= parseBoolean(save.getString("musica","true"));
-        System.out.println("letras"+letras_guardado);
-        sonido= parseBoolean(save.getString("sonido","true"));
-        letras=save.getString("letras","w-a-s-d-q-e-f").split("-");
+        brillo = (int) save.getNumber("brillo");
+        zoom = (int) save.getNumber("zoom");
+        dificultad = (int) save.getNumber("dificultad");
+        volumen = (int) save.getNumber("volumen");
+        musica = parseBoolean(save.getString("musica"));
+        sonido = parseBoolean(save.getString("sonido"));
+        letras = save.getString("letras").split("-");
 
     }
 }
