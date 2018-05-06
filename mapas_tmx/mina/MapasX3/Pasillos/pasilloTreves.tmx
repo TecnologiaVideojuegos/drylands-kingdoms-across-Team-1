@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.3" orientation="orthogonal" renderorder="right-down" width="27" height="17" tilewidth="48" tileheight="48" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="../tileModificadox3.tsx"/>
+ <layer name="suelo" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgIA0YI2FaA3raZURHu4ZrGA4VuxSBWAmIlaFsbBhZHtkumJwSlK1CQL8xDbERkWK0wKNgFIw0AABQgEDgLAcAAA==
+  </data>
+ </layer>
+ <layer name="paredes" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgIB58Q+M/JUEvqQDdrq+jdtHdLiYgZiYSK6Dp/QjEjFAMM4cJiY8sDsKmQCwMxaJIbGEkOWRxZADiCyLJiwCxEBCrQmlhKC2KRe8oIA9IkIgl0diSaOL46FEwCgYDAACw047JLAcAAA==
+  </data>
+ </layer>
+ <layer name="capaExtra" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwCkYBPgAA9hp0bywHAAA=
+  </data>
+ </layer>
+</map>
