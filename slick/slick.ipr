@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+      <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
+        <option name="processCode" value="true" />
+        <option name="processLiterals" value="true" />
+        <option name="processComments" value="true" />
+      </inspection_tool>
+    </profile>
+    <version value="1.0" />
+  </component>
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/slick.iml" filepath="$PROJECT_DIR$/slick.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="libraryTable">
+    <library name="lib">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/lib/natives-linux.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/lwjgl_util_applet.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tinylinepp.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/lwjgl_util.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/jinput.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/jnlp.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/natives-mac.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/natives-windows.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/slick-examples.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/slick.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/lwjgl.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/jogg-0.0.7.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/ibxm.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/jorbis-0.0.15.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="org-netbeans-modules-java-j2seproject-copylibstask">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Pack200Task">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/Pack200Task.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
+</project>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="27" height="17" tilewidth="48" tileheight="48" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" name="tileModificadox3" tilewidth="48" tileheight="48" tilecount="256" columns="16">
+  <image source="tileModificadox3.png" width="768" height="768"/>
+ </tileset>
+ <layer name="suelo" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgIA0YI2FaA5AdRnS0i57+GrVr4OxSBGIlIFaGsrFhZHlku2ByRnj0Ius3HsTYiAK9pIKhkjZG7Rq1CxcAAIO32SssBwAA
+  </data>
+ </layer>
+ <layer name="paredes" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgIB58Q+M/JUEvqQDdrq+jdtHdLiYgZiYSK6Dp/QjEjFAMM4cJiY8sDsJCQCwKxMJArAqlQdgUiS2KxEYGIPWCUGwKVScE5QtB5ZHNHwWUAwkSsBya3s9ALAmVI4YmBTxD49OyjBq1a2jZRWl5CABKW2fcLAcAAA==
+  </data>
+ </layer>
+ <layer name="Capa de patrones 4" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwCkYBPgAA9hp0bywHAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 5" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwCkYBPgAA9hp0bywHAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 6" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwCkYBPgAA9hp0bywHAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 7" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwCkYBPgAA9hp0bywHAAA=
+  </data>
+ </layer>
+ <layer name="capaExtra" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwCkYBPgAA9hp0bywHAAA=
+  </data>
+ </layer>
+</map>
