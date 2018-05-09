@@ -11,6 +11,7 @@ import org.mapeditor.core.*;
 import org.mapeditor.io.TMXMapReader;
 import org.mapeditor.io.TMXMapWriter;
 import org.mapeditor.util.BasicTileCutter;
+import org.newdawn.slick.tiled.TiledMap;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  */
 public class ProceduralesMain {
 
-    public static void generarMapa(int altomapa,int anchomapa,int salas) {
+    public static void generarMapa(int altomapa,int anchomapa,int salas,String nombremapa,String nombremapainfo) {
 
         int altocelda=17,anchocelda=27;
         int numcapas =7;
@@ -655,13 +656,16 @@ public class ProceduralesMain {
             mapagrafico.addLayer(listacapas.get(i));
         
         }
-        
+        Map mapainfo = new Map(anchomapa*anchocelda,altomapa*altocelda);
+        mapainfo.addTileset(tileset);
+        mapainfo.addLayer(listacapas.get(listacapas.size()-1));
         
         //Escribimos el fichero
         TMXMapWriter writer = new TMXMapWriter();
         writer.settings.layerCompressionMethod = "gzip" ;
         try{
-            writer.writeMap(mapagrafico, "ficheros/salida.tmx");
+            writer.writeMap(mapagrafico, "ficheros/"+nombremapa+".tmx");
+            writer.writeMap(mapainfo, "ficheros/"+nombremapainfo+".tmx");
         }
         catch(IOException e){
             System.out.print("Error al escribir el fichero");
