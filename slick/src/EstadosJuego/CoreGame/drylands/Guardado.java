@@ -88,7 +88,12 @@ public class Guardado {
     public boolean esNueva(){
         String estado;
         estado=partida_mapa.getString("estado","nueva");
-        System.out.println("estado vale "+estado);
+
         return "nueva".equals(estado);
+    }
+    public void setCargada(){
+        partida_player.setString("estado","guardado");
+        partida_mapa.setString("estado","guardado");
+
     }
 }
