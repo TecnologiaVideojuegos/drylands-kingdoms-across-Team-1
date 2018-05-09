@@ -1,5 +1,7 @@
 package EstadosJuego;
 
+import EstadosJuego.CoreGame.drylands.CoreGame;
+import EstadosJuego.CoreGame.drylands.Guardado;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
@@ -94,6 +96,7 @@ public class Estado_inicial extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) {
+
         int pos_x = Mouse.getX();
         int pos_y = Mouse.getY();
         //No va a haber ninguna señalada
@@ -102,18 +105,26 @@ public class Estado_inicial extends BasicGameState {
             if (pos_y > 490 && pos_y < 608) {
                 //Se activa el hover
                 btn=0;
-                //Se selecciona la opcion y se pasa al estado
+                //Se selecciona la opcion y se pasa al estado, aqui se juega una nueva partida
                 if (Mouse.isButtonDown(0)) {
+
                     snd.play();
-                    game.enterState(Estado_jugar.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
+                    try {
+                        Guardado partida = new Guardado("partida");
+                        partida.resetPartida();
+                        game.getState(3).init(container,game);
+                    }catch(SlickException e){}
+
+                    game.enterState(3, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
+
                 }
             } else if (pos_y > 350 && pos_y < 468) {
                  //Se activa el hover
                 btn=1;
-                //Se selecciona la opcion y se pasa al estado
+                //Se selecciona la opcion y se pasa al estado, aqui se carga solo
                 if (Mouse.isButtonDown(0)) {
                     snd.play();
-                    game.enterState(Estado_cargar.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.green));
+                    game.enterState(3, new FadeOutTransition(Color.black), new FadeInTransition(Color.green));
                 }
             } else if (pos_y > 210 && pos_y < 328) {
                  //Se activa el hover

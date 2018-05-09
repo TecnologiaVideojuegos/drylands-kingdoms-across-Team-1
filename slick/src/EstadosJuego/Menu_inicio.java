@@ -1,13 +1,10 @@
 package EstadosJuego;
 
-import EstadosJuego.Estado_cargar;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import EstadosJuego.Estado_inicial;
 import EstadosJuego.CoreGame.drylands.CoreGame;
-import EstadosJuego.Estado_opciones;
 
 /**
  * 
@@ -26,7 +23,7 @@ public class Menu_inicio extends StateBasedGame {
 		
 		addState(new Estado_inicial());
                 addState(new CoreGame());
-                addState(new Estado_cargar());
+                addState(new CoreGame());
                 addState(new Estado_opciones());
 	}
 	
