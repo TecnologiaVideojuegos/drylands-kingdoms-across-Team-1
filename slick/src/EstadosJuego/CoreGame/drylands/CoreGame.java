@@ -8,6 +8,8 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,7 +63,7 @@ public class CoreGame extends BasicGameState {
      */
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
-        partida = new Guardado("partidaprueba");
+        partida = new Guardado("partida");
         container.setTargetFrameRate(maxFPS);
         container.setVSync(VSYNC);
         container.setSmoothDeltas(true);
@@ -93,6 +95,7 @@ public class CoreGame extends BasicGameState {
             player.setY(inicio.getY());
             mapa.actCamara(1,player);
             mapa.forzarCentro();
+            partida.setCargada();
         } else {
             try{
                 mapa = new Mapa("ficheros/acto1.tmx","ficheros/acto1info.tmx", "ficheros", SCREENRESX, SCREENRESY);
@@ -193,6 +196,8 @@ public class CoreGame extends BasicGameState {
      */
     public void update(GameContainer container, StateBasedGame game,int delta) {
 
+
+
         mapa.actCamara(delta, player);
         //Actualizo las hitbox
         player.actHitbox();
@@ -230,7 +235,7 @@ public class CoreGame extends BasicGameState {
                 if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
                     if (!player.estaAtacando()) {//si el jugador no ataca, sufredaño
                         player.rcvDmg(enemigo.getDmg());
-                        player.retroceder(80);
+                        player.retroceder(player.getAngulo()+180);
                     } else { //si ataca compruebo si el enemigo no esta atacando
                         if (!enemigo.estaAtacando()) {
                             enemigo.rcvDmg(1);
@@ -325,9 +330,7 @@ public class CoreGame extends BasicGameState {
         System.out.println(player.dash.getCDRestante());
         if (key == Input.KEY_ESCAPE) {
 
-            Punto inicio = mapa.getInicio();
-            player.setX(inicio.getX());
-            player.setY(inicio.getY());
+            game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
 
         } else if (key == Input.KEY_Q && player.dash.getCDRestante() == 0 && !player.dash.estaActiva()) {
 

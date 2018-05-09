@@ -9,6 +9,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Vector2f;
 //import java.math.*;
 
 /**
@@ -20,7 +21,12 @@ public class Player extends Personaje {
     public Dash dash;
     public Block block;
     private boolean retroceso;
-    private int msRetrocesoMax = 350, msRetroceso;
+    private float anguloRetroceso;
+    private int msRetroceso=300,contadorRetroceso;
+
+
+
+    private boolean solapando;
 
     public int getVidamax() {
         return vidamax;
@@ -28,7 +34,15 @@ public class Player extends Personaje {
 
 
     private int vidamax;
-    private float retrocesoX, retrocesoY;
+
+
+    public boolean isSolapando() {
+        return solapando;
+    }
+
+    public void setSolapando(boolean solapando) {
+        this.solapando = solapando;
+    }
 
     public Player(SpriteSheet sprites,int vidaplayer) {
 
@@ -52,12 +66,25 @@ public class Player extends Personaje {
     public void calcNuevaPos(/*int ax, int ay, a*/int delta, Mapa mapa) {
         if (retroceso) {
 
-            msRetroceso -= delta;
-            if (msRetroceso <= 0) {
-                retroceso = false;
-            } else {
-                this.setNewPosVector(retrocesoX, retrocesoY, msRetroceso / 75);
+            if(solapando){
+                Vector2f despl = new Vector2f((double)anguloRetroceso);
+                Vector2f posicion = new Vector2f(new float[]{posx,posy});
+
+                this.setNewPosVector(posicion.x+1000*despl.x,posicion.y+1000*despl.y,(float)(getMaxstep(delta)*1.5));
+            }else{
+                contadorRetroceso-=delta;
+                if(contadorRetroceso<=0){
+                    retroceso=false;
+                }
+                else{
+                    Vector2f despl = new Vector2f((double)anguloRetroceso);
+                    Vector2f posicion = new Vector2f(new float[]{posx,posy});
+
+                    this.setNewPosVector(posicion.x+1000*despl.x,posicion.y+1000*despl.y,(float)(getMaxstep(delta)*1.5*contadorRetroceso/msRetroceso));
+                }
             }
+
+
         } else if (dash.activa) {
             dash.calcNuevaPos(this, delta);
         }
@@ -103,11 +130,10 @@ public class Player extends Personaje {
         this.dash.contarCD();
     }
 
-    public void retroceder(int distancia) {
+    public void retroceder(float angulo) {
         retroceso = true;
-        msRetroceso = msRetrocesoMax;
-        retrocesoX = posx + 100 * (posx - newx);
-        retrocesoY = posy + 100 * (posy - newy);
+        anguloRetroceso=angulo;
+        contadorRetroceso=msRetroceso;
     }
 
     public boolean retrocediendo() {
