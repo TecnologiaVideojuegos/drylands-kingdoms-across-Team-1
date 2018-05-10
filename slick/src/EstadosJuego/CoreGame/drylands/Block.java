@@ -8,8 +8,8 @@ public class Block extends Habilidad {
 
     private int msBlockMax,contadorMs;
 
-    public Block(String nombre, int cdmax, int msBlockMax, SpriteSheet sprites) {
-        super(nombre, cdmax);
+    public Block(String nombre, int cdmax, int msBlockMax, SpriteSheet sprites,Combo combo) {
+        super(nombre, cdmax,combo);
         this.msBlockMax = msBlockMax;
         contadorMs=0;
 
@@ -31,6 +31,8 @@ public class Block extends Habilidad {
     }
 
     public void block(int delta) {
+
+        fail=true;
         System.out.println("Llamada a block, cdrestante="+cdrestante+" y msblock:"+contadorMs);
         if((contadorMs+delta)>msBlockMax){
             contarCD();

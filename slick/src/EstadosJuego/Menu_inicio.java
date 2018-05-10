@@ -23,7 +23,7 @@ public class Menu_inicio extends StateBasedGame {
 		
 		addState(new Estado_inicial());
                 addState(new CoreGame());
-                addState(new CoreGame());
+                addState(new Intro());
                 addState(new Estado_opciones());
 	}
 	

@@ -52,8 +52,8 @@ public class Mapa implements Serializable {
         this.SCREENRESX = SCREENRESX;
         this.SCREENRESY = SCREENRESY;
 
-        offsetX = 0;
-        offsetY = 0;
+        offsetX = 10000;
+        offsetY = 10000;
         tamTileX = mapa.getTileWidth();
         tamTileY = mapa.getTileHeight();
         centroSalaX = centroSalaY = 0;
@@ -211,9 +211,10 @@ public class Mapa implements Serializable {
 
         for (int x = (int) -offsetX / tamTileX; x < (int) -offsetX / tamTileX + SCREENRESX / tamTileX; x++) {
             for (int y = (int) -offsetY / tamTileY; y < (int) -offsetY / tamTileY + SCREENRESY / tamTileY; y++) {
-
-                info.setTileId(x, y, 0, mapa.getTileId(x, y, 0));
-                bitmap.set(x * mapa.getHeight() + y);
+                try {
+                    info.setTileId(x, y, 0, mapa.getTileId(x, y, 0));
+                    bitmap.set(x * mapa.getHeight() + y);
+                }catch (Exception e){}
 
             }
         }

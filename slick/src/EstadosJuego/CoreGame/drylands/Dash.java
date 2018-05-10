@@ -26,8 +26,8 @@ public class Dash extends Habilidad {
     private int msAcel = 125, msDecel = 250;
 
 
-    public Dash(float vel, int cd, SpriteSheet sprites) {
-        super("Dash", cd);
+    public Dash(float vel, int cd, SpriteSheet sprites,Combo combo) {
+        super("Dash", cd,combo);
         der = new Animation();
         izq = new Animation();
         for (int i = 0; i < 7; i++) {
@@ -121,6 +121,8 @@ public class Dash extends Habilidad {
 
 
     public void cast(Personaje pj, float targetX, float targetY) {
+
+        fail=true;
 
         this.startX = pj.getX()+pj.TAMX/2;
         this.startY = pj.getY()+pj.TAMY/2;

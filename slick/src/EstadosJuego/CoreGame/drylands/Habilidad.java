@@ -12,13 +12,16 @@ import org.newdawn.slick.Animation;
  */
 public abstract class Habilidad {
     private final String nombre;
-    protected boolean activa;
+    protected boolean activa,fail;
     protected int cdmax, cdrestante;
     Animation der, izq;
+    Combo combo;
 
-    public Habilidad(String nombre, int cdmax) {
+
+    public Habilidad(String nombre, int cdmax,Combo combo) {
         this.nombre = nombre;
         this.cdmax = cdmax;
+        this.combo=combo;
     }
 
     public int getCdmax() {
@@ -52,12 +55,28 @@ public abstract class Habilidad {
 
     //public abstract void cast();
     public void terminar() {
+        if(fail)
+            combo.resetCombo();
         activa = false;
 
     }
 
     public void contarCD() {
-        cdrestante = cdmax;
+        if(combo.getCombo()>20) {
+            cdrestante = (int)(cdmax/5);
+        }
+        else if(combo.getCombo()>10) {
+            cdrestante = (int)(cdmax/3);
+        }
+        else if(combo.getCombo()>5){
+            cdrestante = (int)(cdmax/2);
+        }
+        else if(combo.getCombo()>0){
+            cdrestante = (int)(cdmax/1.5);
+        }
+        else{
+            cdrestante = cdmax;
+            }
     }
 
     public boolean estaActiva() {
@@ -66,6 +85,9 @@ public abstract class Habilidad {
 
     public int getCDRestante() {
         return cdrestante;
+    }
+    public void landed(){
+        fail=false;
     }
 }
 

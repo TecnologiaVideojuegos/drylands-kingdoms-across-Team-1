@@ -24,7 +24,7 @@ public class CoreGame extends BasicGameState {
 
     /** The ID given to this state */
     public static final int ID = 3;
-
+    private Combo combo;
     private static final int SCREENRESX = 1366, SCREENRESY = 768, maxFPS = 60;
     private static final boolean FULLSCREEN = false, VSYNC = true;
     private final int TAMX = 48, TAMY = 60;
@@ -64,6 +64,7 @@ public class CoreGame extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
         partida = new Guardado("partida");
+        combo=new Combo();
         container.setTargetFrameRate(maxFPS);
         container.setVSync(VSYNC);
         container.setSmoothDeltas(true);
@@ -81,7 +82,7 @@ public class CoreGame extends BasicGameState {
         combate = false;
 
 
-        player = new Player(spritesplayer,10);
+        player = new Player(spritesplayer,10,combo);
 
         container.getGraphics().setBackground(new Color(0.15f, 0.05f, 0.1f));
         if (partida.esNueva()) {
@@ -166,6 +167,7 @@ public class CoreGame extends BasicGameState {
             g.drawString("MapaY:" + mapa.getOffY(), 100, 160);
 
             g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
+            g.drawString("Combo:" + combo.getCombo(), 100, 200);
 
 
 
@@ -207,6 +209,7 @@ public class CoreGame extends BasicGameState {
 
 
         player.lowerCDs(delta);
+        combo.contarMs(delta);
 
         if (Keyboard.isKeyDown(Input.KEY_W) && player.block.getCDRestante() == 0) {
             player.block.block(delta);
@@ -238,6 +241,8 @@ public class CoreGame extends BasicGameState {
                         player.retroceder(player.getAngulo()+180);
                     } else { //si ataca compruebo si el enemigo no esta atacando
                         if (!enemigo.estaAtacando()) {
+                            player.dash.landed();
+                            combo.moreCombo();
                             enemigo.rcvDmg(1);
                         } else {
                         }
@@ -329,6 +334,7 @@ public class CoreGame extends BasicGameState {
     public void keyPressed(int key, char c) {
         System.out.println(player.dash.getCDRestante());
         if (key == Input.KEY_ESCAPE) {
+
 
             game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
 
