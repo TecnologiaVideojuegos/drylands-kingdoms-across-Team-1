@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.3" orientation="orthogonal" renderorder="right-down" width="54" height="17" tilewidth="48" tileheight="48" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="tileModificadox3_palacio.tsx"/>
+ <tileset firstgid="257" source="Desert1_3x.tsx"/>
+ <layer name="suelo" width="54" height="17">
+  <data encoding="base64" compression="zlib">
+   eJzNk0FOwzAQRd0VXXYFa4pUDpSzcLCkLWFLwwXasEYq5SDY0lj6+prY42IIi6cZT2J7fv5kuXBuSawqwmeXMsedv9XXT3qs6cl/5C88m4PSbzC3D5oX2jsvzg6eWbKvNhatJefde9aehxk1MVOetfL8GWIneQ/7Pzy3wp2sc3d2Sq1Xzq7tHepCbVvqK2i48WyER1mzNk2HpimV19Ko6WCiRxhjrr2/S+iJ6ykttTTuJbaiqyefGvAIY8wb8I31dPStsOdXz+A5XEHY92bQ1k7U2R8GPSz5twJHz0kYIY9rrmE98J7RFGdwT3X2SQM9bEAP9q/51YtfmiaNUcHil4XQR5yBAfJr52ggXVrvqHmkmPOrddNziIS5eaqI5oXVq5PBr63o4jnk2Tk6+9yUzFPKoxQ5v/AfS+k6ez6FC+QaF0NMEe86w/tc+8po+ga/P73D
+  </data>
+ </layer>
+ <layer name="remates" width="54" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMJKBPBAr4JD7CMSf6OcUqgFkP7HhUDPU/IbsJzEgFkejxZDUDiW/KZCo/iMtHDEKRsEoGAWjgGIAAL8cCAQ=
+  </data>
+ </layer>
+ <layer name="pared" width="54" height="17">
+  <data encoding="base64" compression="zlib">
+   eJzdkosJwzAMRJV2gqRLZI/s0m7Qbpdu0JkqUwtMiS2f/CH44LDAkq2HRDSmJvaFffVxyta6Uss/iGb2wr75OGVrXanlH4QReT9VhzJq+eH9UawxWrkWsLbWzHIZa82rVt+pGSFzDN/THCq3JsdHbFYuiTWt3rG71mrBtVNe77utZVi1uD7sTcnZfF5vIVz3gn967GRMGteTfmxv0uf0LzS/lWLzcmyP/u00lczrRWU7eTa5/RM2OUeQ2z9hEo8gt3+jsHwBc7UiSQ==
+  </data>
+ </layer>
+ <layer name="objetos" width="54" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AU0BP40UgvLjlK7KMU7CPAH2xAlAhxkB/OocmfY8D0Gy6ziLWH3gDdT4TER8EoGAWjYBSMglEwCpABAOYEB9I=
+  </data>
+ </layer>
+ <layer name="personas" width="54" height="17">
+  <data encoding="base64" compression="zlib">
+   eJztzrEOABAMRdH6/w+1iY1BxMLSwVJSknuW9m1XBAAAkTRvVnunXGo5qa8nqI3vNO8AmFXvAOBh0TvAaAClVAic
+  </data>
+ </layer>
+ <layer name="puerta" width="54" height="17">
+  <data encoding="base64" compression="zlib">
+   eJztzsENABAQBVFnVIAKUAH6r8svYmUTmZfMfULAr6JKKnuPGCuqquY9Yqyroab3iLGltjreIwAAAHjmAqYHAaU=
+  </data>
+ </layer>
+</map>
