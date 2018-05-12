@@ -1,5 +1,6 @@
 package EstadosJuego;
 
+import EstadosJuego.CoreGame.drylands.Escena_Castillo;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -25,6 +26,7 @@ public class Menu_inicio extends StateBasedGame {
                 addState(new CoreGame());
                 addState(new Intro());
                 addState(new Estado_opciones());
+                addState(new Escena_Castillo());
 	}
 	
 	public static void main(String[] argv) {

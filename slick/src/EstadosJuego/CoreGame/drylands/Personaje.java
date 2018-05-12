@@ -6,10 +6,15 @@
 package EstadosJuego.CoreGame.drylands;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author FairLight
@@ -19,13 +24,21 @@ public abstract class  Personaje {
 
     public final int TAMX, TAMY, ALTURACOLLIDER;
     protected int vida;
-    protected boolean corriendo, mirandoD;
+    protected boolean corriendo;
+
+    public void setMirandoD(boolean mirandoD) {
+        this.mirandoD = mirandoD;
+    }
+
+    protected boolean mirandoD;
     protected SpriteSheet sprites;
     protected Animation noanim, idle, run, jump, idlei, runi, jumpi, muerto, muertoi;
     protected float posx, posy, newx, newy;
     protected float velocidad;
     protected Rectangle hitbox;
     protected float angulo;
+
+
 
     public Personaje(int tx, int ty, int altcollider, float vel, SpriteSheet sprs, int px, int py, int vida) {
 
@@ -90,8 +103,8 @@ public abstract class  Personaje {
     }
 
     public void actHitbox() {
-        hitbox.setX(posx);
-        hitbox.setY(posy);
+        hitbox.setX(newx);
+        hitbox.setY(newy);
     }
 
     public boolean collidesCon(Shape forma) {
@@ -152,6 +165,7 @@ public abstract class  Personaje {
         }
 
     }
+    public abstract  Animation getAnim();
 
     public float getX() {
         return posx;
@@ -278,4 +292,41 @@ public abstract class  Personaje {
     }
     public abstract boolean  estaAtacando();
     public abstract boolean  estaBloqueando();
+
+    public boolean checkColX(Personaje player) {
+        boolean colUpDer, colUpIz, colDownDer, colDownIz;
+
+        colDownIz = hayPJ(player.getnewX(), player.getY() + player.TAMY);
+        colUpIz = hayPJ(player.getnewX(), player.getY() + player.ALTURACOLLIDER);
+        colDownDer = hayPJ(player.getnewX() + player.TAMX, player.getY() + player.TAMY);
+        colUpDer = hayPJ(player.getnewX() + player.TAMX, player.getY() + player.ALTURACOLLIDER);
+
+        return colUpDer || colUpIz || colDownDer || colDownIz;
+    }
+
+    public boolean checkColY(Personaje player) {
+        boolean colUpDer, colUpIz, colDownDer, colDownIz;
+
+        colDownIz = hayPJ(player.getX(), player.getnewY() + player.TAMY);
+        colUpIz = hayPJ(player.getX(), player.getnewY() + player.ALTURACOLLIDER);
+        colDownDer = hayPJ(player.getX() + player.TAMX, player.getnewY() + player.TAMY);
+        colUpDer = hayPJ(player.getX() + player.TAMX, player.getnewY() + player.ALTURACOLLIDER);
+
+        return colUpDer || colUpIz || colDownDer || colDownIz;
+    }
+    private boolean hayPJ(float x, float y) {
+
+        return ((x>posx)&&(x<(posx+TAMX))&&(y>(posy+ALTURACOLLIDER))&&(y<(posy+TAMY)));
+    }
+    public static void renderOrdenados(Mapa mapa, ArrayList<Personaje> lista){
+        Collections.sort(lista, new Comparator<Personaje>() {
+            @Override
+            public int compare(Personaje o1, Personaje o2) {
+                return (int)(o1.getY()-o2.getY());
+            }
+        });
+        for (Personaje personaje: lista) {
+            personaje.getAnim().draw(personaje.getX() + mapa.getOffX(), personaje.getY() + mapa.getOffY());
+        }
+    }
 }

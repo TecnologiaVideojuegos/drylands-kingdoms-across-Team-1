@@ -111,11 +111,11 @@ public class Estado_inicial extends BasicGameState {
                     snd.play();
                     try {
                         Guardado partida = new Guardado("partida");
-                        partida.resetPartida();
-                        game.getState(5).init(container,game);
+                        //partida.resetPartida();
+                        game.getState(10).init(container,game);
                     }catch(SlickException e){}
 
-                    game.enterState(5, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
+                    game.enterState(10, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
 
                 }
             } else if (pos_y > 350 && pos_y < 468) {

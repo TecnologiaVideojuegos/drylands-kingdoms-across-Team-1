@@ -95,7 +95,7 @@ public class CoreGame extends BasicGameState {
             player.setX(inicio.getX());
             player.setY(inicio.getY());
             mapa.actCamara(1,player);
-            mapa.forzarCentro();
+            mapa.forzarCentro(player);
             partida.setCargada();
         } else {
             try{
@@ -151,12 +151,12 @@ public class CoreGame extends BasicGameState {
 
 
             }
+            ArrayList<Personaje> listaentidadesrender = new ArrayList<>();
+            listaentidadesrender.addAll(enemigos);
 
+            listaentidadesrender.add(player);
 
-            player.getAnim().draw(player.getX() + mapa.getOffX(), player.getY() + mapa.getOffY());
-            for (Enemigo enemigo : enemigos) {
-                enemigo.getAnim("run").draw(enemigo.getX() + mapa.getOffX(), enemigo.getY() + mapa.getOffY());
-            }
+            Personaje.renderOrdenados(mapa,listaentidadesrender);
             for (Enemigo enemigomuerto : enemigosMuertos) {
                 enemigomuerto.getAnim("muerto").draw(enemigomuerto.getX() + mapa.getOffX(), enemigomuerto.getY() + mapa.getOffY());
             }
@@ -332,7 +332,7 @@ public class CoreGame extends BasicGameState {
      * @see org.newdawn.slick.BasicGame#keyPressed(int, char)
      */
     public void keyPressed(int key, char c) {
-        System.out.println(player.dash.getCDRestante());
+
         if (key == Input.KEY_ESCAPE) {
 
 

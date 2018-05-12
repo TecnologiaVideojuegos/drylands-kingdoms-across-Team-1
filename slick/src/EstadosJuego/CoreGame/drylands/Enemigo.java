@@ -5,6 +5,7 @@
  */
 package EstadosJuego.CoreGame.drylands;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 
 /**
@@ -15,8 +16,20 @@ public class Enemigo extends Personaje {
     private final int dmg;
 
     public Enemigo(int posx, int posy, int vida, double vel, SpriteSheet sprites,int dmg) {
-        super(48, 60, 48, (float) 0.2, sprites, posx, posy, vida);
+        super(48, 60, 40, (float) 0.2, sprites, posx, posy, vida);
         this.dmg=dmg;
+
+
+    }
+    public Animation getAnim() {
+
+            if (corriendo) {
+                if (mirandoD) return run;
+                else return runi;
+            } else {
+                if (mirandoD) return idle;
+                else return idlei;
+            }
 
 
     }

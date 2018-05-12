@@ -46,7 +46,7 @@ public class Player extends Personaje {
 
     public Player(SpriteSheet sprites,int vidaplayer,Combo combo) {
 
-        super(48, 60, 48, (float) 0.3, sprites, -1000, -1000, vidaplayer);
+        super(48, 60, 40, (float) 0.3, sprites, -1000, -1000, vidaplayer);
 
         dash = new Dash((float) 1.2, 1000, sprites,combo);
         block = new Block("Block",3000,1000,sprites,combo);

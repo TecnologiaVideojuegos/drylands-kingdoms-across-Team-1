@@ -124,7 +124,7 @@ public class Mapa implements Serializable {
 
     }
 
-    public boolean checkColX(Player player) {
+    public boolean checkColX(Personaje player) {
         boolean colUpDer, colUpIz, colDownDer, colDownIz;
 
         colDownIz = hayMuro(player.getnewX(), player.getY() + player.TAMY);
@@ -135,7 +135,7 @@ public class Mapa implements Serializable {
         return colUpDer || colUpIz || colDownDer || colDownIz;
     }
 
-    public boolean checkColY(Player player) {
+    public boolean checkColY(Personaje player) {
         boolean colUpDer, colUpIz, colDownDer, colDownIz;
 
         colDownIz = hayMuro(player.getX(), player.getnewY() + player.TAMY);
@@ -394,11 +394,21 @@ public class Mapa implements Serializable {
         }
     }
 
-    public void forzarCentro() {
+    public void forzarCentro(Player player) {
+        float difx;
+        float dify;
+        if(centroSalaX!=0&&centroSalaY!=0){
+            difx = (centroSalaX + offsetX) - (SCREENRESX / 2);
+            dify = (centroSalaY + offsetY) - (SCREENRESY / 2);
 
 
-        float difx = (centroSalaX + offsetX) - (SCREENRESX / 2);
-        float dify = (centroSalaY + offsetY) - (SCREENRESY / 2);
+        }
+        else {
+            difx = (player.getX() + player.TAMX / 2 + offsetX) - (SCREENRESX / 2);
+            dify = (player.getY() + player.TAMY / 2 + offsetY) - (SCREENRESY / 2);
+        }
+
+
 
         offsetX -= difx;
 
