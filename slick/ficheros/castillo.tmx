@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="54" height="17" tilewidth="48" tileheight="48" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="MapasX3/MapaInicial/tileModificadox3_palacio.tsx"/>
+ <tileset firstgid="257" source="MapasX3/MapaInicial/Desert1_3x.tsx"/>
+ <layer name="suelo" width="54" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACs2TQW7CMBBF3VVZdkXXbSV6oJyFgyWUpluaXgDSdSWgB6ktjaWvr4k9BlNAeprxENvz8yezO+dmxENF+OxSrnHnpfo6p8eantwi5/qBv//w/xK+3YrPFg0fzg6eWbKvNhatJec9eZ49L1fUxEx51sr/7xA7yXvY/+OZC4+yzt3ZKbVeObu2d6gLta2or6Dh3rMQXmXN2jQdmqZUXkujpoOJHmGMufb8W0JPXE9pqaVxLbEVXT351IBHGGPegG+sp6N3hT1vPIPn8wTCvi+Dtnaizv4w6GHJtxXYenbCCHlccw3rge+MpjiDa6qzTxroYQN6sH/Nr1780jRpjAoWvyyEPuIMDJCfOkcD6dJ6R80jxZxfrZueQyTMzbIimhdWr3YGv1aii+eQZ2fr7HNTMk8pj1Lk/MJvLKVr7zkIR8g1joaYIt61h+e59pvR9AcKAapWWA4AAA==
+  </data>
+ </layer>
+ <layer name="pared" width="54" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACt2SgQ0CIQxFezqB3hLucbvoBrrduYEzSSNNGnLcp2KR8JOfI4FC3/0Sjakp+LDjSdlSl9bWmO86GrlOwefgOa73vFXnZf2u9GdhRCz/4tL/emuNGHvlSt8WnlLGnrhm1TvKC+Wo70PWKq0pcZpJLhfLGukSndvzlgfXSmW9r9+1bNavuF7BCzizxHOtZeG6VrzTYiZzQlx3+rA9CeeUynreS7m8mO3Wvh1XSV4PqpvJ3sTzJ2zyHUE8f8IkHkE8f6OwvAG76CUDWA4AAA==
+  </data>
+ </layer>
+ <layer name="remates" width="54" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwkoE8ECvgkPsIxJ/o5xSqAWQ/seFQM9T8huwnMSAWR6PFkNQOJb8pkKj+Iy0cMQpGwSgYBaOAYgAAEr3fBFgOAAA=
+  </data>
+ </layer>
+ <layer name="objetos" width="54" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBTQE/jRSC8uOUrsoxTsI8AfbECUCHGQH86hyZ9jwPQbLrOItYfeAN1PhMRHwSgYBaNgFIyCUTAKkAEAii+qB1gOAAA=
+  </data>
+ </layer>
+ <layer name="puerta" width="54" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OwQ0AEBAFUWdUgApQAfqvyy9iZROZl8x9QsCvokoqe48YK6qq5j1irKuhpveIsaW2Ot4jAAAAeOYCklN3+lgOAAA=
+  </data>
+ </layer>
+</map>
