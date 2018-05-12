@@ -169,7 +169,8 @@ public class Estado_gameover extends BasicGameState {
             snd.play();
             if (atras == 0) {
                 //Codigo a modificar
-                game.enterState(Estado_cargar.ID, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
+
+                game.enterState(3, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
             } else if (atras == 1) {
                 //Codigo a modificar
                 game.enterState(Intro.ID, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
@@ -190,7 +191,7 @@ public class Estado_gameover extends BasicGameState {
         if (clickCount == 2) {
             if (atras == 0) {
                 //Codigo a modificar
-                game.enterState(Estado_cargar.ID, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
+                game.enterState(3, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
             } else if (atras == 1) {
                 //Codigo a modificar
                 game.enterState(Intro.ID, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));

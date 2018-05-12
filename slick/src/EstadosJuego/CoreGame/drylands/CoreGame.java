@@ -348,6 +348,9 @@ public class CoreGame extends BasicGameState {
 
 
         //Compruebo vida de los personajes
+        if(player.getVida()==0){
+            game.enterState(6, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+        }
 
         for (Enemigo enemigo : enemigos) {
 
