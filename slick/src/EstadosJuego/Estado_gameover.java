@@ -10,6 +10,7 @@ package EstadosJuego;
  * @author Alvarohf
  */
 
+import EstadosJuego.CoreGame.drylands.Guardado;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -46,6 +47,7 @@ public class Estado_gameover extends BasicGameState {
     private Image fondo, flecha;
     private Sound snd;
     private boolean primera = true;
+    GameContainer containerreset;
 
     /**
      * @see org.newdawn.slick.state.BasicGameState#getID()
@@ -81,6 +83,7 @@ public class Estado_gameover extends BasicGameState {
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
+        containerreset=container;
     }
 
     /**
@@ -169,10 +172,19 @@ public class Estado_gameover extends BasicGameState {
             snd.play();
             if (atras == 0) {
                 //Codigo a modificar
-
+                try {
+                    game.getState(3).init(containerreset,game);
+                }catch (SlickException e){}
                 game.enterState(3, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
             } else if (atras == 1) {
                 //Codigo a modificar
+                try{
+
+                    Guardado partida = new Guardado("partida");
+                    partida.resetPartida();
+                    game.getState(3).init(containerreset,game);
+                }catch (SlickException e){}
+
                 game.enterState(Intro.ID, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
             } else if (atras == 2) {
                 System.exit(0);
@@ -191,9 +203,19 @@ public class Estado_gameover extends BasicGameState {
         if (clickCount == 2) {
             if (atras == 0) {
                 //Codigo a modificar
+                try {
+                    game.getState(3).init(containerreset,game);
+                }catch (SlickException e){}
+
                 game.enterState(3, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
             } else if (atras == 1) {
                 //Codigo a modificar
+                try{
+
+                    Guardado partida = new Guardado("partida");
+                    partida.resetPartida();
+                    game.getState(3).init(containerreset,game);
+                }catch (SlickException e){}
                 game.enterState(Intro.ID, new FadeOutTransition(Color.decode("#f0dc69")), new FadeInTransition(Color.decode("#f0dc69")));
             } else {
                 System.exit(0);
