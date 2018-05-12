@@ -140,8 +140,7 @@ public class Escena_Castillo extends BasicGameState {
         listafrases.add(new Frase("...",player));
 
 
-        dialogo=new Dialogo(listafrases,uniFont,new Sound("res/sonido1.wav"));
-        libre=false;
+
 
         try {
             UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
@@ -155,6 +154,8 @@ public class Escena_Castillo extends BasicGameState {
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
+        dialogo=new Dialogo(listafrases,uniFont,new Sound("res/sonido1.wav"));
+        libre=false;
     }
 
     /**
