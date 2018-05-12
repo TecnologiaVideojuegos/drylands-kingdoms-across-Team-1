@@ -1,10 +1,12 @@
 package EstadosJuego.CoreGame.drylands;
 
+import EstadosJuego.Narrativa.Pensamientos;
 import MapasProc.ProceduralesMain;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -39,6 +41,9 @@ public class CoreGame extends BasicGameState {
     private Animation cursor;
     private Image uidash,uiblock,uibar,uihp,uicd;
     private StateBasedGame game;
+    private Pensamientos comentarios;
+    private java.awt.Font UIFont1;
+    private org.newdawn.slick.UnicodeFont uniFont;
 
     /*public CoreGame() {
         super("Dryland: Kingdoms Across");
@@ -125,6 +130,37 @@ public class CoreGame extends BasicGameState {
         uibar = new Image("ficheros/GUI/barra.png");
         uicd = new Image("ficheros/GUI/sombra.png");
 
+        try {
+            UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    org.newdawn.slick.util.ResourceLoader.getResourceAsStream("res/Sangoku4.ttf"));
+            UIFont1 = UIFont1.deriveFont(java.awt.Font.PLAIN, 24.f); //You can change "PLAIN" to "BOLD" or "ITALIC"... and 16.f is the size of your font
+            uniFont = new org.newdawn.slick.UnicodeFont(UIFont1);
+            uniFont.addAsciiGlyphs();
+            uniFont.getEffects().add(new ColorEffect(java.awt.Color.white)); //You can change your color here, but you can also change it in the render{ ... }
+            uniFont.addAsciiGlyphs();
+            uniFont.loadGlyphs();
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+
+        comentarios=new Pensamientos(player,uniFont,new Sound("res/sonido1.wav"));
+        comentarios.meterFrase("A ver si encuentro algo interesante");
+        comentarios.meterFrase("Demasiados enemigos por aquí");
+        comentarios.meterFrase("Estas ruinas cada vez son diferentes");
+        comentarios.meterFrase("No escucho a mis compañeros...");
+        comentarios.meterFrase("Oigo viento a lo lejos");
+        comentarios.meterFrase("Fallar ataques me entorpece");
+        comentarios.meterFrase("¿Habrá más reinos en algún lugar?");
+        comentarios.meterFrase("Qué miedo dan las Drylands");
+        comentarios.meterFraseHP4("¡A tope de energía!");
+        comentarios.meterFraseHP4("¡Vamos!");
+        comentarios.meterFraseHP3("He sufrido peores heridas");
+        comentarios.meterFraseHP3("Solo unos rasguños");
+        comentarios.meterFraseHP2("Voy a necesitar uan cura");
+        comentarios.meterFraseHP2("Debería descansar");
+        comentarios.meterFraseHP1("Ayuda, por favor...");
+        comentarios.meterFraseHP1("Estoy muy débil...");
+
     }
 
     /**
@@ -169,6 +205,12 @@ public class CoreGame extends BasicGameState {
             g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
             g.drawString("Combo:" + combo.getCombo(), 100, 200);
 
+            if(!combate){
+                comentarios.render(g,mapa);
+            }
+
+
+
 
 
             uibar.draw(894,674);
@@ -197,6 +239,10 @@ public class CoreGame extends BasicGameState {
      * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer, int)
      */
     public void update(GameContainer container, StateBasedGame game,int delta) {
+
+        if(!combate){
+            comentarios.update(delta);
+        }
 
 
 
