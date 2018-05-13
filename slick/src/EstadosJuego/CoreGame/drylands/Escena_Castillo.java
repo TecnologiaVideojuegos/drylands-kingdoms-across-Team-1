@@ -42,7 +42,7 @@ public class Escena_Castillo extends BasicGameState {
     private Enemigo cillop;
     private ArrayList<Enemigo> enemigos;
 
-    private Mapa mapa;
+    private Mapa mapa,mapa2;
     private SpriteSheet spritesplayer, spritescursor;
 
     private Guardado partida;
@@ -88,19 +88,22 @@ public class Escena_Castillo extends BasicGameState {
         Punto inicio;
 
 
-        mapa = new Mapa("ficheros/castillo.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
+        mapa = new Mapa("ficheros/castillo3Dfront.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
+        mapa2 = new Mapa("ficheros/castillo3Dback.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
 
-        player.setX(1000);
-        player.setY(350);
-        rey.setX(1350);
-        rey.setY(365);
+        player.setX(1600);
+        player.setY(741);
+        rey.setX(1812);
+        rey.setY(710);
         rey.setMirandoD(false);
-        cillop.setX(1200);
-        cillop.setY(380);
+        cillop.setX(1920);
+        cillop.setY(785);
         cillop.setMirandoD(false);
 
         mapa.actCamara(1, player);
         mapa.forzarCentro(player);
+        mapa2.actCamara(1, player);
+        mapa2.forzarCentro(player);
         partida.setCargada();
 
 
@@ -175,6 +178,8 @@ public class Escena_Castillo extends BasicGameState {
 
         Personaje.renderOrdenados(mapa,listaentidadesrender);
 
+        mapa2.renderAt(mapa);
+
         g.drawString("JugX:" + player.getX(), 100, 100);
         g.drawString("JugY:" + player.getY(), 100, 120);
 
@@ -193,6 +198,7 @@ public class Escena_Castillo extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int delta) {
         if(libre){
             mapa.actCamara(delta, player);
+            mapa2.actCamara(delta, player);
             //Actualizo las hitbox
             player.actHitbox();
             for (Enemigo enemigo : enemigos) {
@@ -276,6 +282,15 @@ public class Escena_Castillo extends BasicGameState {
                                     libre=true;}
 
         }
+        else if (key == Input.KEY_K) {
+            try{
+                dialogo.kill();
+            }
+            catch (EOFException e){System.out.println("El dialogo ha terminado");
+                libre=true;}
+
+        }
+
 
     }
 

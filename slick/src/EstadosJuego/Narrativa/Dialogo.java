@@ -79,4 +79,9 @@ public class Dialogo {
             rapido=true;
         }
     }
+
+    public void kill() throws EOFException {
+        terminado = true;
+        throw new EOFException();
+    }
 }

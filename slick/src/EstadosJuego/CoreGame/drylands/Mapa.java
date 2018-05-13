@@ -105,7 +105,14 @@ public class Mapa implements Serializable {
     }
 
     public void render() {
+
+
         mapa.render(Math.round(offsetX), Math.round(offsetY), 0, 0, mapa.getWidth(), mapa.getHeight(), false);
+
+
+    }
+    public void renderAt(Mapa map2) {
+        mapa.render(Math.round(map2.getOffX()), Math.round(map2.getOffY()), 0, 0, mapa.getWidth(), mapa.getHeight(), false);
 
 
     }
@@ -330,7 +337,18 @@ public class Mapa implements Serializable {
 
         }
 
-
+        if (offsetX > 0) {
+            offsetX=0;
+        }
+        else if (offsetX<-((mapa.getWidth())*mapa.getTileWidth()-SCREENRESX)){
+            offsetX=-((mapa.getWidth())*mapa.getTileWidth()-SCREENRESX);
+        }
+        if (offsetY > 0) {
+            offsetY=0;
+        }
+        else if (offsetY<-(mapa.getHeight()*mapa.getTileHeight()-SCREENRESY)){
+            offsetY=-(mapa.getHeight()*mapa.getTileHeight()-SCREENRESY);
+        }
     }
 
     public Punto getRandinSala() {
