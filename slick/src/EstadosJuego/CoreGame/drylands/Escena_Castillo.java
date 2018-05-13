@@ -1,6 +1,5 @@
 package EstadosJuego.CoreGame.drylands;
 
-
 import EstadosJuego.Narrativa.Dialogo;
 import EstadosJuego.Narrativa.Frase;
 import org.lwjgl.input.Keyboard;
@@ -16,7 +15,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.ArrayList;
-
 
 /**
  * A test for basic animation rendering
@@ -42,20 +40,22 @@ public class Escena_Castillo extends BasicGameState {
     private Enemigo cillop;
     private ArrayList<Enemigo> enemigos;
 
-    private Mapa mapa,mapa2;
+    private Mapa mapa, mapa2;
     private SpriteSheet spritesplayer, spritescursor;
-
+    
     private Guardado partida;
     private Animation cursor;
 
     private StateBasedGame game;
-
+    
     private Dialogo dialogo;
     private boolean libre;
+    
+    private long tiempo;
+    private Image intro,mouse;
     public int getID() {
         return ID;
     }
-
 
     /**
      * @see org.newdawn.slick.BasicGame#init(org.newdawn.slick.GameContainer)
@@ -63,7 +63,8 @@ public class Escena_Castillo extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
         partida = new Guardado("partida");
-
+        intro = new Image("res/teclas/intro.png");
+        mouse = new Image("res/teclas/mouse1.png");
 
         try {
             spritesplayer = new SpriteSheet("ficheros/sprites/testsprites.png", TAMX, TAMY);
@@ -77,16 +78,13 @@ public class Escena_Castillo extends BasicGameState {
         cursor.addFrame(spritescursor.getSprite(0, 0), 500);
         cursor.addFrame(spritescursor.getSprite(1, 0), 500);
 
-
         player = new Player(spritesplayer, 10, new Combo());
-        rey = new Enemigo(400,400,10000,300,spritesplayer = new SpriteSheet("ficheros/sprites/reyx3.png", TAMX, TAMY),100);
-        cillop = new Enemigo(400,400,10000,300,spritesplayer = new SpriteSheet("ficheros/sprites/cillopx3.png", TAMX, TAMY),100);
+        rey = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/reyx3.png", TAMX, TAMY), 100);
+        cillop = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/cillopx3.png", TAMX, TAMY), 100);
 
         container.getGraphics().setBackground(new Color(0.15f, 0.05f, 0.1f));
 
-
         Punto inicio;
-
 
         mapa = new Mapa("ficheros/castillo3Dfront.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
         mapa2 = new Mapa("ficheros/castillo3Dback.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
@@ -106,44 +104,40 @@ public class Escena_Castillo extends BasicGameState {
         mapa2.forzarCentro(player);
         partida.setCargada();
 
-
         enemigos = new ArrayList<Enemigo>();
         enemigos.add(rey);
         enemigos.add(cillop);
 
-        ArrayList<Frase> listafrases= new ArrayList<Frase>();
-        listafrases.add(new Frase("¡Es injusto!",player));
-        listafrases.add(new Frase("Se me acusa de algo estúpido",player));
-        listafrases.add(new Frase("¡Mientes!",cillop));
-        listafrases.add(new Frase("Tu irresponsabilidad nos ha podido salir cara",cillop));
-        listafrases.add(new Frase("¡BASTA!",rey));
-        listafrases.add(new Frase("¿Por qué te propasaste Solace?",rey));
-        listafrases.add(new Frase("Noté algo, tuve un presentimiento",player));
-        listafrases.add(new Frase("Vi algo nuevo, parecía un portal",player));
-        listafrases.add(new Frase("¿Un presentimiento?",cillop));
-        listafrases.add(new Frase("Vamos , por favor...",cillop));
-        listafrases.add(new Frase("Las pruebas no están de tu parte, Solace",rey));
-        listafrases.add(new Frase("Lo siento",rey));
-        listafrases.add(new Frase("¿Acaso no me oís?",player));
-        listafrases.add(new Frase("Tenemos un portal ahí abajo",player));
-        listafrases.add(new Frase("Mide tus palabras",rey));
-        listafrases.add(new Frase("Pones en riesgo nuestra seguridad",rey));
-        listafrases.add(new Frase("Eso es lo que realmente importa",rey));
-        listafrases.add(new Frase("¿¿Nuestra seguridad??",player));
-        listafrases.add(new Frase("¿O su conciencia?",player));
-        listafrases.add(new Frase("Es un peligro, nadie sabe adónde lleva",player));
-        listafrases.add(new Frase("Están asustados y no piensan claramente",player));
-        listafrases.add(new Frase("¡Y usted es un rey horrible!",player));
-        listafrases.add(new Frase("Hasta aquí chico",rey));
-        listafrases.add(new Frase("Ya hemos tenido suficiente",rey));
-        listafrases.add(new Frase("Estás desterrado, abandona el reino",rey));
-        listafrases.add(new Frase("Je,je,je",cillop));
-        listafrases.add(new Frase("¿QUÈ?",player));
-        listafrases.add(new Frase("No me hagas ordenar matarte",rey));
-        listafrases.add(new Frase("...",player));
-
-
-
+        ArrayList<Frase> listafrases = new ArrayList<Frase>();
+        listafrases.add(new Frase("¡Es injusto!", player));
+        listafrases.add(new Frase("Se me acusa de algo estúpido", player));
+        listafrases.add(new Frase("¡Mientes!", cillop));
+        listafrases.add(new Frase("Tu irresponsabilidad nos ha podido salir cara", cillop));
+        listafrases.add(new Frase("¡BASTA!", rey));
+        listafrases.add(new Frase("¿Por qué te propasaste Solace?", rey));
+        listafrases.add(new Frase("Noté algo, tuve un presentimiento", player));
+        listafrases.add(new Frase("Vi algo nuevo, parecía un portal", player));
+        listafrases.add(new Frase("¿Un presentimiento?", cillop));
+        listafrases.add(new Frase("Vamos , por favor...", cillop));
+        listafrases.add(new Frase("Las pruebas no están de tu parte, Solace", rey));
+        listafrases.add(new Frase("Lo siento", rey));
+        listafrases.add(new Frase("¿Acaso no me oís?", player));
+        listafrases.add(new Frase("Tenemos un portal ahí abajo", player));
+        listafrases.add(new Frase("Mide tus palabras", rey));
+        listafrases.add(new Frase("Pones en riesgo nuestra seguridad", rey));
+        listafrases.add(new Frase("Eso es lo que realmente importa", rey));
+        listafrases.add(new Frase("¿¿Nuestra seguridad??", player));
+        listafrases.add(new Frase("¿O su conciencia?", player));
+        listafrases.add(new Frase("Es un peligro, nadie sabe adónde lleva", player));
+        listafrases.add(new Frase("Están asustados y no piensan claramente", player));
+        listafrases.add(new Frase("¡Y usted es un rey horrible!", player));
+        listafrases.add(new Frase("Hasta aquí chico", rey));
+        listafrases.add(new Frase("Ya hemos tenido suficiente", rey));
+        listafrases.add(new Frase("Estás desterrado, abandona el reino", rey));
+        listafrases.add(new Frase("Je,je,je", cillop));
+        listafrases.add(new Frase("¿QUÈ?", player));
+        listafrases.add(new Frase("No me hagas ordenar matarte", rey));
+        listafrases.add(new Frase("...", player));
 
         try {
             UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
@@ -157,26 +151,24 @@ public class Escena_Castillo extends BasicGameState {
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
-        dialogo=new Dialogo(listafrases,uniFont,new Sound("res/sonido1.wav"));
-        libre=false;
+        dialogo = new Dialogo(listafrases, uniFont, new Sound("res/sonido1.wav"));
+        libre = false;
     }
 
     /**
-     * @see org.newdawn.slick.BasicGame#render(org.newdawn.slick.GameContainer, org.newdawn.slick.Graphics)
+     * @see org.newdawn.slick.BasicGame#render(org.newdawn.slick.GameContainer,
+     * org.newdawn.slick.Graphics)
      */
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
 
         mapa.render();
-
 
         ArrayList<Personaje> listaentidadesrender = new ArrayList<>();
         listaentidadesrender.addAll(enemigos);
 
         listaentidadesrender.add(player);
 
-
-
-        Personaje.renderOrdenados(mapa,listaentidadesrender);
+        Personaje.renderOrdenados(mapa, listaentidadesrender);
 
         mapa2.renderAt(mapa);
 
@@ -187,16 +179,31 @@ public class Escena_Castillo extends BasicGameState {
         g.drawString("MapaY:" + mapa.getOffY(), 100, 160);
 
         g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
-
-        dialogo.render(g,mapa);
+        //Si no esta libre muestra el control del intro
+        if (!libre) {
+            g.setFont(uniFont);
+            g.drawString("Pulse Intro para cambiar diálogo", 830, 710);
+            intro.draw(1200, 700);
+        } else {
+            //Si ya esta libre y no han pasado 10 segundos muestra control movimiento
+            if (tiempo<10000){
+                g.setFont(uniFont);
+                g.drawString("Use el ratón para desplazarse", 830, 710);
+                mouse.draw(1200, 700);
+            }
+        
+        }
+        dialogo.render(g, mapa);
 
     }
 
     /**
-     * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer, int)
+     * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer,
+     * int)
      */
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        if(libre){
+        if (libre) {
+            tiempo += delta;
             mapa.actCamara(delta, player);
             mapa2.actCamara(delta, player);
             //Actualizo las hitbox
@@ -214,13 +221,14 @@ public class Escena_Castillo extends BasicGameState {
             player.calcNuevaPos(delta, mapa);
 
             //Compruebo colisiones con NPC
-            if (!player.retrocediendo())
+            if (!player.retrocediendo()) {
                 for (Enemigo enemigo : enemigos) {
                     if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
 
                         break;
                     }
                 }
+            }
 
             if (mapa.checkColX(player)) {//comprobamos colisiones muros
                 player.resetX();
@@ -232,7 +240,7 @@ public class Escena_Castillo extends BasicGameState {
             player.updAngulo();
 
             //Compruebo colisiones con NPC
-            if (!player.retrocediendo())
+            if (!player.retrocediendo()) {
                 for (Enemigo enemigo : enemigos) {
                     if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
                         if (enemigo.checkColX(player)) {//comprobamos colisiones muros
@@ -245,18 +253,13 @@ public class Escena_Castillo extends BasicGameState {
                         break;
                     }
                 }
+            }
 
             player.updPosX();
             player.updPosY();
-        }
-        else{
+        } else {
             dialogo.update(delta);
         }
-
-
-
-
-
 
     }
 
@@ -267,32 +270,28 @@ public class Escena_Castillo extends BasicGameState {
 
         if (key == Input.KEY_ESCAPE) {
 
-
             game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
 
-        }
-        else if (key == Input.KEY_P) {
+        } else if (key == Input.KEY_P) {
             enemigos.add(new Enemigo((int) mapa.getAbsMouseX(), (int) mapa.getAbsMouseY(), 1, (double) 0.3, spritesplayer, 1));
-        }
-        else if (key == Input.KEY_RETURN) {
-            try{
+        } else if (key == Input.KEY_RETURN) {
+            try {
                 dialogo.go();
+            } catch (EOFException e) {
+                System.out.println("El dialogo ha terminado");
+                libre = true;
             }
-            catch (EOFException e){System.out.println("El dialogo ha terminado");
-                                    libre=true;}
 
-        }
-        else if (key == Input.KEY_K) {
-            try{
+        } else if (key == Input.KEY_K) {
+            try {
                 dialogo.kill();
+            } catch (EOFException e) {
+                System.out.println("El dialogo ha terminado");
+                libre = true;
             }
-            catch (EOFException e){System.out.println("El dialogo ha terminado");
-                libre=true;}
 
         }
-
 
     }
-
 
 }
