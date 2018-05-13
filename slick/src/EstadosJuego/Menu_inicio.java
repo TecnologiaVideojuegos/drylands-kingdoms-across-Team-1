@@ -28,6 +28,7 @@ public class Menu_inicio extends StateBasedGame {
                 addState(new Estado_opciones());
                 addState(new Escena_Castillo());
                 addState(new Estado_gameover());
+                addState(new UnasHorasAntes());
 	}
 	
 	public static void main(String[] argv) {

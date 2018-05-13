@@ -207,6 +207,8 @@ public class Escena_Castillo extends BasicGameState {
             mapa.actCamara(delta, player);
             mapa2.actCamara(delta, player);
             //Actualizo las hitbox
+            if(mapa.playerEnFinal(player))
+                game.enterState(11, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
             player.actHitbox();
             for (Enemigo enemigo : enemigos) {
                 enemigo.actHitbox();
