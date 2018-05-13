@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="54" height="28" tilewidth="48" tileheight="48" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="MapasX3/MapaInicial/tileModificadox3_palacio.tsx"/>
+ <tileset firstgid="257" source="MapasX3/MapaInicial/Desert1_3x.tsx"/>
+ <layer name="Capa de patrones 7" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3R2w1AQBCF4Y0SdDC2BBWhAlSAxp2HkUxk45IQjPMlf8w+2JgIgYjukjktd1pEBRKdl3Ohs5jzmaJ5X8z9krg3HrwvNcvqucylkypUo0Z7+nuuqkUd6rW387qXtbXXgEY0aV+19/888LqX5XUvIiIiIqI/mQG8dKYLoBcAAA==
+  </data>
+ </layer>
+ <layer name="pared" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3XUQqAIBBFUa0VmJtwiy2h5dYKUuhjiLIZsXTiHXifETdByBgAAEjCT2fjhpdmK2zjHM5J6po6nTu2ku/EbZR0+biZzH3Q5sl7vKBR2rWQtejiNoZMc29KG7XJNY6M5zWc6VXjEw1dFLcLAMpouxO40KXLXVfrf6caAwCQ2gFNyNDuoBcAAA==
+  </data>
+ </layer>
+</map>
