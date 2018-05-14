@@ -20,9 +20,7 @@ public class Player extends Personaje {
 
     public Dash dash;
     public Block block;
-    private boolean retroceso;
-    private float anguloRetroceso;
-    private int msRetroceso=300,contadorRetroceso;
+
 
 
 
@@ -48,7 +46,7 @@ public class Player extends Personaje {
 
         super(48, 60, 40, (float) 0.3, sprites, -1000, -1000, vidaplayer);
 
-        dash = new Dash((float) 1.2, 1000, sprites,combo);
+        dash = new Dash((float) 1.2, 1000, sprites,combo,250);
         block = new Block("Block",3000,1000,sprites,combo);
         this.vidamax=vidaplayer;
     }
@@ -130,15 +128,9 @@ public class Player extends Personaje {
         this.dash.contarCD();
     }
 
-    public void retroceder(float angulo) {
-        retroceso = true;
-        anguloRetroceso=angulo;
-        contadorRetroceso=msRetroceso;
-    }
 
-    public boolean retrocediendo() {
-        return retroceso;
-    }
+
+
 
     public boolean estaAtacando() {
         return dash.activa;
@@ -183,6 +175,17 @@ public class Player extends Personaje {
 
         else
             return hitbox;
+
+    }
+    @Override
+    public void retroceder(float angulo) {
+        retroceso = true;
+        anguloRetroceso=angulo;
+        contadorRetroceso=msRetroceso;
+        if(dash.estaActiva()){
+            dash.contarCD();
+            dash.terminar();
+        }
 
     }
 }

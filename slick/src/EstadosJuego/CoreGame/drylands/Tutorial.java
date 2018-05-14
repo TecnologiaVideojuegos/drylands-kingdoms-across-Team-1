@@ -2,7 +2,6 @@ package EstadosJuego.CoreGame.drylands;
 
 import EstadosJuego.Narrativa.Pensamientos;
 import MapasProc.ProceduralesMain;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -22,28 +21,32 @@ import java.util.ArrayList;
  *
  * @author kevin
  */
-public class CoreGame extends BasicGameState {
+public class Tutorial extends BasicGameState {
 
     /** The ID given to this state */
-    public static final int ID = 3;
+    public static final int ID = 99;
     private Combo combo;
     private static final int SCREENRESX = 1366, SCREENRESY = 768, maxFPS = 60;
-    private static final boolean FULLSCREEN = false, VSYNC = true;
+    private static final boolean VSYNC = true;
     private final int TAMX = 48, TAMY = 60;
     private GameContainer container;
     private Player player;
     private ArrayList<Enemigo> enemigos, enemigosMuertos, limpiaEnemigos;
     //private double avance;
     private Mapa mapa;
-    private SpriteSheet spritesplayer,spritescursor;
+    private SpriteSheet spritesplayer;
     private boolean combate;
     private Guardado partida;
     private Animation cursor;
     private Image uidash,uiblock,uibar,uihp,uicd;
     private StateBasedGame game;
-    private Pensamientos comentarios;
+    private enum fases{primera,atacar,bloquear,cooldownq,cooldownw,combo}
+    private fases fase;
+    private Image teclaq,teclaw;
+    private int contadorMs;
+
     private java.awt.Font UIFont1;
-    private org.newdawn.slick.UnicodeFont uniFont;
+    private UnicodeFont uniFont;
 
     /*public CoreGame() {
         super("Dryland: Kingdoms Across");
@@ -75,48 +78,34 @@ public class CoreGame extends BasicGameState {
         container.setSmoothDeltas(true);
         try {
             spritesplayer = new SpriteSheet("ficheros/sprites/testsprites.png", TAMX, TAMY);
-            spritescursor = new SpriteSheet("ficheros/sprites/spritecursor.png",15,15);
+
         } catch (SlickException e) {
 
         }
+        teclaq = new Image("res/teclas/q.png");
+        teclaw = new Image("res/teclas/w.png");
 
-        cursor=new Animation();
-        cursor.addFrame(spritescursor.getSprite(0,0),500);
-        cursor.addFrame(spritescursor.getSprite(1,0),500);
+
 
         combate = false;
-
+        fase=fases.primera;
 
         player = new Player(spritesplayer,10,combo);
 
         container.getGraphics().setBackground(new Color(0.15f, 0.05f, 0.1f));
-        if (partida.esNueva()) {
-            Punto inicio;
 
-            ProceduralesMain.generarMapa(8, 10, 14,"acto1","acto1info");
 
-            mapa = new Mapa("ficheros/acto1.tmx","ficheros/acto1info.tmx", "ficheros", SCREENRESX, SCREENRESY);
-            inicio = mapa.getInicio();
-            player.setX(inicio.getX());
-            player.setY(inicio.getY());
+
+
+
+            mapa = new Mapa("ficheros/desierto-tut.tmx","ficheros/desierto-tut.tmx", "ficheros", SCREENRESX, SCREENRESY);
+
+            player.setX(2450);
+            player.setY(1150);
             mapa.actCamara(1,player);
             mapa.forzarCentro(player);
             partida.setCargada();
-        } else {
-            try{
-                mapa = new Mapa("ficheros/acto1.tmx","ficheros/acto1info.tmx", "ficheros", SCREENRESX, SCREENRESY);
-                partida.cargarMapa(mapa);
-                partida.cargarPlayer(player);
-            }
-            catch (Exception e){
-                System.out.println("Error al cargar el mapa, se va a     reiniciar la partida");
-                e.printStackTrace();
-                partida.resetPartida();
-                System.exit(1);
-            }
 
-
-        }
 
 
         enemigos = new ArrayList<Enemigo>();
@@ -134,7 +123,7 @@ public class CoreGame extends BasicGameState {
             UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
                     org.newdawn.slick.util.ResourceLoader.getResourceAsStream("res/Sangoku4.ttf"));
             UIFont1 = UIFont1.deriveFont(java.awt.Font.PLAIN, 24.f); //You can change "PLAIN" to "BOLD" or "ITALIC"... and 16.f is the size of your font
-            uniFont = new org.newdawn.slick.UnicodeFont(UIFont1);
+            uniFont = new UnicodeFont(UIFont1);
             uniFont.addAsciiGlyphs();
             uniFont.getEffects().add(new ColorEffect(java.awt.Color.white)); //You can change your color here, but you can also change it in the render{ ... }
             uniFont.addAsciiGlyphs();
@@ -143,37 +132,16 @@ public class CoreGame extends BasicGameState {
             e.printStackTrace(System.err);
         }
 
-        comentarios=new Pensamientos(player,uniFont,new Sound("res/sonido1.wav"));
-        comentarios.meterFrase("A ver si encuentro algo interesante");
-        comentarios.meterFrase("Demasiados enemigos por aquí");
-        comentarios.meterFrase("Estas ruinas cada vez son diferentes");
-        comentarios.meterFrase("No escucho a mis compañeros...");
-        comentarios.meterFrase("Oigo viento a lo lejos");
-        comentarios.meterFrase("Fallar ataques me entorpece");
-        comentarios.meterFrase("¿Habrá más reinos en algún lugar?");
-        comentarios.meterFrase("Qué miedo dan las Drylands");
-        comentarios.meterFraseHP4("¡A tope de energía!");
-        comentarios.meterFraseHP4("¡Vamos!");
-        comentarios.meterFraseHP3("He sufrido peores heridas");
-        comentarios.meterFraseHP3("Solo unos rasguños");
-        comentarios.meterFraseHP2("Voy a necesitar uan cura");
-        comentarios.meterFraseHP2("Debería descansar");
-        comentarios.meterFraseHP1("Ayuda, por favor...");
-        comentarios.meterFraseHP1("Estoy muy débil...");
+
 
     }
 
     /**
-     * @see org.newdawn.slick.BasicGame#render(org.newdawn.slick.GameContainer, org.newdawn.slick.Graphics)
+     * @see BasicGame#render(GameContainer, Graphics)
      */
     public void render(GameContainer container,StateBasedGame game, Graphics g) {
 
-        if (Keyboard.isKeyDown(Input.KEY_TAB)) {
-            g.scale(mapa.getEscalaTab(), mapa.getEscalaTab());
-            mapa.renderTab();
-            g.resetTransform();
-            cursor.draw(player.getX()*mapa.getEscalaTab(),player.getY()*mapa.getEscalaTab());
-        } else {
+
 
             mapa.render();
 
@@ -186,19 +154,6 @@ public class CoreGame extends BasicGameState {
                 g.drawGradientLine(player.dash.getStartX() + mapa.getOffX() + 1, player.dash.getStartY() + mapa.getOffY() + 1, (float) 1.0, (float) 1.0, (float) 1.0, (float) 0.0, player.getX() + mapa.getOffX() + player.TAMX / 2, player.getY() + mapa.getOffY() + player.TAMY / 2, (float) 1.0, (float) 1.0, (float) 1.0, (float) 1.0);
 
 
-            }
-
-            for(Enemigo enemigo:enemigos){
-                if (enemigo.dash.estaActiva()) {
-                    g.drawGradientLine(enemigo.dash.getStartX() + mapa.getOffX(), enemigo.dash.getStartY() + mapa.getOffY(), (float) 1.0, (float) 1.0, (float) 1.0, (float) 0.0, enemigo.getX() + mapa.getOffX() + enemigo.TAMX / 2, enemigo.getY() + mapa.getOffY() + enemigo.TAMY / 2, (float) 1.0, (float) 1.0, (float) 1.0, (float) 1.0);
-                    g.drawGradientLine(enemigo.dash.getStartX() + mapa.getOffX() + 1, enemigo.dash.getStartY() + mapa.getOffY(), (float) 1.0, (float) 1.0, (float) 1.0, (float) 0.0, enemigo.getX() + mapa.getOffX() + enemigo.TAMX / 2, enemigo.getY() + mapa.getOffY() + enemigo.TAMY / 2, (float) 1.0, (float) 1.0, (float) 1.0, (float) 1.0);
-                    g.drawGradientLine(enemigo.dash.getStartX() + mapa.getOffX() - 1, enemigo.dash.getStartY() + mapa.getOffY(), (float) 1.0, (float) 1.0, (float) 1.0, (float) 0.0, enemigo.getX() + mapa.getOffX() + enemigo.TAMX / 2, enemigo.getY() + mapa.getOffY() + enemigo.TAMY / 2, (float) 1.0, (float) 1.0, (float) 1.0, (float) 1.0);
-                    g.drawGradientLine(enemigo.dash.getStartX() + mapa.getOffX(), enemigo.dash.getStartY() + mapa.getOffY() + 1, (float) 1.0, (float) 1.0, (float) 1.0, (float) 0.0, enemigo.getX() + mapa.getOffX() + enemigo.TAMX / 2, enemigo.getY() + mapa.getOffY() + enemigo.TAMY / 2, (float) 1.0, (float) 1.0, (float) 1.0, (float) 1.0);
-                    g.drawGradientLine(enemigo.dash.getStartX() + mapa.getOffX(), enemigo.dash.getStartY() + mapa.getOffY() - 1, (float) 1.0, (float) 1.0, (float) 1.0, (float) 0.0, enemigo.getX() + mapa.getOffX() + enemigo.TAMX / 2, enemigo.getY() + mapa.getOffY() + enemigo.TAMY / 2, (float) 1.0, (float) 1.0, (float) 1.0, (float) 1.0);
-                    g.drawGradientLine(enemigo.dash.getStartX() + mapa.getOffX() + 1, enemigo.dash.getStartY() + mapa.getOffY() + 1, (float) 1.0, (float) 1.0, (float) 1.0, (float) 0.0, enemigo.getX() + mapa.getOffX() + enemigo.TAMX / 2, enemigo.getY() + mapa.getOffY() + enemigo.TAMY / 2, (float) 1.0, (float) 1.0, (float) 1.0, (float) 1.0);
-
-
-                }
             }
             ArrayList<Personaje> listaentidadesrender = new ArrayList<>();
             listaentidadesrender.addAll(enemigos);
@@ -218,16 +173,52 @@ public class CoreGame extends BasicGameState {
             g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
             g.drawString("Combo:" + combo.getCombo(), 100, 200);
 
-            if(!combate){
-                comentarios.render(g,mapa);
-            }
+
+        switch (fase){
+
+            case primera:
+
+                uibar.draw(894,674);
+                uihp.getScaledCopy((int)(382*(float)player.getVida()/player.getVidamax()),42).draw(927,684);
+                break;
+
+            case atacar:
+
+                g.setFont(uniFont);
+                g.drawString("Pulse Q para atacar", 830, 710);
+                teclaq.draw(1200, 700);
+                break;
+
+
+            case bloquear:
+
+                g.setFont(uniFont);
+                g.drawString("Deje pulsado W para bloquear ataques", 830, 710);
+                teclaw.draw(1200, 700);
+                break;
+
+            case cooldownq:
+
+                g.setFont(uniFont);
+                g.drawString("Ataque y fíjese en el enfriamiento", 830, 710);
+                break;
+            case cooldownw:
+
+                g.setFont(uniFont);
+                g.drawString("El enfriamiento del bloqueo es mayor", 830, 710);
+                break;
+
+            case combo:
+
+                g.setFont(uniFont);
+                g.drawString("No fallar hará el enfriamiento más corto", 830, 710);
+                break;
+
+        }
 
 
 
 
-
-            uibar.draw(894,674);
-            uihp.getScaledCopy((int)(382*(float)player.getVida()/player.getVidamax()),42).draw(927,684);
             if(player.dash.estaActiva()){
                 uidash.draw(33,674,new Color(1f, 0.8f, 0.8f));
             }
@@ -245,18 +236,63 @@ public class CoreGame extends BasicGameState {
             }
 
 
-        }
+
     }
 
     /**
-     * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer, int)
+     * @see BasicGame#update(GameContainer, int)
      */
     public void update(GameContainer container, StateBasedGame game,int delta) {
 
-        if(!combate){
-            comentarios.update(delta);
-        }
+        switch (fase){
 
+            case primera:
+
+                contadorMs+=delta;
+                if(contadorMs>=3000){
+                    contadorMs=0;
+                    fase=fases.atacar;
+                }
+                break;
+
+            case atacar:
+
+                if (Keyboard.isKeyDown(Input.KEY_Q))
+                    fase=fases.bloquear;
+                break;
+
+
+            case bloquear:
+
+                if (Keyboard.isKeyDown(Input.KEY_W))
+                    fase=fases.cooldownq;
+                break;
+
+            case cooldownq:
+
+                if (Keyboard.isKeyDown(Input.KEY_Q))
+                    fase=fases.cooldownw;
+                break;
+
+
+            case cooldownw:
+
+                if (Keyboard.isKeyDown(Input.KEY_W))
+                    fase=fases.combo;
+                break;
+
+
+
+            case combo:
+
+                contadorMs+=delta;
+                if(contadorMs>=3000){
+                    contadorMs=0;
+                    game.enterState(11, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+                }
+                break;
+
+        }
 
 
         mapa.actCamara(delta, player);
@@ -281,12 +317,6 @@ public class CoreGame extends BasicGameState {
         }
 
         player.calcNuevaPos(delta, mapa);
-        for (Enemigo enemigo : enemigos) {
-
-            enemigo.update(player,delta);
-
-        }
-
 
         if (mapa.checkColX(player)) {//comprobamos colisiones muros
             player.resetX();
@@ -295,86 +325,36 @@ public class CoreGame extends BasicGameState {
         if (mapa.checkColY(player)) {
             player.resetY();
         }
-        if(combate){
-            if (mapa.checkColCombateX(player)) {//comprobamos colisiones muros
-                player.resetX();
-            }
-
-            if (mapa.checkColCombateY(player)) {
-                player.resetY();
-            }
-        }
-
         player.updAngulo();
-        for(Enemigo enemigo:enemigos){
-            enemigo.updAngulo();
-        }
 
         //Compruebo colisiones con enemigos
         if (!player.retrocediendo())
             for (Enemigo enemigo : enemigos) {
-                if (enemigo.collidesCon(player.getHitbox())&&(!enemigo.retrocediendo())) {//ha habido colision, determino el contexto
-                    if (!player.estaAtacando()) {
-                        if(player.estaBloqueando()){
-                            enemigo.retroceder((180+enemigo.getAngulo()));
-                        }
-                        else{
-                            //si el jugador no ataca, sufredaño
-                            player.rcvDmg(enemigo.getDmg());
-                            if(enemigo.estaAtacando())
-                                player.retroceder((enemigo.getAngulo()+player.getAngulo())/2);
-                            else{
-                                player.retroceder(player.getAngulo()/+180);
-                            }
-                        }
-
-
+                if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
+                    if (!player.estaAtacando()) {//si el jugador no ataca, sufredaño
+                        player.rcvDmg(enemigo.getDmg());
+                        player.retroceder(player.getAngulo()+180);
                     } else { //si ataca compruebo si el enemigo no esta atacando
                         if (!enemigo.estaAtacando()) {
                             player.dash.landed();
                             combo.moreCombo();
                             enemigo.rcvDmg(1);
-                        } else {//atacando ambos, retroceso sin daño
-
-                            player.retroceder((180+player.getAngulo()));
-                            enemigo.retroceder((180+enemigo.getAngulo()));
+                        } else {
                         }
 
 
                     }
+
+
+                    break;
                 }
             }
 
         player.updPosX();
         player.updPosY();
-        for (Enemigo enemigo : enemigos) {
-
-            enemigo.updPosX();
-            enemigo.updPosY();
-
-        }
-
-        //Genero enemigos en una nueva sala
-        if (mapa.playerEnSala() && mapa.playerEnSalaNueva() && mapa.camaraFijada()) {
-
-            if (mapa.playerEnInicio(player)) {
-
-            } else if (mapa.playerEnFinal(player)) {
-
-            } else {
-                Circle circulo = new Circle(player.posx + player.TAMX / 2, player.posy + player.TAMY / 2, player.TAMY * 3);
-
-                for (int i = 0; i < 8; i++) {
-                    Punto punto = mapa.getRandinSala();
-                    if (!circulo.contains(punto.getX(), punto.getY()))
-                        enemigos.add(new Enemigo((int) punto.getX(), (int) punto.getY(), 1, (double) 0.3, spritesplayer, 1,300));
-                    else i--;
-                }
-            }
 
 
-            mapa.actListaCentros();
-        }
+
         if (enemigos.size() > 0) {
             if (!combate) {
                 combate = true;
@@ -398,7 +378,7 @@ public class CoreGame extends BasicGameState {
 
 
         //Compruebo vida de los personajes
-        if(player.getVida()<=0){
+        if(player.getVida()==0){
             game.enterState(6, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
         }
 
@@ -428,7 +408,7 @@ public class CoreGame extends BasicGameState {
     }
 
     /**
-     * @see org.newdawn.slick.BasicGame#keyPressed(int, char)
+     * @see BasicGame#keyPressed(int, char)
      */
     public void keyPressed(int key, char c) {
 
@@ -462,7 +442,7 @@ public class CoreGame extends BasicGameState {
                 //System.out.println("Casteado movimiento a ",difx);
             }
         } else if (key == Input.KEY_P) {
-            enemigos.add(new Enemigo((int) mapa.getAbsMouseX(), (int) mapa.getAbsMouseY(), 1, (double) 0.3, spritesplayer, 1,300));
+
         }
 
     }

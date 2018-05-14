@@ -79,12 +79,12 @@ public class Escena_Castillo extends BasicGameState {
         cursor.addFrame(spritescursor.getSprite(1, 0), 500);
 
         player = new Player(spritesplayer, 10, new Combo());
-        rey = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/reyx3.png", TAMX, TAMY), 100);
-        cillop = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/cillopx3.png", TAMX, TAMY), 100);
+        rey = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/reyx3.png", TAMX, TAMY), 100,0);
+        cillop = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/cillopx3.png", TAMX, TAMY), 100,0);
 
         container.getGraphics().setBackground(new Color(0.15f, 0.05f, 0.1f));
 
-        Punto inicio;
+
 
         mapa = new Mapa("ficheros/castillo3Dfront.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
         mapa2 = new Mapa("ficheros/castillo3Dback.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
@@ -208,7 +208,7 @@ public class Escena_Castillo extends BasicGameState {
             mapa2.actCamara(delta, player);
             //Actualizo las hitbox
             if(mapa.playerEnFinal(player))
-                game.enterState(11, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+                game.enterState(99, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
             player.actHitbox();
             for (Enemigo enemigo : enemigos) {
                 enemigo.actHitbox();
@@ -274,8 +274,7 @@ public class Escena_Castillo extends BasicGameState {
 
             game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
 
-        } else if (key == Input.KEY_P) {
-            enemigos.add(new Enemigo((int) mapa.getAbsMouseX(), (int) mapa.getAbsMouseY(), 1, (double) 0.3, spritesplayer, 1));
+
         } else if (key == Input.KEY_RETURN) {
             try {
                 dialogo.go();

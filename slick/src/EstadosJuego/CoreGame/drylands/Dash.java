@@ -26,7 +26,7 @@ public class Dash extends Habilidad {
     private int msAcel = 125, msDecel = 250;
 
 
-    public Dash(float vel, int cd, SpriteSheet sprites,Combo combo) {
+    public Dash(float vel, int cd, SpriteSheet sprites,Combo combo,int rango) {
         super("Dash", cd,combo);
         der = new Animation();
         izq = new Animation();
@@ -36,7 +36,7 @@ public class Dash extends Habilidad {
         for (int i = 0; i < 7; i++) {
             izq.addFrame(sprites.getSprite(i, 3).getFlippedCopy(true, false), 150);
         }
-        rango = 250;
+        this.rango = rango;
         contadorMs = 0;
         velocidadDash = vel;
 

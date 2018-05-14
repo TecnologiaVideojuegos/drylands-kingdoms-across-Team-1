@@ -38,7 +38,9 @@ public abstract class  Personaje {
     protected Rectangle hitbox;
     protected float angulo;
 
-
+    protected boolean retroceso;
+    protected float anguloRetroceso;
+    protected int msRetroceso=800,contadorRetroceso;
 
     public Personaje(int tx, int ty, int altcollider, float vel, SpriteSheet sprs, int px, int py, int vida) {
 
@@ -50,6 +52,12 @@ public abstract class  Personaje {
 
         velocidad = vel;
         sprites = sprs;
+
+        corriendo = false;
+
+        mirandoD = true;
+        newx = posx = px;
+        newy = posy = py;
 
         noanim = new Animation();
         noanim.addFrame(sprites.getSprite(0, 0), 150);
@@ -91,11 +99,27 @@ public abstract class  Personaje {
             muertoi.addFrame(sprites.getSprite(i, 4).getFlippedCopy(true, false), 80);
         }
         muertoi.stopAt(6);
+
+    }
+    public Personaje(int tx, int ty, int altcollider, float vel, int px, int py, int vida) {
+
+        TAMX = tx;
+        TAMY = ty;
+        ALTURACOLLIDER = altcollider;
+        this.vida = vida;
+        hitbox = new Rectangle(px, py, tx, ty);
+
+        velocidad = vel;
+
+
         corriendo = false;
 
         mirandoD = true;
         newx = posx = px;
         newy = posy = py;
+
+
+
     }
 
     public boolean isCorriendo() {
@@ -328,5 +352,13 @@ public abstract class  Personaje {
         for (Personaje personaje: lista) {
             personaje.getAnim().draw(personaje.getX() + mapa.getOffX(), personaje.getY() + mapa.getOffY());
         }
+    }
+    public boolean retrocediendo() {
+        return retroceso;
+    }
+    public void retroceder(float angulo) {
+        retroceso = true;
+        anguloRetroceso=angulo;
+        contadorRetroceso=msRetroceso;
     }
 }

@@ -152,11 +152,41 @@ public class Mapa implements Serializable {
 
         return colUpDer || colUpIz || colDownDer || colDownIz;
     }
+    public boolean checkColCombateX(Personaje player) {
+        boolean colUpDer, colUpIz, colDownDer, colDownIz;
+
+        colDownIz = hayMuroCombate(player.getnewX(), player.getY() + player.TAMY);
+        colUpIz = hayMuroCombate(player.getnewX(), player.getY() + player.ALTURACOLLIDER);
+        colDownDer = hayMuroCombate(player.getnewX() + player.TAMX, player.getY() + player.TAMY);
+        colUpDer = hayMuroCombate(player.getnewX() + player.TAMX, player.getY() + player.ALTURACOLLIDER);
+
+        return colUpDer || colUpIz || colDownDer || colDownIz;
+    }
+
+    public boolean checkColCombateY(Personaje player) {
+        boolean colUpDer, colUpIz, colDownDer, colDownIz;
+
+        colDownIz = hayMuroCombate(player.getX(), player.getnewY() + player.TAMY);
+        colUpIz = hayMuroCombate(player.getX(), player.getnewY() + player.ALTURACOLLIDER);
+        colDownDer = hayMuroCombate(player.getX() + player.TAMX, player.getnewY() + player.TAMY);
+        colUpDer = hayMuroCombate(player.getX() + player.TAMX, player.getnewY() + player.ALTURACOLLIDER);
+
+        return colUpDer || colUpIz || colDownDer || colDownIz;
+    }
 
     private boolean hayMuro(float x, float y) {
         try {
 
             return (mapa.getTileId((Math.round(x)) / tamTileX, (Math.round(y)) / tamTileY, 1) != 0);
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    private boolean hayMuroCombate(float x, float y) {
+        try {
+
+            return (mapa.getTileId((Math.round(x)) / tamTileX, (Math.round(y)) / tamTileY, 5) != 0);
 
         } catch (Exception e) {
             return false;
