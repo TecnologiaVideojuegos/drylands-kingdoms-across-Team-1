@@ -1,14 +1,13 @@
 package EstadosJuego;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class UnasHorasAntes extends BasicGameState {
-    public static final int ID = 11;
+public class PerdidoDesierto extends BasicGameState {
+    public static final int ID = 50;
     private Image img;
 
 
@@ -24,7 +23,7 @@ public class UnasHorasAntes extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
 
 
-        img=new Image("ficheros/horas_antes.png");
+        img=new Image("ficheros/perdidoDesierto.png");
 
         msFinal=0;
     }
@@ -35,7 +34,7 @@ public class UnasHorasAntes extends BasicGameState {
 
         msFinal += delta;
         if(msFinal>=4000)
-            game.enterState(50, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+            game.enterState(51, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
     }
 
 

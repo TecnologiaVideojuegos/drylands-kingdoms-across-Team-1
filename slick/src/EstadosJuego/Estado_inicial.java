@@ -59,6 +59,8 @@ public class Estado_inicial extends BasicGameState {
         snd = new Sound("res/sonido1.wav");
         //Uso de logo en la esquina superior izquierda
         container.setIcon("res/icono1.png");
+        //Uso de logo en el dock
+        container.setIcon("res/icono2.png");
         //Inicializacion de cursor
         container.setMouseCursor(cursor, 3, 3);
     }
@@ -115,7 +117,7 @@ public class Estado_inicial extends BasicGameState {
 
                     }catch(SlickException e){}
 
-                    game.enterState(9, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+                    game.enterState(99, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 
                 }
             } else if (pos_y > 350 && pos_y < 468) {
