@@ -1,26 +1,26 @@
-Diálogos
+DiÃ¡logos
 Acto I
 
 * Llegada a la mina:
 
--Solace: Así que esta es la famosa mina que nos han encomendado explorar.
--Cillop: Eso parece, debemos recorrerla entera en busca de la tecnología abandonada tras las guerras como legado de su tecnología.
--Solace: Bien, comencemos entonces y recordad nadie debe abandonar la mina sin compañía de un compañero, estas mazmorras cambian su forma cada vez que se entra en ellas.
--Resto de exploradores: Entendido, ¡en marcha!
+-Solace: AsÃ­ que esta es la famosa mina que nos han encomendado explorar.
+-Cillop: Eso parece, debemos recorrerla entera en busca de la tecnologÃ­a abandonada tras las guerras como legado de su conocimiento.
+-Solace: Bien, comencemos entonces y recordad nadie debe abandonar la mina sin su compaÃ±ero, estas mazmorras cambian su forma cada vez que se entra en ellas.
+-Resto de exploradores: Entendido, Â¡en marcha!
       
 * Primer contacto con el portal:
 
 -Solace: (Frente al portal) Vaya, mirad esto, parece una especie de portal. 
 
--Solace: Me pregunto a donde llevará si lo atravesamos.
+-Solace: Me pregunto a donde llevarÃ¡ si lo atravesamos.
 
--Cillop: (Acercándose a Solace por la espalda) Vámonos, eso no es un portal, es un simple espejismo.
+-Cillop: (AcercÃ¡ndose a Solace por la espalda) VÃ¡monos, eso no es un portal, es un simple espejismo.
 
--Solace: (Casi entrando al portal) Esto no es una ilusión, es un portal real y debemos averiguar a donde lleva.
+-Solace: (Casi entrando al portal) Esto no es una ilusiÃ³n, es un portal real y debemos averiguar a donde lleva.
 
-Cillop saca su cuchillo dispuesto a asesinar a su jefe de expedición mientras ninguno de los allí presentes se percata de ello. Justo en el momento de asestar una fatal puñalada a Solace, este se torna hacia él y lo cual provoca que Cillop disimule con el objetivo de que sus intenciones no sean descubiertas.
+Cillop saca su cuchillo dispuesto a asesinar a su jefe de expediciÃ³n mientras ninguno de los allÃ­ presentes se percata de ello. Justo en el momento de asestar una fatal puÃ±alada a Solace, este se torna hacia Ã©l y lo cual provoca que Cillop disimule con el objetivo de que sus intenciones no sean descubiertas.
 
--Solace: (Observando la marca del brazo de Cillop): No creo que introducir un cuchillo al portal sea una gran idea. Vayámonos e informemos de los hallazgos encontrados hoy aquí.
+-Solace: (Observando la marca del brazo de Cillop): No creo que introducir un cuchillo al portal sea una gran idea. VayÃ¡monos e informemos de los hallazgos encontrados hoy aquÃ­.
 
 Todos los exploradores recogen sus utensilios y se disponen a abandonar la mina sin separarse del resto.
 
