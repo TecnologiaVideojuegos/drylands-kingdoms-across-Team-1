@@ -121,7 +121,7 @@ public class Estado_inicial extends BasicGameState {
 
                     }catch(SlickException e){}
 
-                    game.enterState(99, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+                    game.enterState(9, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 
                 }
             } else if (pos_y > 350 && pos_y < 468) {

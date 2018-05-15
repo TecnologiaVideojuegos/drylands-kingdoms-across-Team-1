@@ -125,8 +125,9 @@ public class Escena_EntradaMina extends BasicGameState {
         listafrases.add(new Frase("Así que esta es la famosa mina que nos han encomendado explorar.", player));
         listafrases.add(new Frase("Eso parece, debemos recorrerla entera en busca de la tecnología abandonada.", cillop));
         listafrases.add(new Frase("Hay que evitar que ese legado se pierda por culpa de las guerras.", cillop));
-        listafrases.add(new Frase("Bien, comencemos entonces y recordad nadie debe abandonar la mina sin su compañero.", player)); 
-        listafrases.add(new Frase("Como ya sabeís estas antiguas minas cambian su forma cada vez que alguien entra en ellas.", player));
+        listafrases.add(new Frase("Bien, comencemos entonces y recordad:", player));
+        listafrases.add(new Frase("Nadie debe abandonar la mina sin su compañero.", player));
+        listafrases.add(new Frase("Estas antiguas minas cambian su forma cada vez que alguien entra en ellas.", player));
         listafrases.add(new Frase("¡En marcha!", soldado2));
         listafrases.add(new Frase("¡Entendido!", soldado1));
    
@@ -261,7 +262,7 @@ public class Escena_EntradaMina extends BasicGameState {
 
         if (key == Input.KEY_ESCAPE) {
 
-            game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
+            game.enterState(3, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
 
 
         } else if (key == Input.KEY_RETURN) {
