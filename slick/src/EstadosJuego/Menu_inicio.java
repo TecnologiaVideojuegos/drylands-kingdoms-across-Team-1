@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import EstadosJuego.CoreGame.drylands.CoreGame;
+import EstadosJuego.CoreGame.drylands.Escena_Desierto;
 import EstadosJuego.CoreGame.drylands.Escena_EntradaMina;
 import EstadosJuego.CoreGame.drylands.Tutorial;
 
@@ -25,14 +26,19 @@ public class Menu_inicio extends StateBasedGame {
 		//addState(new TestState1());
 		
 		addState(new Estado_inicial());
-                addState(new CoreGame());
-                addState(new Intro());
                 addState(new Estado_opciones());
-                addState(new Escena_Castillo());
-                addState(new Estado_gameover());
-                addState(new UnasHorasAntes());
-                addState(new Tutorial());
                 addState(new Escena_EntradaMina());
+                addState(new Tutorial());
+                addState(new Intro());
+                addState(new CoreGame());    
+                addState(new Escena_Castillo());
+                addState(new Escena_Desierto());
+                addState(new Estado_gameover());
+                addState(new PerdidoDesierto());
+                addState(new UnasHorasAntes());
+                
+                
+                addState(new Creditos());
 	}
 	
 	public static void main(String[] argv) {

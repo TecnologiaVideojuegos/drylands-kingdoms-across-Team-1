@@ -197,7 +197,7 @@ public class Escena_EntradaMina extends BasicGameState {
             mapa.actCamara(delta, player);
             //Actualizo las hitbox
             if(mapa.playerEnFinal(player))
-                game.enterState(3, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+                game.enterState(9, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
             player.actHitbox();
             for (Enemigo enemigo : enemigos) {
                 enemigo.actHitbox();

@@ -1,8 +1,8 @@
 package EstadosJuego;
 
-import EstadosJuego.CoreGame.drylands.CoreGame;
 import EstadosJuego.CoreGame.drylands.Guardado;
 import org.lwjgl.input.Mouse;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -37,6 +38,7 @@ public class Estado_inicial extends BasicGameState {
     //Seleccion de menu y hover
     private int btn=-1;
     public static final int ID = 1;
+    
     @Override
     public int getID() {
         return ID;
@@ -63,6 +65,7 @@ public class Estado_inicial extends BasicGameState {
         container.setIcon("res/icono2.png");
         //Inicializacion de cursor
         container.setMouseCursor(cursor, 3, 3);
+       
     }
 
     @Override
@@ -94,6 +97,7 @@ public class Estado_inicial extends BasicGameState {
         } else {
             btn_salir.draw(450, 580);
         }
+        
     }
 
     @Override

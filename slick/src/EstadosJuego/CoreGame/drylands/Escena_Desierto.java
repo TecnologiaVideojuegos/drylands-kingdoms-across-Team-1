@@ -2,18 +2,15 @@ package EstadosJuego.CoreGame.drylands;
 
 import EstadosJuego.Narrativa.Dialogo;
 import EstadosJuego.Narrativa.Frase;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.font.effects.ColorEffect;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.io.EOFException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -21,12 +18,12 @@ import java.util.ArrayList;
  *
  * @author FairLight
  */
-public class Escena_Castillo extends BasicGameState {
+public class Escena_Desierto extends BasicGameState {
 
     /**
      * The ID given to this state
      */
-    public static final int ID = 10;
+    public static final int ID = 52;
 
     private java.awt.Font UIFont1;
     private org.newdawn.slick.UnicodeFont uniFont;
@@ -36,23 +33,25 @@ public class Escena_Castillo extends BasicGameState {
     private final int TAMX = 48, TAMY = 60;
     private GameContainer container;
     private Player player;
-    private Enemigo rey;
+    private Enemigo soldado, soldado1, soldado2, soldado3;
     private Enemigo cillop;
     private ArrayList<Enemigo> enemigos;
 
-    private Mapa mapa, mapa2;
-    private SpriteSheet spritesplayer, spritescursor;
-    
+    private Mapa mapa;
+    private SpriteSheet spritesplayer, spritescursor, spritesTormenta;
+
     private Guardado partida;
     private Animation cursor;
+    private Animation tormenta;
 
     private StateBasedGame game;
-    
+
     private Dialogo dialogo;
     private boolean libre;
-    
+
     private long tiempo;
-    private Image intro,mouse;
+    private Image intro, mouse;
+
     public int getID() {
         return ID;
     }
@@ -67,77 +66,44 @@ public class Escena_Castillo extends BasicGameState {
         mouse = new Image("res/teclas/mouse1.png");
 
         try {
-            spritesplayer = new SpriteSheet("ficheros/sprites/testsprites.png", TAMX, TAMY);
+            spritesplayer = new SpriteSheet("ficheros/sprites/personaje.png", TAMX, TAMY);
             spritescursor = new SpriteSheet("ficheros/sprites/spritecursor.png", 15, 15);
+            spritesTormenta = new SpriteSheet("ficheros/sprites/tormentafinal.png", 1365, 768);
 
         } catch (SlickException e) {
 
         }
+        tormenta = new Animation();
+        for (int j = 0; j < 8; j++) {
+            for (int i = 0; i < 5; i++) {
+                tormenta.addFrame(spritesTormenta.getSprite(i, j), 100);
+            }
+        }
+        tormenta.setPingPong(true);
 
         cursor = new Animation();
         cursor.addFrame(spritescursor.getSprite(0, 0), 500);
         cursor.addFrame(spritescursor.getSprite(1, 0), 500);
-
+        //Creamos todos los personajes de la escena
         player = new Player(spritesplayer, 10, new Combo());
-        rey = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/reyx3.png", TAMX, TAMY), 100,0);
-        cillop = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/cillopx3.png", TAMX, TAMY), 100,0);
 
         container.getGraphics().setBackground(new Color(0.15f, 0.05f, 0.1f));
 
+        mapa = new Mapa("ficheros/piramide.tmx", "ficheros/piramide.tmx", "ficheros", SCREENRESX, SCREENRESY);
 
-
-        mapa = new Mapa("ficheros/castillo3Dfront.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
-        mapa2 = new Mapa("ficheros/castillo3Dback.tmx", "ficheros/castilloinfo.tmx", "ficheros", SCREENRESX, SCREENRESY);
-
+        //Colocamos todos los personajes en el mapa
         player.setX(1600);
-        player.setY(741);
-        rey.setX(1812);
-        rey.setY(710);
-        rey.setMirandoD(false);
-        cillop.setX(1920);
-        cillop.setY(785);
-        cillop.setMirandoD(false);
+        player.setY(2000);
+
+        player.setVel(0.2f);
 
         mapa.actCamara(1, player);
         mapa.forzarCentro(player);
-        mapa2.actCamara(1, player);
-        mapa2.forzarCentro(player);
         partida.setCargada();
 
-        enemigos = new ArrayList<Enemigo>();
-        enemigos.add(rey);
-        enemigos.add(cillop);
-
         ArrayList<Frase> listafrases = new ArrayList<Frase>();
-        listafrases.add(new Frase("¡Es injusto!", player));
-        listafrases.add(new Frase("Se me acusa de algo estúpido", player));
-        listafrases.add(new Frase("¡Mientes!", cillop));
-        listafrases.add(new Frase("Tu irresponsabilidad nos ha podido salir cara", cillop));
-        listafrases.add(new Frase("¡BASTA!", rey));
-        listafrases.add(new Frase("¿Por qué te propasaste Solace?", rey));
-        listafrases.add(new Frase("Noté algo, tuve un presentimiento", player));
-        listafrases.add(new Frase("Vi algo nuevo, parecía un portal", player));
-        listafrases.add(new Frase("¿Un presentimiento?", cillop));
-        listafrases.add(new Frase("Vamos , por favor...", cillop));
-        listafrases.add(new Frase("Las pruebas no están de tu parte, Solace", rey));
-        listafrases.add(new Frase("Lo siento", rey));
-        listafrases.add(new Frase("¿Acaso no me oís?", player));
-        listafrases.add(new Frase("Tenemos un portal ahí abajo", player));
-        listafrases.add(new Frase("Mide tus palabras", rey));
-        listafrases.add(new Frase("Pones en riesgo nuestra seguridad", rey));
-        listafrases.add(new Frase("Eso es lo que realmente importa", rey));
-        listafrases.add(new Frase("¿¿Nuestra seguridad??", player));
-        listafrases.add(new Frase("¿O su conciencia?", player));
-        listafrases.add(new Frase("Es un peligro, nadie sabe adónde lleva", player));
-        listafrases.add(new Frase("Están asustados y no piensan claramente", player));
-        listafrases.add(new Frase("¡Y usted es un rey horrible!", player));
-        listafrases.add(new Frase("Hasta aquí chico", rey));
-        listafrases.add(new Frase("Ya hemos tenido suficiente", rey));
-        listafrases.add(new Frase("Estás desterrado, abandona el reino", rey));
-        listafrases.add(new Frase("Je,je,je", cillop));
-        listafrases.add(new Frase("¿QUÈ?", player));
-        listafrases.add(new Frase("No me hagas ordenar matarte", rey));
-        listafrases.add(new Frase("...", player));
+        //Frases de los personajes
+        listafrases.add(new Frase("No quiero que este desierto sea mi tumba", player));
 
         try {
             UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
@@ -164,13 +130,10 @@ public class Escena_Castillo extends BasicGameState {
         mapa.render();
 
         ArrayList<Personaje> listaentidadesrender = new ArrayList<>();
-        listaentidadesrender.addAll(enemigos);
 
         listaentidadesrender.add(player);
 
         Personaje.renderOrdenados(mapa, listaentidadesrender);
-
-        mapa2.renderAt(mapa);
 
         g.drawString("JugX:" + player.getX(), 100, 100);
         g.drawString("JugY:" + player.getY(), 100, 120);
@@ -186,15 +149,15 @@ public class Escena_Castillo extends BasicGameState {
             intro.draw(1200, 700);
         } else {
             //Si ya esta libre y no han pasado 10 segundos muestra control movimiento
-            if (tiempo<10000){
+            if (tiempo < 10000) {
                 g.setFont(uniFont);
                 g.drawString("Use el ratón para desplazarse", 830, 710);
                 mouse.draw(1200, 700);
             }
-        
+
         }
         dialogo.render(g, mapa);
-
+        tormenta.draw(0, 0);
     }
 
     /**
@@ -205,14 +168,11 @@ public class Escena_Castillo extends BasicGameState {
         if (libre) {
             tiempo += delta;
             mapa.actCamara(delta, player);
-            mapa2.actCamara(delta, player);
             //Actualizo las hitbox
-            if(mapa.playerEnFinal(player))
-                game.enterState(99, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
-            player.actHitbox();
-            for (Enemigo enemigo : enemigos) {
-                enemigo.actHitbox();
+            if (mapa.playerEnFinal(player)) {
+                game.enterState(55, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
             }
+            player.actHitbox();
 
             if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
                 player.setCorriendo();
@@ -223,15 +183,6 @@ public class Escena_Castillo extends BasicGameState {
             player.calcNuevaPos(delta, mapa);
 
             //Compruebo colisiones con NPC
-            if (!player.retrocediendo()) {
-                for (Enemigo enemigo : enemigos) {
-                    if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
-
-                        break;
-                    }
-                }
-            }
-
             if (mapa.checkColX(player)) {//comprobamos colisiones muros
                 player.resetX();
             }
@@ -242,27 +193,11 @@ public class Escena_Castillo extends BasicGameState {
             player.updAngulo();
 
             //Compruebo colisiones con NPC
-            if (!player.retrocediendo()) {
-                for (Enemigo enemigo : enemigos) {
-                    if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
-                        if (enemigo.checkColX(player)) {//comprobamos colisiones muros
-                            player.resetX();
-                        }
-                        if (enemigo.checkColY(player)) {
-                            player.resetY();
-                        }
-
-                        break;
-                    }
-                }
-            }
-
             player.updPosX();
             player.updPosY();
         } else {
             dialogo.update(delta);
         }
-        
 
     }
 
@@ -274,7 +209,6 @@ public class Escena_Castillo extends BasicGameState {
         if (key == Input.KEY_ESCAPE) {
 
             game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
-
 
         } else if (key == Input.KEY_RETURN) {
             try {

@@ -1,12 +1,10 @@
 package EstadosJuego.CoreGame.drylands;
 
-import EstadosJuego.Narrativa.Pensamientos;
-import MapasProc.ProceduralesMain;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.font.effects.ColorEffect;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
