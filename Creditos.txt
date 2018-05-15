@@ -1,0 +1,29 @@
+Créditos
+
+Jefe de equipo y programador Marino Tejedor Romero
+
+Sonido y programador Adrián Sánchez Castaño
+
+Narrativa y programador David Valdelvira Sánchez
+
+Diseño gráfico y programador Álvaro de las Heras Fernández
+
+Licencias
+Música y sonido
+	Canciones
+	Kevin MacLeod - Level Up
+	Kevin MacLeod - 8bit Dungeon Boss
+	Kevin MacLeod - Adventure Meme
+	Kevin MacLeod - Colorless Aura
+	Efectos
+	-GUI www.zapsplat.com
+Recursos gráficos
+	Fuentes
+	Sangoku4 - Rob Meek y Cliff Modes
+	Tiles
+	-Dungeon y personajes - https://0x72.itch.io
+Código y librerías
+	Slick2d
+	LWGJL
+	Tiled Libraries
+	
