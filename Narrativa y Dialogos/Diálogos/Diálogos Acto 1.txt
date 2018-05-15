@@ -1,0 +1,26 @@
+Diálogos
+Acto I
+
+* Llegada a la mina:
+
+-Solace: Así que esta es la famosa mina que nos han encomendado explorar.
+-Cillop: Eso parece, debemos recorrerla entera en busca de la tecnología abandonada tras las guerras como legado de su tecnología.
+-Solace: Bien, comencemos entonces y recordad nadie debe abandonar la mina sin compañía de un compañero, estas mazmorras cambian su forma cada vez que se entra en ellas.
+-Resto de exploradores: Entendido, ¡en marcha!
+      
+* Primer contacto con el portal:
+
+-Solace: (Frente al portal) Vaya, mirad esto, parece una especie de portal. 
+
+-Solace: Me pregunto a donde llevará si lo atravesamos.
+
+-Cillop: (Acercándose a Solace por la espalda) Vámonos, eso no es un portal, es un simple espejismo.
+
+-Solace: (Casi entrando al portal) Esto no es una ilusión, es un portal real y debemos averiguar a donde lleva.
+
+Cillop saca su cuchillo dispuesto a asesinar a su jefe de expedición mientras ninguno de los allí presentes se percata de ello. Justo en el momento de asestar una fatal puñalada a Solace, este se torna hacia él y lo cual provoca que Cillop disimule con el objetivo de que sus intenciones no sean descubiertas.
+
+-Solace: (Observando la marca del brazo de Cillop): No creo que introducir un cuchillo al portal sea una gran idea. Vayámonos e informemos de los hallazgos encontrados hoy aquí.
+
+Todos los exploradores recogen sus utensilios y se disponen a abandonar la mina sin separarse del resto.
+
