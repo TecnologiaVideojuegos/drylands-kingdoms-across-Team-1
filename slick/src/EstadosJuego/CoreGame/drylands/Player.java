@@ -47,7 +47,7 @@ public class Player extends Personaje {
         super(48, 60, 40, (float) 0.3, sprites, -1000, -1000, vidaplayer);
 
         dash = new Dash((float) 1.2, 1000, sprites,combo,250);
-        block = new Block("Block",3000,1000,sprites,combo);
+        block = new Block("Block",2000,1000,sprites,combo);
         this.vidamax=vidaplayer;
     }
 
