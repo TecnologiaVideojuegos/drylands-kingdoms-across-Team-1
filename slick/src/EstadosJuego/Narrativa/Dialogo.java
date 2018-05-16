@@ -84,4 +84,13 @@ public class Dialogo {
         terminado = true;
         throw new EOFException();
     }
+
+    public int getiFrase() {
+        return iFrase;
+    }
+
+    public boolean isTerminado() {
+        return terminado;
+    }
+    
 }

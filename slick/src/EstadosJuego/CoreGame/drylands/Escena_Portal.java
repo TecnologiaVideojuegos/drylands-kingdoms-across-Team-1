@@ -18,12 +18,12 @@ import java.util.ArrayList;
  *
  * @author FairLight
  */
-public class Escena_EntradaMina extends BasicGameState {
+public class Escena_Portal extends BasicGameState {
 
     /**
      * The ID given to this state
      */
-    public static final int ID = 50;
+    public static final int ID = 60;
 
     private java.awt.Font UIFont1;
     private org.newdawn.slick.UnicodeFont uniFont;
@@ -33,23 +33,27 @@ public class Escena_EntradaMina extends BasicGameState {
     private final int TAMX = 48, TAMY = 60;
     private GameContainer container;
     private Player player;
-    private Enemigo soldado,soldado1,soldado2,soldado3;
+    private Enemigo soldado, soldado1, soldado2, soldado3;
     private Enemigo cillop;
     private ArrayList<Enemigo> enemigos;
 
     private Mapa mapa, mapa2;
-    private SpriteSheet spritesplayer, spritescursor;
-    
+    private SpriteSheet spritesplayer, spritescursor, spritesPortal;
+
     private Guardado partida;
     private Animation cursor;
-
+    private Animation portal;
+    private Animation cuchillo;
     private StateBasedGame game;
     
-    private Dialogo dialogo;
-    private boolean libre;
+    private float ultX, ultY;
     
+    private Dialogo dialogo;
+    private boolean libre, movCillop = false, movSolace = false,mostrarCuchillo=false;
+
     private long tiempo;
-    private Image intro,mouse;
+    private Image intro, mouse;
+
     public int getID() {
         return ID;
     }
@@ -66,47 +70,52 @@ public class Escena_EntradaMina extends BasicGameState {
         try {
             spritesplayer = new SpriteSheet("ficheros/sprites/personaje.png", TAMX, TAMY);
             spritescursor = new SpriteSheet("ficheros/sprites/spritecursor.png", 15, 15);
+            spritesPortal = new SpriteSheet("ficheros/sprites/portalAnimacion.png", 96, 96);
 
         } catch (SlickException e) {
 
         }
-
+        portal = new Animation();
         cursor = new Animation();
         cursor.addFrame(spritescursor.getSprite(0, 0), 500);
         cursor.addFrame(spritescursor.getSprite(1, 0), 500);
+        for (int i = 0; i < 8; i++) {
+            portal.addFrame(spritesPortal.getSprite(i, 0), 150);
+        }
+        cuchillo = new Animation();
+        for (int i = 0; i < 4; i++) {
+            cuchillo.addFrame(new SpriteSheet("ficheros/sprites/cillopx3_v2.png", TAMX, TAMY).getSprite(i, 4).getFlippedCopy(true, false), 150);
+        }
         //Creamos todos los personajes de la escena
         player = new Player(spritesplayer, 10, new Combo());
-        soldado = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/soldado3.png", TAMX, TAMY), 100,0);
-        soldado1 = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/soldado3.png", TAMX, TAMY), 100,0);
-        soldado2 = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/soldado3.png", TAMX, TAMY), 100,0);
-        soldado3 = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/soldado3.png", TAMX, TAMY), 100,0);
-        cillop = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/cillopx3.png", TAMX, TAMY), 100,0);
+        soldado = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/soldado3.png", TAMX, TAMY), 100, 0);
+        soldado1 = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/soldado3.png", TAMX, TAMY), 100, 0);
+        soldado2 = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/soldado3.png", TAMX, TAMY), 100, 0);
+        soldado3 = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/soldado3.png", TAMX, TAMY), 100, 0);
+        cillop = new Enemigo(400, 400, 10000, 300, spritesplayer = new SpriteSheet("ficheros/sprites/cillopx3_v2.png", TAMX, TAMY), 100, 0);
 
         container.getGraphics().setBackground(new Color(0.15f, 0.05f, 0.1f));
 
+        mapa = new Mapa("/ficheros/MapasX3/Salas/SalaBossCerrada.tmx", "/ficheros/MapasX3/Salas/SalaBossCerrada.tmx", "ficheros", SCREENRESX, SCREENRESY);
 
-
-        mapa = new Mapa("ficheros/entradaMina.tmx","ficheros/entradaMina.tmx", "ficheros", SCREENRESX, SCREENRESY);
-       
         //Colocamos todos los personajes en el mapa
-        player.setX(1600);
-        player.setY(741);
-        soldado.setX(1860);
-        soldado.setY(710);
-        soldado1.setX(1860);
-        soldado1.setY(770);
-        soldado2.setX(1812);
-        soldado2.setY(770);
-        soldado3.setX(1812);
-        soldado3.setY(710);
+        player.setX(700);
+        player.setY(120);
+        player.setMirandoD(false);
+        soldado.setX(360);
+        soldado.setY(400);
+        soldado1.setX(960);
+        soldado1.setY(150);
+        soldado2.setX(812);
+        soldado2.setY(600);
+        soldado3.setX(1012);
+        soldado3.setY(350);
         //Que esten mirando a la izquierda
         soldado.setMirandoD(false);
-        soldado1.setMirandoD(false);
+
         soldado2.setMirandoD(false);
-        soldado3.setMirandoD(false);
-        cillop.setX(1720);
-        cillop.setY(770);
-        cillop.setMirandoD(false);
+        cillop.setX(500);
+        cillop.setY(300);
 
         mapa.actCamara(1, player);
         mapa.forzarCentro(player);
@@ -121,16 +130,13 @@ public class Escena_EntradaMina extends BasicGameState {
         enemigos.add(cillop);
 
         ArrayList<Frase> listafrases = new ArrayList<Frase>();
-       //Frases de los personajes
-        listafrases.add(new Frase("Así que esta es la famosa mina que nos han encomendado explorar.", player));
-        listafrases.add(new Frase("Eso parece, debemos recorrerla entera en busca de la tecnología abandonada.", cillop));
-        listafrases.add(new Frase("Hay que evitar que ese legado se pierda por culpa de las guerras.", cillop));
-        listafrases.add(new Frase("Bien, comencemos entonces y recordad nadie debe abandonar la mina sin su compañero.", player)); 
-        listafrases.add(new Frase("Como ya sabeís estas antiguas minas cambian su forma cada vez que alguien entra en ellas.", player));
-        listafrases.add(new Frase("¡En marcha!", soldado2));
-        listafrases.add(new Frase("¡Entendido!", soldado1));
-   
-
+        //Frases de los personajes
+        listafrases.add(new Frase("Vaya, mirad esto, parece una especie de portal.", player));
+        listafrases.add(new Frase("Me pregunto a donde llevará si lo atravesamos.", player));
+        listafrases.add(new Frase("Vámonos, eso no es un portal, es un simple espejismo.", cillop));
+        listafrases.add(new Frase("Esto no es una ilusión, es un portal real y debemos averiguar a donde lleva.", player));
+        listafrases.add(new Frase("No creo que introducir un cuchillo al portal sea una gran idea.", player));
+        listafrases.add(new Frase("Vayámonos e informemos de los hallazgos encontrados hoy aquí.", player));
         try {
             UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
                     org.newdawn.slick.util.ResourceLoader.getResourceAsStream("res/Sangoku4.ttf"));
@@ -152,9 +158,9 @@ public class Escena_EntradaMina extends BasicGameState {
      * org.newdawn.slick.Graphics)
      */
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
-
+        
         mapa.render();
-
+        portal.draw(637, 48);
         ArrayList<Personaje> listaentidadesrender = new ArrayList<>();
         listaentidadesrender.addAll(enemigos);
 
@@ -169,22 +175,14 @@ public class Escena_EntradaMina extends BasicGameState {
         g.drawString("MapaY:" + mapa.getOffY(), 100, 160);
 
         g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
-        //Si no esta libre muestra el control del intro
-        if (!libre) {
-            g.setFont(uniFont);
-            g.drawString("Pulse Intro para cambiar diálogo", 830, 710);
-            intro.draw(1200, 700);
-        } else {
-            //Si ya esta libre y no han pasado 10 segundos muestra control movimiento
-            if (tiempo<10000){
-                g.setFont(uniFont);
-                g.drawString("Use el ratón para desplazarse", 830, 710);
-                mouse.draw(1200, 700);
-            }
-        
+        if (dialogo.getiFrase() > 3 || mostrarCuchillo){
+            
+            cuchillo.draw(ultX+34,ultY+9);
+            cillop.setX(2000);
+            cillop.updPosX();
         }
         dialogo.render(g, mapa);
-
+        
     }
 
     /**
@@ -192,65 +190,52 @@ public class Escena_EntradaMina extends BasicGameState {
      * int)
      */
     public void update(GameContainer container, StateBasedGame game, int delta) {
-        if (libre) {
-            tiempo += delta;
-            mapa.actCamara(delta, player);
-            //Actualizo las hitbox
-            if(mapa.playerEnFinal(player))
-                game.enterState(9, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
-            player.actHitbox();
-            for (Enemigo enemigo : enemigos) {
-                enemigo.actHitbox();
-            }
+        tiempo += delta;
+        if (tiempo % 10 == 0 && tiempo < 2400 && movCillop) {
+            cillop.setCorriendo(true);
+            cillop.addX(8);
 
-            if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-                player.setCorriendo();
-            } else {
-                player.setIdle();
-            }
+            cillop.updPosX();
 
-            player.calcNuevaPos(delta, mapa);
-
-            //Compruebo colisiones con NPC
-            if (!player.retrocediendo()) {
-                for (Enemigo enemigo : enemigos) {
-                    if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
-
-                        break;
-                    }
-                }
-            }
-
-            if (mapa.checkColX(player)) {//comprobamos colisiones muros
-                player.resetX();
-            }
-
-            if (mapa.checkColY(player)) {
-                player.resetY();
-            }
-            player.updAngulo();
-
-            //Compruebo colisiones con NPC
-            if (!player.retrocediendo()) {
-                for (Enemigo enemigo : enemigos) {
-                    if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
-                        if (enemigo.checkColX(player)) {//comprobamos colisiones muros
-                            player.resetX();
-                        }
-                        if (enemigo.checkColY(player)) {
-                            player.resetY();
-                        }
-
-                        break;
-                    }
-                }
-            }
-
-            player.updPosX();
-            player.updPosY();
-        } else {
-            dialogo.update(delta);
         }
+        if (tiempo % 10 == 0 && tiempo > 2400 && movCillop) {
+            cillop.addY(-8);
+            cillop.updPosY();
+            cillop.setCorriendo(true);
+            cillop.setMirandoD(false);
+            if (tiempo > 4000) {
+                cillop.setCorriendo(false);
+                ultX=cillop.getX();
+                ultY=cillop.getY();
+                movCillop = false;
+                movSolace = true;
+                mostrarCuchillo=true;
+                tiempo = 0;
+            }
+        }
+        if (dialogo.getiFrase() == 2) {
+            movCillop = true;
+            tiempo = 0;
+        }
+        if (dialogo.getiFrase() == 4) {
+            player.setMirandoD(true);
+        }
+        if (tiempo % 10 == 0 && movSolace) {
+            player.setCorriendo(true);
+            player.addX(-8);
+            player.updPosX();
+            if (tiempo > 500) {
+                player.setCorriendo(false);
+                movSolace = false;
+                tiempo = 0;
+            }
+        }
+        if (dialogo.isTerminado()) {
+            game.enterState(10, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+        } 
+       
+            dialogo.update(delta);
+        
 
     }
 
@@ -262,7 +247,6 @@ public class Escena_EntradaMina extends BasicGameState {
         if (key == Input.KEY_ESCAPE) {
 
             game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
-
 
         } else if (key == Input.KEY_RETURN) {
             try {

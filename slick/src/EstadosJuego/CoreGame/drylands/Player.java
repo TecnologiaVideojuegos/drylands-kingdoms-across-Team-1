@@ -188,4 +188,9 @@ public class Player extends Personaje {
         }
 
     }
+
+    public void setCorriendo(boolean corriendo) {
+        this.corriendo = corriendo;
+    }
+    
 }

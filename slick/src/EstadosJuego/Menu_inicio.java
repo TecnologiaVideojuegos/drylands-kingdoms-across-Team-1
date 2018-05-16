@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import EstadosJuego.CoreGame.drylands.CoreGame;
 import EstadosJuego.CoreGame.drylands.Escena_Desierto;
 import EstadosJuego.CoreGame.drylands.Escena_EntradaMina;
+import EstadosJuego.CoreGame.drylands.Escena_Portal;
 import EstadosJuego.CoreGame.drylands.Tutorial;
 
 /**
@@ -31,6 +32,7 @@ public class Menu_inicio extends StateBasedGame {
                 addState(new Tutorial());
                 addState(new Intro());
                 addState(new CoreGame());    
+                addState(new Escena_Portal());
                 addState(new Escena_Castillo());
                 addState(new Escena_Desierto());
                 addState(new Estado_gameover());

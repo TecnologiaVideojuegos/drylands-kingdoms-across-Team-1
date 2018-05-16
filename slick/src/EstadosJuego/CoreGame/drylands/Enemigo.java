@@ -109,4 +109,13 @@ public class Enemigo extends Personaje {
         }
 
     }
+
+    public void setCorriendo(boolean corriendo) {
+        this.corriendo = corriendo;
+    }
+
+    public Animation getJumpi() {
+        return jumpi;
+    }
+    
 }
