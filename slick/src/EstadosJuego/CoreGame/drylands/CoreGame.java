@@ -46,7 +46,7 @@ public class CoreGame extends BasicGameState {
     private java.awt.Font UIFont1;
     private org.newdawn.slick.UnicodeFont uniFont;
     private Sound dash, block;
-    private Music musicaMaz;
+    private Music musicaMaz,musicaFight;
     
     /*public CoreGame() {
         super("Dryland: Kingdoms Across");
@@ -170,6 +170,7 @@ public class CoreGame extends BasicGameState {
         dash = new Sound("res/Dash.ogg");
         block = new Sound("res/Bloqueo.ogg");
         musicaMaz = new Music("res/Mazmorras.ogg");
+        musicaFight = new Music("res/Boss.ogg");
         
         
     }
@@ -264,7 +265,13 @@ public class CoreGame extends BasicGameState {
      */
     public void update(GameContainer container, StateBasedGame game,int delta) {
         partida.guardarEstado(this.getID());
-        musicaMaz.loop();
+        if(!combate&&!musicaMaz.playing())
+            musicaMaz.loop();
+        else if(combate&&!musicaFight.playing())
+            musicaFight.loop();
+        
+        
+        
         if(!combate){
             comentarios.update(delta);
         }
@@ -482,10 +489,7 @@ public class CoreGame extends BasicGameState {
                 player.dash.cast(player, player.getX() + player.TAMX / 2 + (int) difx, player.getY() + player.TAMY / 2 + (int) dify);
                 //System.out.println("Casteado movimiento a ",difx);
             }
-        } else if (key == Input.KEY_P) {
-            enemigos.add(new Enemigo((int) mapa.getAbsMouseX(), (int) mapa.getAbsMouseY(), 1, (double) 0.3, spritesplayer, 1,300));
-        }
-        if(key == Input.KEY_W && player.block.getCDRestante() == 0 && !player.block.estaActiva()){
+        } else if(key == Input.KEY_W && player.block.getCDRestante() == 0 && !player.block.estaActiva()){
             block.play();
         }
 

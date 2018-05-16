@@ -53,6 +53,7 @@ public class Escena_Castillo extends BasicGameState {
     
     private long tiempo;
     private Image intro,mouse;
+    private Music musica;
     public int getID() {
         return ID;
     }
@@ -154,6 +155,7 @@ public class Escena_Castillo extends BasicGameState {
         }
         dialogo = new Dialogo(listafrases, uniFont, new Sound("res/sonido1.wav"));
         libre = false;
+        musica = new Music("res/EscenaCastillo.ogg");
     }
 
     /**
@@ -203,6 +205,8 @@ public class Escena_Castillo extends BasicGameState {
      * int)
      */
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        if(!musica.playing())
+            musica.loop();
         partida.guardarEstado(this.getID());
         if (libre) {
             tiempo += delta;

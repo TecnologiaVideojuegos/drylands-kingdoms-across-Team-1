@@ -101,7 +101,10 @@ public class Guardado {
     }
     public void guardarEstado(int estado){
         partida_estado.setNumber("numestado", estado);
-        
+        try{
+             partida_estado.save();
+        }catch(Exception e){}
+       
 
     }
     public int getEstado(){

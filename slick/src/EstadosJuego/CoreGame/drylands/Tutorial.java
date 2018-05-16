@@ -193,7 +193,7 @@ public class Tutorial extends BasicGameState {
             case bloquear:
 
                 g.setFont(uniFont);
-                g.drawString("Deje pulsado W para bloquear ataques", 830, 710);
+                g.drawString("Deje pulsado W para bloquear", 830, 710);
                 teclaw.draw(1200, 700);
                 break;
 

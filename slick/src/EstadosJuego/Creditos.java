@@ -16,6 +16,7 @@ public class Creditos extends BasicGameState {
     private final float vel=(float)0.04;
     private boolean movimiento;
     private int msFinal;
+    private Music musica;
 
 
     @Override
@@ -28,11 +29,15 @@ public class Creditos extends BasicGameState {
         introimg=new Image("ficheros/creditos.png");
         movimiento=true;
         msFinal=0;
+        musica=new Music("res/Adventure.ogg");
     }
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         introimg.draw(0,-posy);
     }
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        if(!musica.playing()){
+            musica.loop();
+        }
         if(movimiento){
             if(Keyboard.isKeyDown(Input.KEY_RETURN)){
                 posy+=(vel*2.5)*delta;
