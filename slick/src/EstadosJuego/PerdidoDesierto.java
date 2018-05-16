@@ -5,6 +5,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import EstadosJuego.CoreGame.drylands.Guardado;
 
 public class PerdidoDesierto extends BasicGameState {
 
@@ -19,6 +20,7 @@ public class PerdidoDesierto extends BasicGameState {
     }
 
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
+        
 
         img = new Image("ficheros/perdidoDesierto.png");
 

@@ -60,8 +60,10 @@ public class Escena_Desierto extends BasicGameState {
      * @see org.newdawn.slick.BasicGame#init(org.newdawn.slick.GameContainer)
      */
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
+        
         this.game = game;
         partida = new Guardado("partida");
+        
         intro = new Image("res/teclas/intro.png");
         mouse = new Image("res/teclas/mouse1.png");
 
@@ -165,6 +167,7 @@ public class Escena_Desierto extends BasicGameState {
      * int)
      */
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        partida.guardarEstado(this.getID());
         if (libre) {
             tiempo += delta;
             mapa.actCamara(delta, player);

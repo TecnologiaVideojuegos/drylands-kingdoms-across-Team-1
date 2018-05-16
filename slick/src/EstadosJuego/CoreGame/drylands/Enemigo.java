@@ -76,8 +76,11 @@ public class Enemigo extends Personaje {
                 contadorMsReflejos+=delta;
                 if(contadorMsReflejos>=600){
                     contadorMsReflejos=0;
-                    dash = new Dash((float) 1.2, 1000, sprites,new Combo(),200);
+                    if(!player.retrocediendo()){
+                        dash = new Dash((float) 1.2, 1000, sprites,new Combo(),200);
                     this.dash.cast(this,player.getX(),player.getY());
+                    }
+                    
                 }
 
             }
@@ -116,6 +119,22 @@ public class Enemigo extends Personaje {
 
     public Animation getJumpi() {
         return jumpi;
+    }
+    @Override
+    public void resetX() {
+        newx = posx;
+        this.dash.terminar();
+        this.dash.contarCD();
+
+
+    }
+
+    @Override
+    public void resetY() {
+        newy = posy;
+this.dash.terminar();
+        this.dash.contarCD();
+
     }
     
 }

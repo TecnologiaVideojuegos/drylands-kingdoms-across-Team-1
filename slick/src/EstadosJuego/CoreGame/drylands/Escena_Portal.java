@@ -64,6 +64,7 @@ public class Escena_Portal extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
         partida = new Guardado("partida");
+        
         intro = new Image("res/teclas/intro.png");
         mouse = new Image("res/teclas/mouse1.png");
 
@@ -143,7 +144,7 @@ public class Escena_Portal extends BasicGameState {
             UIFont1 = UIFont1.deriveFont(java.awt.Font.PLAIN, 24.f); //You can change "PLAIN" to "BOLD" or "ITALIC"... and 16.f is the size of your font
             uniFont = new org.newdawn.slick.UnicodeFont(UIFont1);
             uniFont.addAsciiGlyphs();
-            uniFont.getEffects().add(new ColorEffect(java.awt.Color.black)); //You can change your color here, but you can also change it in the render{ ... }
+            uniFont.getEffects().add(new ColorEffect(java.awt.Color.white)); //You can change your color here, but you can also change it in the render{ ... }
             uniFont.addAsciiGlyphs();
             uniFont.loadGlyphs();
         } catch (Exception e) {
@@ -190,6 +191,7 @@ public class Escena_Portal extends BasicGameState {
      * int)
      */
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        partida.guardarEstado(this.getID());
         tiempo += delta;
         if (tiempo % 10 == 0 && tiempo < 2400 && movCillop) {
             cillop.setCorriendo(true);
@@ -231,7 +233,7 @@ public class Escena_Portal extends BasicGameState {
             }
         }
         if (dialogo.isTerminado()) {
-            game.enterState(10, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+            game.enterState(51, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
         } 
        
             dialogo.update(delta);

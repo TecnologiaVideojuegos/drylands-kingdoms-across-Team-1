@@ -35,7 +35,8 @@ public class CoreGame extends BasicGameState {
     private ArrayList<Enemigo> enemigos, enemigosMuertos, limpiaEnemigos;
     //private double avance;
     private Mapa mapa;
-    private SpriteSheet spritesplayer,spritescursor;
+    private SpriteSheet spritesplayer,spritescursor,spritesenemigos;
+    
     private boolean combate;
     private Guardado partida;
     private Animation cursor;
@@ -69,12 +70,15 @@ public class CoreGame extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
         partida = new Guardado("partida");
+        
+        
         combo=new Combo();
         container.setTargetFrameRate(maxFPS);
         container.setVSync(VSYNC);
         container.setSmoothDeltas(true);
         try {
-            spritesplayer = new SpriteSheet("ficheros/sprites/testsprites.png", TAMX, TAMY);
+            spritesplayer = new SpriteSheet("ficheros/sprites/personaje.png", TAMX, TAMY);
+            spritesenemigos = new SpriteSheet("ficheros/sprites/testsprites.png", TAMX, TAMY);
             spritescursor = new SpriteSheet("ficheros/sprites/spritecursor.png",15,15);
         } catch (SlickException e) {
 
@@ -107,6 +111,7 @@ public class CoreGame extends BasicGameState {
                 mapa = new Mapa("ficheros/acto1.tmx","ficheros/acto1info.tmx", "ficheros", SCREENRESX, SCREENRESY);
                 partida.cargarMapa(mapa);
                 partida.cargarPlayer(player);
+                partida.setCargada();
             }
             catch (Exception e){
                 System.out.println("Error al cargar el mapa, se va a     reiniciar la partida");
@@ -252,6 +257,7 @@ public class CoreGame extends BasicGameState {
      * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer, int)
      */
     public void update(GameContainer container, StateBasedGame game,int delta) {
+        partida.guardarEstado(this.getID());
 
         if(!combate){
             comentarios.update(delta);
@@ -287,7 +293,15 @@ public class CoreGame extends BasicGameState {
 
         }
 
+        for(Enemigo enemigo:enemigos){
+            if (mapa.checkColX(enemigo)) {//comprobamos colisiones muros
+            enemigo.resetX();
+        }
 
+        if (mapa.checkColY(enemigo)) {
+            enemigo.resetY();
+        } 
+        }
         if (mapa.checkColX(player)) {//comprobamos colisiones muros
             player.resetX();
         }
@@ -360,14 +374,15 @@ public class CoreGame extends BasicGameState {
             if (mapa.playerEnInicio(player)) {
 
             } else if (mapa.playerEnFinal(player)) {
+                game.enterState(60, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 
             } else {
                 Circle circulo = new Circle(player.posx + player.TAMX / 2, player.posy + player.TAMY / 2, player.TAMY * 3);
 
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 3; i++) {
                     Punto punto = mapa.getRandinSala();
                     if (!circulo.contains(punto.getX(), punto.getY()))
-                        enemigos.add(new Enemigo((int) punto.getX(), (int) punto.getY(), 1, (double) 0.3, spritesplayer, 1,300));
+                        enemigos.add(new Enemigo((int) punto.getX(), (int) punto.getY(), 1, (double) 0.3, spritesenemigos, 1,300));
                     else i--;
                 }
             }

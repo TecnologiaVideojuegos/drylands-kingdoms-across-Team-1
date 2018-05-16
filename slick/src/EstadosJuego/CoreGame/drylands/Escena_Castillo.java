@@ -63,11 +63,12 @@ public class Escena_Castillo extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
         partida = new Guardado("partida");
+        
         intro = new Image("res/teclas/intro.png");
         mouse = new Image("res/teclas/mouse1.png");
 
         try {
-            spritesplayer = new SpriteSheet("ficheros/sprites/testsprites.png", TAMX, TAMY);
+            spritesplayer = new SpriteSheet("ficheros/sprites/personaje.png", TAMX, TAMY);
             spritescursor = new SpriteSheet("ficheros/sprites/spritecursor.png", 15, 15);
 
         } catch (SlickException e) {
@@ -202,6 +203,7 @@ public class Escena_Castillo extends BasicGameState {
      * int)
      */
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        partida.guardarEstado(this.getID());
         if (libre) {
             tiempo += delta;
             mapa.actCamara(delta, player);

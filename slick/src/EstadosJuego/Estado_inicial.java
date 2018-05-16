@@ -130,7 +130,13 @@ public class Estado_inicial extends BasicGameState {
                 //Se selecciona la opcion y se pasa al estado, aqui se carga solo
                 if (Mouse.isButtonDown(0)) {
                     snd.play();
-                    game.enterState(3, new FadeOutTransition(Color.black), new FadeInTransition(Color.green));
+                    Guardado partida;
+                    try{
+                        partida = new Guardado("partida");
+                        game.enterState(partida.getEstado(), new FadeOutTransition(Color.black), new FadeInTransition(Color.green));
+                    }catch(SlickException e){}
+                    
+                    
                 }
             } else if (pos_y > 210 && pos_y < 328) {
                  //Se activa el hover

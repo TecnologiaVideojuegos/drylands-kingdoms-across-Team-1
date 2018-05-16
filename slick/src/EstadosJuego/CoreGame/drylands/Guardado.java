@@ -10,11 +10,13 @@ import java.util.ArrayList;
 public class Guardado {
     private SavedState partida_player;
     private SavedState partida_mapa;
+    private SavedState partida_estado;
 
     public Guardado(String nombrepartida) throws SlickException {
 
         partida_player = new SavedState(nombrepartida + "player");
         partida_mapa = new SavedState(nombrepartida + "mapa");
+        partida_estado = new SavedState(nombrepartida + "mapa");
 
     }
 
@@ -46,6 +48,7 @@ public class Guardado {
     public void resetPartida() {
         partida_mapa.setString("estado","reset");
         partida_player.clear();
+        guardarEstado(9);
         partida_mapa.clear();
         try {
             partida_mapa.save();
@@ -96,4 +99,15 @@ public class Guardado {
         partida_mapa.setString("estado","guardado");
 
     }
+    public void guardarEstado(int estado){
+        partida_estado.setNumber("numestado", estado);
+        
+
+    }
+    public int getEstado(){
+        return (int)partida_estado.getNumber("numestado",9);
+        
+
+    }
+    
 }

@@ -70,12 +70,13 @@ public class Tutorial extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
         partida = new Guardado("partida");
+        
         combo=new Combo();
         container.setTargetFrameRate(maxFPS);
         container.setVSync(VSYNC);
         container.setSmoothDeltas(true);
         try {
-            spritesplayer = new SpriteSheet("ficheros/sprites/testsprites.png", TAMX, TAMY);
+            spritesplayer = new SpriteSheet("ficheros/sprites/personaje.png", TAMX, TAMY);
 
         } catch (SlickException e) {
 
@@ -241,6 +242,8 @@ public class Tutorial extends BasicGameState {
      * @see BasicGame#update(GameContainer, int)
      */
     public void update(GameContainer container, StateBasedGame game,int delta) {
+        partida.guardarEstado(this.getID());
+        
 
         switch (fase){
 
@@ -250,35 +253,14 @@ public class Tutorial extends BasicGameState {
                 if(contadorMs>=3000){
                     contadorMs=0;
                     fase=fases.atacar;
+                    
+                    
                 }
                 break;
+                
+            
 
-            case atacar:
-
-                if (Keyboard.isKeyDown(Input.KEY_Q))
-                    fase=fases.bloquear;
-                break;
-
-
-            case bloquear:
-
-                if (Keyboard.isKeyDown(Input.KEY_W))
-                    fase=fases.cooldownq;
-                break;
-
-            case cooldownq:
-
-                if (Keyboard.isKeyDown(Input.KEY_Q))
-                    fase=fases.cooldownw;
-                break;
-
-
-            case cooldownw:
-
-                if (Keyboard.isKeyDown(Input.KEY_W))
-                    fase=fases.combo;
-                break;
-
+            
 
 
             case combo:
@@ -306,6 +288,12 @@ public class Tutorial extends BasicGameState {
 
         if (Keyboard.isKeyDown(Input.KEY_W) && player.block.getCDRestante() == 0) {
             player.block.block(delta);
+            if(fase==fases.cooldownw){
+                fase=fases.combo;
+            
+            }else  if(fase==fases.bloquear){
+                                    fase=fases.cooldownq;
+                            }
         }
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
@@ -315,6 +303,9 @@ public class Tutorial extends BasicGameState {
         }
 
         player.calcNuevaPos(delta, mapa);
+        for (Enemigo enemigo : enemigos) {
+            enemigo.update(player, delta);
+        }
 
         if (mapa.checkColX(player)) {//comprobamos colisiones muros
             player.resetX();
@@ -330,14 +321,25 @@ public class Tutorial extends BasicGameState {
             for (Enemigo enemigo : enemigos) {
                 if (enemigo.collidesCon(player.getHitbox())) {//ha habido colision, determino el contexto
                     if (!player.estaAtacando()) {//si el jugador no ataca, sufredaño
-                        player.rcvDmg(enemigo.getDmg());
+                        if(player.estaBloqueando()){
+                                enemigo.retroceder(enemigo.getAngulo()+180);
+                               
+                        }
+                        else{
+                            player.rcvDmg(enemigo.getDmg());
                         player.retroceder(player.getAngulo()+180);
+                        }
+        
+                        
                     } else { //si ataca compruebo si el enemigo no esta atacando
                         if (!enemigo.estaAtacando()) {
                             player.dash.landed();
                             combo.moreCombo();
+                            
                             enemigo.rcvDmg(1);
                         } else {
+                            player.retroceder(player.getAngulo()+180);
+                            enemigo.retroceder(enemigo.getAngulo()+180);
                         }
 
 
@@ -351,6 +353,12 @@ public class Tutorial extends BasicGameState {
         player.updPosX();
         player.updPosY();
 
+        for (Enemigo enemigo : enemigos) {
+
+            enemigo.updPosX();
+            enemigo.updPosY();
+
+        }
 
 
         if (enemigos.size() > 0) {
@@ -404,6 +412,7 @@ public class Tutorial extends BasicGameState {
             limpiaEnemigos.clear();
         }
     }
+    
 
     /**
      * @see BasicGame#keyPressed(int, char)
@@ -416,6 +425,13 @@ public class Tutorial extends BasicGameState {
             game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
 
         } else if (key == Input.KEY_Q && player.dash.getCDRestante() == 0 && !player.dash.estaActiva()) {
+                        
+                if(fase==fases.atacar){
+                                fase=fases.bloquear;
+                            } else if(fase==fases.cooldownq){
+                                fase=fases.cooldownw;
+                            }
+
 
 
             float difx = mapa.getAbsMouseX() - (player.getX() + player.TAMX / 2);

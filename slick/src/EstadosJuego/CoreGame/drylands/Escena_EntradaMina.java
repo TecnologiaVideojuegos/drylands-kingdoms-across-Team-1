@@ -60,6 +60,7 @@ public class Escena_EntradaMina extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
         partida = new Guardado("partida");
+        
         intro = new Image("res/teclas/intro.png");
         mouse = new Image("res/teclas/mouse1.png");
 
@@ -68,7 +69,9 @@ public class Escena_EntradaMina extends BasicGameState {
             spritescursor = new SpriteSheet("ficheros/sprites/spritecursor.png", 15, 15);
 
         } catch (SlickException e) {
-
+            System.out.println("Error al cargar los sprites");
+            e.printStackTrace();
+            
         }
 
         cursor = new Animation();
@@ -125,8 +128,9 @@ public class Escena_EntradaMina extends BasicGameState {
         listafrases.add(new Frase("Así que esta es la famosa mina que nos han encomendado explorar.", player));
         listafrases.add(new Frase("Eso parece, debemos recorrerla entera en busca de la tecnología abandonada.", cillop));
         listafrases.add(new Frase("Hay que evitar que ese legado se pierda por culpa de las guerras.", cillop));
-        listafrases.add(new Frase("Bien, comencemos entonces y recordad nadie debe abandonar la mina sin su compañero.", player)); 
-        listafrases.add(new Frase("Como ya sabeís estas antiguas minas cambian su forma cada vez que alguien entra en ellas.", player));
+        listafrases.add(new Frase("Bien, comencemos entonces y recordad:", player)); 
+        listafrases.add(new Frase("Nadie debe abandonar la mina sin su compañero.", player)); 
+        listafrases.add(new Frase("Estas antiguas minas cambian su forma cada vez que alguien entra en ellas.", player));
         listafrases.add(new Frase("¡En marcha!", soldado2));
         listafrases.add(new Frase("¡Entendido!", soldado1));
    
@@ -192,12 +196,19 @@ public class Escena_EntradaMina extends BasicGameState {
      * int)
      */
     public void update(GameContainer container, StateBasedGame game, int delta) {
+        partida.guardarEstado(this.getID());
         if (libre) {
             tiempo += delta;
             mapa.actCamara(delta, player);
             //Actualizo las hitbox
-            if(mapa.playerEnFinal(player))
-                game.enterState(9, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+            if(mapa.playerEnFinal(player)){
+                try{
+                    Guardado partida = new Guardado("partida");
+                    partida.resetPartida();
+                    game.getState(3).init(container, game);
+                }
+                catch(SlickException e){}
+                game.enterState(3, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));}
             player.actHitbox();
             for (Enemigo enemigo : enemigos) {
                 enemigo.actHitbox();

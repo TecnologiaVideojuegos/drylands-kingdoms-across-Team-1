@@ -22,7 +22,7 @@ public class UnasHorasAntes extends BasicGameState {
         return ID;
     }
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-
+            
 
         img=new Image("ficheros/horas_antes.png");
 
