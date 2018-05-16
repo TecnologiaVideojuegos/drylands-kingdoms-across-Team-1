@@ -45,7 +45,9 @@ public class CoreGame extends BasicGameState {
     private Pensamientos comentarios;
     private java.awt.Font UIFont1;
     private org.newdawn.slick.UnicodeFont uniFont;
-
+    private Sound dash, block;
+    private Music musicaMaz;
+    
     /*public CoreGame() {
         super("Dryland: Kingdoms Across");
     }*/
@@ -165,7 +167,11 @@ public class CoreGame extends BasicGameState {
         comentarios.meterFraseHP2("Debería descansar");
         comentarios.meterFraseHP1("Ayuda, por favor...");
         comentarios.meterFraseHP1("Estoy muy débil...");
-
+        dash = new Sound("res/Dash.ogg");
+        block = new Sound("res/Bloqueo.ogg");
+        musicaMaz = new Music("res/Mazmorras.ogg");
+        
+        
     }
 
     /**
@@ -249,7 +255,7 @@ public class CoreGame extends BasicGameState {
                 uicd.getScaledCopy(45,(int)(42*(float)player.block.getCDRestante()/player.block.getCdmax())).draw(119,683+42-(int)(42*(float)player.block.getCDRestante()/player.block.getCdmax()));
             }
 
-
+            
         }
     }
 
@@ -258,7 +264,7 @@ public class CoreGame extends BasicGameState {
      */
     public void update(GameContainer container, StateBasedGame game,int delta) {
         partida.guardarEstado(this.getID());
-
+        musicaMaz.loop();
         if(!combate){
             comentarios.update(delta);
         }
@@ -453,8 +459,8 @@ public class CoreGame extends BasicGameState {
             game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.blue));
 
         } else if (key == Input.KEY_Q && player.dash.getCDRestante() == 0 && !player.dash.estaActiva()) {
-
-
+            
+            dash.play();
             float difx = mapa.getAbsMouseX() - (player.getX() + player.TAMX / 2);
             float dify = mapa.getAbsMouseY() - (player.getY() + player.TAMY / 2);
             float difcuadrados = (difx * difx) + (dify * dify);
@@ -479,6 +485,9 @@ public class CoreGame extends BasicGameState {
         } else if (key == Input.KEY_P) {
             enemigos.add(new Enemigo((int) mapa.getAbsMouseX(), (int) mapa.getAbsMouseY(), 1, (double) 0.3, spritesplayer, 1,300));
         }
+        if(key == Input.KEY_W && player.block.getCDRestante() == 0 && !player.block.estaActiva()){
+            block.play();
+        }
 
     }
 
@@ -486,7 +495,7 @@ public class CoreGame extends BasicGameState {
         if (key == Input.KEY_W && player.block.estaActiva()) {
             player.block.terminar();
             player.block.contarCD();
-
+            block.stop();
         }
     }
 

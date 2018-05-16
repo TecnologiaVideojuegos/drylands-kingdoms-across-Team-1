@@ -45,7 +45,7 @@ public class Tutorial extends BasicGameState {
 
     private java.awt.Font UIFont1;
     private UnicodeFont uniFont;
-
+    private Sound dash, block;
     /*public CoreGame() {
         super("Dryland: Kingdoms Across");
     }*/
@@ -130,7 +130,8 @@ public class Tutorial extends BasicGameState {
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
-
+        dash = new Sound("res/Dash.ogg");
+        block = new Sound("res/Bloqueo.ogg");
 
 
     }
@@ -433,7 +434,7 @@ public class Tutorial extends BasicGameState {
                             }
 
 
-
+            dash.play();
             float difx = mapa.getAbsMouseX() - (player.getX() + player.TAMX / 2);
             float dify = mapa.getAbsMouseY() - (player.getY() + player.TAMY / 2);
             float difcuadrados = (difx * difx) + (dify * dify);
@@ -457,6 +458,9 @@ public class Tutorial extends BasicGameState {
             }
         } else if (key == Input.KEY_P) {
 
+        }
+        if (key == Input.KEY_W && player.block.getCDRestante() == 0 && !player.block.estaActiva()){
+            block.play();
         }
 
     }

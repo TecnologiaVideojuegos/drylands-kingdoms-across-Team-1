@@ -8,6 +8,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
@@ -38,7 +39,7 @@ public class Estado_inicial extends BasicGameState {
     //Seleccion de menu y hover
     private int btn=-1;
     public static final int ID = 1;
-    
+    private Music musica;
     @Override
     public int getID() {
         return ID;
@@ -65,7 +66,9 @@ public class Estado_inicial extends BasicGameState {
         container.setIcon("res/icono2.png");
         //Inicializacion de cursor
         container.setMouseCursor(cursor, 3, 3);
-       
+       //Inicializamos la musica
+       musica = new Music("res/Adventure.ogg");
+       musica.loop();
     }
 
     @Override
