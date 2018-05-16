@@ -173,7 +173,7 @@ public class Escena_Desierto extends BasicGameState {
             mapa.actCamara(delta, player);
             //Actualizo las hitbox
             if (mapa.playerEnFinal(player)) {
-                game.enterState(55, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+                game.enterState(75, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
             }
             player.actHitbox();
 

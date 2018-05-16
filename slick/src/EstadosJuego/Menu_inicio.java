@@ -38,8 +38,13 @@ public class Menu_inicio extends StateBasedGame {
                 addState(new Estado_gameover());
                 addState(new PerdidoDesierto());
                 addState(new UnasHorasAntes());
-                
-                
+                addState(new LlegadaPiramide1());
+                addState(new LlegadaPiramide2());
+                addState(new CasaSyngrid1());
+                addState(new CasaSyngrid2());
+                addState(new SalidaRuinas());
+                addState(new RegresoAuria1());
+                addState(new RegresoAuria2());
                 addState(new Creditos());
 	}
 	
