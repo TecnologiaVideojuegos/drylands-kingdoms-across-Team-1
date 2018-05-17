@@ -52,12 +52,12 @@ public class Player extends Personaje {
         this.vidamax=vidaplayer;
         animretroceso = new Animation();
         for (int i = 0; i < 5; i++) {
-            animretroceso.addFrame(sprites.getSprite(i, 6), 80);
+            animretroceso.addFrame(sprites.getSprite(i, 6), 100);
         }
         animretroceso.stopAt(4);
         animretrocesoi = new Animation();
         for (int i = 0; i < 5; i++) {
-            animretrocesoi.addFrame(sprites.getSprite(i, 6).getFlippedCopy(true, false), 80);
+            animretrocesoi.addFrame(sprites.getSprite(i, 6).getFlippedCopy(true, false), 100);
         }
         animretrocesoi.stopAt(4);
     }
@@ -83,6 +83,8 @@ public class Player extends Personaje {
             }else{
                 contadorRetroceso-=delta;
                 if(contadorRetroceso<=0){
+                    animretroceso.restart();
+                    animretrocesoi.restart();
                     retroceso=false;
                 }
                 else{

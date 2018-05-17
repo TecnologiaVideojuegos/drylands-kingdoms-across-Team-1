@@ -40,7 +40,7 @@ public abstract class  Personaje {
 
     protected boolean retroceso;
     protected float anguloRetroceso;
-    protected int msRetroceso=800,contadorRetroceso;
+    protected int msRetroceso=500,contadorRetroceso;
 
     public Personaje(int tx, int ty, int altcollider, float vel, SpriteSheet sprs, int px, int py, int vida) {
 
