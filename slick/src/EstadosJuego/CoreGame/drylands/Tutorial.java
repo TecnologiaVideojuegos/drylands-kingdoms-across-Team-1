@@ -164,14 +164,7 @@ public class Tutorial extends BasicGameState {
             for (Enemigo enemigomuerto : enemigosMuertos) {
                 enemigomuerto.getAnim("muerto").draw(enemigomuerto.getX() + mapa.getOffX(), enemigomuerto.getY() + mapa.getOffY());
             }
-            g.drawString("JugX:" + player.getX(), 100, 100);
-            g.drawString("JugY:" + player.getY(), 100, 120);
-
-            g.drawString("MapaX:" + mapa.getOffX(), 100, 140);
-            g.drawString("MapaY:" + mapa.getOffY(), 100, 160);
-
-            g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
-            g.drawString("Combo:" + combo.getCombo(), 100, 200);
+            
 
 
         switch (fase){

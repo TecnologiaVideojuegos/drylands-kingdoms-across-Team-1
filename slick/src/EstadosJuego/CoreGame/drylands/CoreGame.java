@@ -40,13 +40,14 @@ public class CoreGame extends BasicGameState {
     private boolean combate;
     private Guardado partida;
     private Animation cursor;
-    private Image uidash,uiblock,uibar,uihp,uicd;
+    private Image uidash,uiblock,uibar,uihp,uicd,uicombo;
     private StateBasedGame game;
     private Pensamientos comentarios;
     private java.awt.Font UIFont1;
-    private org.newdawn.slick.UnicodeFont uniFont;
+    private org.newdawn.slick.UnicodeFont uniFont,uniFont2;
     private Sound dash, block;
     private Music musicaMaz,musicaFight;
+    private boolean playermuerto;
     
     /*public CoreGame() {
         super("Dryland: Kingdoms Across");
@@ -116,7 +117,7 @@ public class CoreGame extends BasicGameState {
                 partida.setCargada();
             }
             catch (Exception e){
-                System.out.println("Error al cargar el mapa, se va a     reiniciar la partida");
+                System.out.println("Error al cargar el mapa, se va a reiniciar la partida,intente cargar ahora");
                 e.printStackTrace();
                 partida.resetPartida();
                 System.exit(1);
@@ -136,6 +137,7 @@ public class CoreGame extends BasicGameState {
         uiblock = new Image("ficheros/GUI/block.png");
         uibar = new Image("ficheros/GUI/barra.png");
         uicd = new Image("ficheros/GUI/sombra.png");
+        uicombo = new Image("ficheros/GUI/combo.png");
 
         try {
             UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
@@ -146,6 +148,12 @@ public class CoreGame extends BasicGameState {
             uniFont.getEffects().add(new ColorEffect(java.awt.Color.white)); //You can change your color here, but you can also change it in the render{ ... }
             uniFont.addAsciiGlyphs();
             uniFont.loadGlyphs();
+            
+            uniFont2 = new org.newdawn.slick.UnicodeFont(UIFont1);
+            uniFont2.addAsciiGlyphs();
+            uniFont2.getEffects().add(new ColorEffect(java.awt.Color.black)); //You can change your color here, but you can also change it in the render{ ... }
+            uniFont2.addAsciiGlyphs();
+            uniFont2.loadGlyphs();
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }
@@ -163,7 +171,7 @@ public class CoreGame extends BasicGameState {
         comentarios.meterFraseHP4("¡Vamos!");
         comentarios.meterFraseHP3("He sufrido peores heridas");
         comentarios.meterFraseHP3("Solo unos rasguños");
-        comentarios.meterFraseHP2("Voy a necesitar uan cura");
+        comentarios.meterFraseHP2("Voy a necesitar una cura");
         comentarios.meterFraseHP2("Debería descansar");
         comentarios.meterFraseHP1("Ayuda, por favor...");
         comentarios.meterFraseHP1("Estoy muy débil...");
@@ -221,14 +229,7 @@ public class CoreGame extends BasicGameState {
             for (Enemigo enemigomuerto : enemigosMuertos) {
                 enemigomuerto.getAnim("muerto").draw(enemigomuerto.getX() + mapa.getOffX(), enemigomuerto.getY() + mapa.getOffY());
             }
-            g.drawString("JugX:" + player.getX(), 100, 100);
-            g.drawString("JugY:" + player.getY(), 100, 120);
-
-            g.drawString("MapaX:" + mapa.getOffX(), 100, 140);
-            g.drawString("MapaY:" + mapa.getOffY(), 100, 160);
-
-            g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
-            g.drawString("Combo:" + combo.getCombo(), 100, 200);
+           
 
             if(!combate){
                 comentarios.render(g,mapa);
@@ -240,6 +241,9 @@ public class CoreGame extends BasicGameState {
 
             uibar.draw(894,674);
             uihp.getScaledCopy((int)(382*(float)player.getVida()/player.getVidamax()),42).draw(927,684);
+            uicombo.draw(200,674);
+            g.setFont(uniFont2);
+            g.drawString(""+combo.getCombo(), 200+99, 674+17);
             if(player.dash.estaActiva()){
                 uidash.draw(33,674,new Color(1f, 0.8f, 0.8f));
             }
@@ -264,6 +268,9 @@ public class CoreGame extends BasicGameState {
      * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer, int)
      */
     public void update(GameContainer container, StateBasedGame game,int delta) {
+        
+        if(player.cambiaEstado())
+            game.enterState(6, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
         partida.guardarEstado(this.getID());
         if(!combate&&!musicaMaz.playing())
             musicaMaz.loop();
@@ -298,13 +305,15 @@ public class CoreGame extends BasicGameState {
         } else {
             player.setIdle();
         }
-
-        player.calcNuevaPos(delta, mapa);
+           if(!playermuerto){
+               player.calcNuevaPos(delta, mapa);
         for (Enemigo enemigo : enemigos) {
 
             enemigo.update(player,delta);
 
         }
+           }
+        
 
         for(Enemigo enemigo:enemigos){
             if (mapa.checkColX(enemigo)) {//comprobamos colisiones muros
@@ -427,7 +436,7 @@ public class CoreGame extends BasicGameState {
 
         //Compruebo vida de los personajes
         if(player.getVida()<=0){
-            game.enterState(6, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+            playermuerto=true;
         }
 
         for (Enemigo enemigo : enemigos) {

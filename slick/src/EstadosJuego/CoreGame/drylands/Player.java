@@ -20,6 +20,7 @@ public class Player extends Personaje {
 
     public Dash dash;
     public Block block;
+    private Animation animretroceso,animretrocesoi;
 
 
 
@@ -49,6 +50,16 @@ public class Player extends Personaje {
         dash = new Dash((float) 1.2, 1000, sprites,combo,250);
         block = new Block("Block",2000,1000,sprites,combo);
         this.vidamax=vidaplayer;
+        animretroceso = new Animation();
+        for (int i = 0; i < 5; i++) {
+            animretroceso.addFrame(sprites.getSprite(i, 6), 80);
+        }
+        animretroceso.stopAt(4);
+        animretrocesoi = new Animation();
+        for (int i = 0; i < 5; i++) {
+            animretrocesoi.addFrame(sprites.getSprite(i, 6).getFlippedCopy(true, false), 80);
+        }
+        animretrocesoi.stopAt(4);
     }
 
 
@@ -140,7 +151,11 @@ public class Player extends Personaje {
     }
 
     public Animation getAnim() {
-        if (this.estaAtacando()) {
+        if(vida<=0){
+            return muerto;
+        }
+        
+        else if (this.estaAtacando()) {
             if (dash.activa) {
                 if (mirandoD)
                     return dash.getDAnim();
@@ -153,6 +168,12 @@ public class Player extends Personaje {
                 return block.getDAnim();
             else
                 return block.getIAnim();
+        }
+        else if(retrocediendo()){
+            if (mirandoD)
+                return animretroceso;
+            else
+                return animretrocesoi;
         }
         else {
             if (corriendo) {
@@ -192,5 +213,7 @@ public class Player extends Personaje {
     public void setCorriendo(boolean corriendo) {
         this.corriendo = corriendo;
     }
-    
+    public boolean cambiaEstado(){
+        return (muerto.getFrame()==6)||(muertoi.getFrame()==6);
+    }
 }

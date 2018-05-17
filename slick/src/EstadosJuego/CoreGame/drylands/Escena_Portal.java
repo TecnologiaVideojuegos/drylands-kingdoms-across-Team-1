@@ -169,13 +169,7 @@ public class Escena_Portal extends BasicGameState {
 
         Personaje.renderOrdenados(mapa, listaentidadesrender);
 
-        g.drawString("JugX:" + player.getX(), 100, 100);
-        g.drawString("JugY:" + player.getY(), 100, 120);
-
-        g.drawString("MapaX:" + mapa.getOffX(), 100, 140);
-        g.drawString("MapaY:" + mapa.getOffY(), 100, 160);
-
-        g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
+       
         if (dialogo.getiFrase() > 3 || mostrarCuchillo){
             
             cuchillo.draw(ultX+34,ultY+9);

@@ -3,18 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Escena_Castillo.java</file>
-            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Escena_EntradaMina.java</file>
+            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Player.java</file>
             <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Guardado.java</file>
             <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Escena_Portal.java</file>
+            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/Estado_gameover.java</file>
+            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Tutorial.java</file>
+            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/Menu_inicio.java</file>
+            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Escena_Desierto.java</file>
+            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Escena_Castillo.java</file>
+            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Escena_EntradaMina.java</file>
             <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/UnasHorasAntes.java</file>
             <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/Estado_inicial.java</file>
-            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Tutorial.java</file>
             <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/PerdidoDesierto.java</file>
-            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/Menu_inicio.java</file>
             <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Personaje.java</file>
             <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/CoreGame.java</file>
-            <file>file:/C:/Users/FairLight/Desktop/drylands-kingdoms-across-Team-1/slick/src/EstadosJuego/CoreGame/drylands/Escena_Desierto.java</file>
         </group>
     </open-files>
 </project-private>

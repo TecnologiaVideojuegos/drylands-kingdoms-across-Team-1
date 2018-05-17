@@ -166,13 +166,7 @@ public class Escena_EntradaMina extends BasicGameState {
 
         Personaje.renderOrdenados(mapa, listaentidadesrender);
 
-        g.drawString("JugX:" + player.getX(), 100, 100);
-        g.drawString("JugY:" + player.getY(), 100, 120);
-
-        g.drawString("MapaX:" + mapa.getOffX(), 100, 140);
-        g.drawString("MapaY:" + mapa.getOffY(), 100, 160);
-
-        g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
+        
         //Si no esta libre muestra el control del intro
         if (!libre) {
             g.setFont(uniFont);

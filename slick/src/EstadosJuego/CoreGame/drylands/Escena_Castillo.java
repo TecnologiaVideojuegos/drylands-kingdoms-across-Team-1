@@ -175,13 +175,7 @@ public class Escena_Castillo extends BasicGameState {
 
         mapa2.renderAt(mapa);
 
-        g.drawString("JugX:" + player.getX(), 100, 100);
-        g.drawString("JugY:" + player.getY(), 100, 120);
-
-        g.drawString("MapaX:" + mapa.getOffX(), 100, 140);
-        g.drawString("MapaY:" + mapa.getOffY(), 100, 160);
-
-        g.drawString("JugAngulo:" + player.getAngulo(), 100, 180);
+        
         //Si no esta libre muestra el control del intro
         if (!libre) {
             g.setFont(uniFont);
