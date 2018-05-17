@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="54" height="28" tilewidth="48" tileheight="48" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="MapasX3/MapaInicial/tileModificadox3_palacio.tsx"/>
+ <tileset firstgid="257" source="MapasX3/MapaInicial/Desert1_3x.tsx"/>
+ <layer name="suelo" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2WW27CMBBFTR9A33y1O2gX0KWwli4spBR+gW6Apt+VKF1Ix6otXaYTexyMIBJIR+M48ePOHSd0OsacEKfEGXFOdIke0Sc6Lb1/QVwSV8Q1cUPcEnfEoMX3DzXfR7+Ofh1CvtvuV4xBA/qJ+Xg2m+TIt2aPIZrWISLp2jd1+9fUggfH+j78pcy1a1JycyheaTRMjR7UlTIuNxqtbdSF1HlWuPtvEEeuPYHxX8S948Fdx9YcCX0TYe7c3qEu1FayfVkNPeLR8eSuuTZJh6Qp1M6lUdLB8R5h9G3p+deAHn/t+2xu+PeDo6kNztjFwumaMJ+G4BFG3x7CulzPyGzWA+qbEQuFJs8csOPeFdqKmn7uDwc9TDlbliXxQXTNX03H4gvjM6LJ1+CY9XOfJNDDIejB/aM+fGfMnC6pxqVYMV0avzTYffgaWEB73gA/xza6JL9KaBemvg6RpflfC/sk5lfpdPE65LXjz0PlYhMqJZq5rF/SGUaPSuE+17Uivh1raEusFTGEX2sFz/O+n4hfmvdi6PuQQmwMrl/3LQ3NEftfUHcWd/F8aD9N5toGyVdtrlJympPcOQrpkNaK1WqT+txFHnKtl3L2Lb/3pLQooBcAAA==
+  </data>
+ </layer>
+ <layer name="collider" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3VSwqAMAwE0N7MU/a+4naQmI9NGp0HWYhpwyC2YxAREfVzGMq7rqIs+aXnrphrDx3+rxWkvVfOxRlvz3raKzKr4jtq10fmRM9j7ewJZZGdC99JGSf0WlTmwj7sjeTyWJHrzl9y7X73al25Mu7EbJ5zkIjoK0624pfeoBcAAA==
+  </data>
+ </layer>
+ <layer name="Capa de patrones 6" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3BMQEAAADCoPVPbQsvoAAAAAAAgLcBvXrbmKAXAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 7" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3PywkAIAwE0fTfoO1IDoIHFb/ghnmQY2AnmVm6fCOn/7NuN72+na7frWxVaarN9Cl2FaPtyl2ut1+9y7UaInS5KB0tdGmhS0vULgAAAAAxZNPs+hKgFwAA
+  </data>
+ </layer>
+ <layer name="Capa de patrones 8" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3BMQEAAADCoPVPbQsvoAAAAAAAgLcBvXrbmKAXAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 9" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3VSwoAIAhFUfe/D/cZDZqIljN7cA8EURA++rmZuUCLpmuZXu93WS5LxlRznX6sudrT3932KM4r5dpe5y8bV1GdP9X7dXTefVW32pWzdf40ZVUO9VwAAAAAgHkLJOoDi6AXAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 10" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3BMQEAAADCoPVPbQsvoAAAAAAAgLcBvXrbmKAXAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 11" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3BMQEAAADCoPVPbQsvoAAAAAAAgLcBvXrbmKAXAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 12" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3BMQEAAADCoPVPbQsvoAAAAAAAgLcBvXrbmKAXAAA=
+  </data>
+ </layer>
+ <layer name="Capa de patrones 13" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3BMQEAAADCoPVPbQsvoAAAAAAAgLcBvXrbmKAXAAA=
+  </data>
+ </layer>
+ <layer name="remates" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2Wuw3AIAwF2SQp2X8zMkGgQEphwB/CJ3knucIIDoyMcwAAAL6Kn72Bl/DCsMztERIvbh7lNRquo+UMZtdwzXFnryeU4w7vS+PY4ohxFsZCjEu4LrWP1rjWsUTNKWNxG3mPGY5TRutmfd8ax1OQmwjC/ESvnsRx7FnHLUb22t29qNw/eK3Ud6Vweu2OzPxDrPRHAQCAxA3kWtU9oBcAAA==
+  </data>
+ </layer>
+ <layer name="pared" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2X0Q2CQAyGiywg3gC+sge76AYaR3ASt9AN3ELfJdFnaaSxNsJd8RAx/ZI/d+SawHfXQAAwDMMwkPxPk1SZ9JQkQsqQwxGg1+xHk9W5sH0KddR4uSobluwLbo7dxykctV5bliG8Qh21XpyhvXyOMbxchGd/t0+hXtIxBT/03mxa6xutF83b2IP/2fO6rgtzeH5nUjaXI66VEM/rWKXw1BR1XRfOitqTuNZ4Ldhc22NdelLjdW1Z83mt4OF2AP85SbT1SCwvTtN5odtScb9PuClqZR+2IXuHzmsNrz3ZF1NF7U5RK72w/8iNxjEivbD/yIkyRqQX9t8Khv93ihHDMAwtdyIUJWSgFwAA
+  </data>
+ </layer>
+ <layer name="objetos" width="54" height="28">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3SwQ2AIAwAQJZwLUd2BGYyflFCDUiIufvRBpq2pAQAMN/+0d1arqder6NxXs0WiF895CKf07232lvROrOVPbXib0T2vvrfeBKZzYj5AQDAH51DWtIroBcAAA==
+  </data>
+ </layer>
+</map>

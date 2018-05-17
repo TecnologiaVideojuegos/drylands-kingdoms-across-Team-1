@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="27" height="17" tilewidth="48" tileheight="48" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" name="tileModificadox3" tilewidth="48" tileheight="48" tilecount="256" columns="16">
+  <image source="tileModificadox3.png" width="768" height="768"/>
+ </tileset>
+ <layer name="suelo" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgIA2wATE7FNMaiAGxOBSTA4yAWBGIlYBYGY2NLBYOxMZIOBwqjq5XEYs4DID0JdEIJwNxCpJdiUBcSkNcgmRXIR3torW/YGFoTCd/wdITrf3VgmQXvfxFz/iih10DleZBdhXRCBej2dUIxE1QuhGJ38wASUPNaGJGaPLo6mEYWYwcgFz20hpQYhcA+/nliywHAAA=
+  </data>
+ </layer>
+ <layer name="paredes" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACpNnYGBghGImIGaG0oZYxHUZUIEsmjwzVB8zFvwJiJ8BsSkQCwKxKBALA7EQEDtCxZDF3dHsckeTN4XqE4ZimLgqED8F4m8M2EEgDnFCAJc+fHZRG3ylo10gfynQya6PDJC4owcwpZM9wx3I0cmezwyQcoMeYLjmZZBdAnSyazkQ8wGxBBKWROMji6Ono8941HKi8flJdBt6OnpKon4AkdVwFiwHAAA=
+  </data>
+ </layer>
+ <layer name="camara" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgoC/QoAMetWvUrlG7Ru0atWvg7BqOAAA91WGsLAcAAA==
+  </data>
+ </layer>
+ <layer name="salaFinal" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwCkYBPgAA9hp0bywHAAA=
+  </data>
+ </layer>
+ <layer name="salaInicial" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGL5Agw541K5Ru0btGrVr1C5Uu4YjAADBQK8lLAcAAA==
+  </data>
+ </layer>
+ <layer name="cierresPuertas" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgIA1oIGFaA3raNQpGDqBXeqJn2qW3XaNgFFALDJU6BQCGA85mLAcAAA==
+  </data>
+ </layer>
+ <layer name="capaExtra" width="27" height="17">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGAWjYBSMglEwCkYBPgAA9hp0bywHAAA=
+  </data>
+ </layer>
+</map>
