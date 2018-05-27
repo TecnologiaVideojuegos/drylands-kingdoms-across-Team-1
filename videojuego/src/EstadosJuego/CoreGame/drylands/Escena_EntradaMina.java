@@ -62,7 +62,7 @@ public class Escena_EntradaMina extends BasicGameState {
         partida = new Guardado("partida");
         
         intro = new Image("res/teclas/intro.png");
-        mouse = new Image("res/teclas/mouse1.png");
+        mouse = new Image("res/teclas/Mouse1.png");
 
         try {
             spritesplayer = new SpriteSheet("ficheros/sprites/personaje.png", TAMX, TAMY);
